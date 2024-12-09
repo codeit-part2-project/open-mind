@@ -1,0 +1,8 @@
+{
+  "recommendations": [
+  // required
+  "dbaeumer.vscode-eslint",
+  "esbenp.prettier-vscode",
+  "fabiospampinato.vscode-highlight"
+  ]
+}
