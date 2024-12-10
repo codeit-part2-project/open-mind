@@ -10,10 +10,6 @@
   <p>열린 생각으로 서로 다른 사람들과 소통해보세요!</p>
 </div>
 
-<div align="center">
-  [![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Fcodeit-part2-project%2Fopen-mind&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false)](https://hits.seeyoufarm.com)
-</div>
-
 ## 🎈 프로젝트 소개
 
 **Open Mind**는 익명성을 보장하며 서로 다른 사람들과 소통하기 위한 플랫폼입니다.
@@ -21,6 +17,29 @@
 CRUD 기능을 구현한 **Open Mind**로 다른 사람들과 익명으로 소통해보세요!
 
 ## 📁 디렉토리 구조
+
+```
+📂src
+ ┣ 📂api
+ ┣ 📂assets
+ ┃ ┣ 📂images
+ ┃ ┗ 📂styles
+ ┣ 📂components
+ ┣ 📂config 
+ ┣ 📂pages
+ ┣ 📂routes
+ ┣ 📂utils
+ ┗ 📜index.jsx
+```
+
+- `📂api` 비동기 리퀘스트 관련 파일
+- `📂assets` image 혹은 styles 관련 파일
+- `📂components` 컴포넌트 관련 파일
+- `📂config` 상수 관련 파일
+- `📂pages` 페이지 컴포넌트 파일
+- `📂routes` 라우팅 설정 파일
+- `📂utils` 반복적으로 사용 되는 함수 or 복잡한 로직을 가진 함수 관련 파일
+
 
 ## 💻 기능 소개
 
