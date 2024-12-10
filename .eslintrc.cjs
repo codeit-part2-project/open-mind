@@ -4,6 +4,22 @@ module.exports = {
   extends: ['airbnb', 'airbnb/hooks', 'eslint:recommended', 'plugin:import/recommended', 'plugin:react/recommended', 'plugin:react/jsx-runtime', 'plugin:react-hooks/recommended', 'prettier'],
   ignorePatterns: ['dist', '.eslintrc.cjs'],
   plugins: ['import', 'prettier'],
+  settings: {
+    'import/resolver': {
+      alias: {
+        map: [
+          ['api', './src/api'],
+          ['assets', './src/assets'],
+          ['components', './src/components'],
+          ['config', './src/config'],
+          ['pages', './src/pages'],
+          ['routes', './src/routes'],
+          ['utils', './src/utils'],
+        ],
+        extensions: ['.js', '.jsx', '.ts', '.tsx', '.json'],
+      },
+    },
+  },
   rules: {
     'prettier/prettier': 'error',
     'react/react-in-jsx-scope': 'off',
