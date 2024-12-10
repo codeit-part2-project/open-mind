@@ -1,26 +1,18 @@
 module.exports = {
   root: true,
   env: { browser: true, es2020: true },
-  extends: [
-    'airbnb',
-    'airbnb/hooks',
-    'eslint:recommended',
-    'plugin:react/recommended',
-    'plugin:react/jsx-runtime',
-    'plugin:react-hooks/recommended',
-    'prettier',
-  ],
+  extends: ['airbnb', 'airbnb/hooks', 'eslint:recommended', 'plugin:import/recommended', 'plugin:react/recommended', 'plugin:react/jsx-runtime', 'plugin:react-hooks/recommended', 'prettier'],
   ignorePatterns: ['dist', '.eslintrc.cjs'],
   plugins: ['import', 'prettier'],
   rules: {
     'prettier/prettier': 'error',
     'react/react-in-jsx-scope': 'off',
-    'import/extensions': 'off',
+
     'react/jsx-one-expression-per-line': 'off',
     'react-hooks/exhaustive-deps': 'error',
     '@typescript-eslint/comma-dangle': 'off',
     'react/jsx-wrap-multilines': 'off',
-    'import/prefer-default-export': 'off',
+
     'react/require-default-props': 'off',
     'object-curly-newline': 'off',
     '@typescript-eslint/indent': 'off',
@@ -38,4 +30,4 @@ module.exports = {
       },
     ],
   },
-}
+};
