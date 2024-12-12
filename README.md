@@ -36,6 +36,7 @@ CRUD 기능을 구현한 **Open Mind**로 다른 사람들과 익명으로 소�
 - `📂assets` image 혹은 styles 관련 파일
 - `📂components` 컴포넌트 관련 파일
 - `📂config` 상수 관련 파일
+- `📂hooks` 커스텀 훅 관련 파일
 - `📂pages` 페이지 컴포넌트 파일
 - `📂routes` 라우팅 설정 파일
 - `📂utils` 반복적으로 사용 되는 함수 or 복잡한 로직을 가진 함수 관련 파일
