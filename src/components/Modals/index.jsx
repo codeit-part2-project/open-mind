@@ -7,14 +7,19 @@ const Modal = () => {
   const { isModalOpen, profile, closeModal } = useContext(AppContext);
   const [isContent, setIsContent] = useState(false);
   const content = useRef();
+
+  const exitModal = () => {
+    closeModal();
+    setIsContent(false);
+  };
   // Form 제출 이벤트
   const postFormHandler = (e) => {
     e.preventDefault();
-    closeModal();
+    exitModal();
   };
   // 실제 이벤트 발생 지점과 버블링 지점에서 target이 일치하면 모달 닫기
   const clickOutsideModal = ({ target, currentTarget }) => {
-    if (target === currentTarget) closeModal();
+    if (target === currentTarget) exitModal();
   };
   // TextArea 유효성 검사
   const changeContentHandler = () => {
@@ -30,7 +35,7 @@ const Modal = () => {
           <div className='flex w-full items-center gap-2'>
             <img src={icMessages} alt='메신저 아이콘' />
             <p className='flex-1 text-xl text-left'>질문을 작성해주세요</p>
-            <button type='button' onClick={closeModal}>
+            <button type='button' onClick={exitModal}>
               <img src={icClose} alt='닫기 아이콘' />
             </button>
           </div>
