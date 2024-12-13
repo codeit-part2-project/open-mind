@@ -1,3 +1,4 @@
+// 질문 생성
 const postQuestion = async (id, postBody) => {
   const BASE_URL = `${process.env.REACT_APP_BASE_URL}subjects/`;
   try {
@@ -18,6 +19,7 @@ const postQuestion = async (id, postBody) => {
   }
 };
 
+// 대상 질문 목록 조회
 const getQuestionBySubjectId = async (subjectId, params) => {
   const query = new URLSearchParams(params).toString();
   const BASE_URL = `${process.env.REACT_APP_BASE_URL}subjects/`;
@@ -33,6 +35,7 @@ const getQuestionBySubjectId = async (subjectId, params) => {
   }
 };
 
+// 질문 조회
 const getQuestionByQuestionId = async (questionId) => {
   const BASE_URL = `${process.env.REACT_APP_BASE_URL}questions/`;
   try {
@@ -47,6 +50,7 @@ const getQuestionByQuestionId = async (questionId) => {
   }
 };
 
+// 질문 삭제
 const deleteQuestion = async (questionId) => {
   const BASE_URL = `${process.env.REACT_APP_BASE_URL}questions/`;
   try {
@@ -62,6 +66,7 @@ const deleteQuestion = async (questionId) => {
   }
 };
 
+// 질문 리액션 달기
 const postReaction = async (questionId, postBody) => {
   const BASE_URL = `${process.env.REACT_APP_BASE_URL}questions/`;
   try {

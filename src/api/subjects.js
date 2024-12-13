@@ -1,5 +1,6 @@
 const BASE_URL = `${process.env.REACT_APP_BASE_URL}subjects/`;
 
+// 질문 대상 목록 조회
 const getSubject = async (params = {}) => {
   const query = new URLSearchParams(params).toString();
   try {
@@ -14,6 +15,7 @@ const getSubject = async (params = {}) => {
   }
 };
 
+// 질문 대상 조회
 const getSubjectById = async (id) => {
   try {
     const response = await fetch(`${BASE_URL}${id}/`);
@@ -27,6 +29,7 @@ const getSubjectById = async (id) => {
   }
 };
 
+// 질문 대상 생성
 const postSubject = async (postBody) => {
   try {
     const response = await fetch(BASE_URL, {
@@ -46,6 +49,7 @@ const postSubject = async (postBody) => {
   }
 };
 
+// 질문 대상 삭제
 const deleteSubject = async (id) => {
   try {
     const response = await fetch(`${BASE_URL}${id}/`, {

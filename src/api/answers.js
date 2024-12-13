@@ -1,3 +1,4 @@
+// 답변 생성
 const postAnswer = async (questionId, postBody) => {
   const BASE_URL = `${process.env.REACT_APP_BASE_URL}questions/`;
   try {
@@ -18,6 +19,7 @@ const postAnswer = async (questionId, postBody) => {
   }
 };
 
+// 답변 조회
 const getAnswer = async (answerId) => {
   const BASE_URL = `${process.env.REACT_APP_BASE_URL}answers/${answerId}/`;
   try {
@@ -32,6 +34,7 @@ const getAnswer = async (answerId) => {
   }
 };
 
+// 답변 삭제
 const deleteAnswer = async (answerId) => {
   const BASE_URL = `${process.env.REACT_APP_BASE_URL}answers/`;
   try {
@@ -47,6 +50,7 @@ const deleteAnswer = async (answerId) => {
   }
 };
 
+// 답변 수정 PUT 메소드
 const putAnswer = async (answerId, putBody) => {
   const BASE_URL = `${process.env.REACT_APP_BASE_URL}answers/`;
   try {
@@ -67,6 +71,7 @@ const putAnswer = async (answerId, putBody) => {
   }
 };
 
+// 답변 수정 PATCH 메소드
 const patchAnswer = async (answerId, putBody) => {
   const BASE_URL = `${process.env.REACT_APP_BASE_URL}answers/`;
   try {
