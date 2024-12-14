@@ -1,5 +1,6 @@
 import { useContext, useState, useRef } from 'react';
 import { AppContext } from 'components/Context';
+import { postQuestion } from 'api/questions';
 import icMessages from 'assets/images/icons/ic_Messages.svg';
 import icClose from 'assets/images/icons/ic_Close.svg';
 
@@ -15,6 +16,7 @@ const Modal = () => {
   // Form 제출 이벤트
   const postFormHandler = (e) => {
     e.preventDefault();
+    postQuestion(profile.id, { content: content.current.value.trim() });
     exitModal();
   };
   // 실제 이벤트 발생 지점과 버블링 지점에서 target이 일치하면 모달 닫기
@@ -29,7 +31,7 @@ const Modal = () => {
 
   if (!isModalOpen) return null;
   return (
-    <button className='fixed inset-0 flex flex-col justify-center items-center px-6 bg-dim' onClick={clickOutsideModal} type='button'>
+    <div className='fixed inset-0 flex flex-col justify-center items-center px-6 bg-dim' onClick={clickOutsideModal} role='presentation'>
       <form action='POST' onSubmit={postFormHandler} className=' flex flex-col w-full h-3/5 rounded-3xl p-6 bg-gray-10 shadow-3pt md:max-w-lg md:h-2/5'>
         <label htmlFor='questionContent' className='flex flex-col flex-1'>
           <div className='flex w-full items-center gap-2'>
@@ -57,7 +59,7 @@ const Modal = () => {
           질문 보내기
         </button>
       </form>
-    </button>
+    </div>
   );
 };
 
