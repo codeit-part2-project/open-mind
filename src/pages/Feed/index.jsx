@@ -39,9 +39,9 @@ const Feed = () => {
 
   return (
     <>
-      <header className=''>헤더 입니다</header>
-      <section className='feed__section'>
-        <div className='feed__container '>
+      <header className='bg-blue-50 h-[177px] mb-[176px]'>헤더 입니다</header>
+      <section className='feed__section flex justify-center items-center'>
+        <div className='feed__container bg-brown-10 border border-brown-20 rounded-[16px]'>
           <div className='question-count__container'>
             <img src={messagesIcon} alt='말풍선 이미지' />
             {questions.length > 0 ? <h1>{questions.length}개의 질문이 있습니다</h1> : <h1>아직 질문이 없습니다.</h1>}
@@ -50,31 +50,33 @@ const Feed = () => {
             <ul className='feed-questions__ul'>
               {questions.map((question) => (
                 <li key={question.id} className='feed-question__li'>
-                  <p className='checked-answer'>답변 확인 표시</p>
-                  <div className='question-title__container'>
-                    <h2 className='question__title'>{question.content}</h2>
-                    <p>2주 전</p>
-                  </div>
-                  {question.answer !== null && (
-                    <div className='answer__container '>
-                      <img src='' alt='유저 이미지' />
-                      <div className='answer-text__container'>
-                        <div className='user__text'>
-                          <h3>유저 닉네임</h3>
-                          <p>2주 전</p>
+                  <div className='question__container flex flex-col justify-center p-[24px]'>
+                    <p className='checked-answer'>답변 확인 표시</p>
+                    <div className='question-title__container'>
+                      <h2 className='question__title w-[247px]'>{question.content}</h2>
+                      <p>2주 전</p>
+                    </div>
+                    {question.answer !== null && (
+                      <div className='answer__container '>
+                        <img src='' alt='유저 이미지' />
+                        <div className='answer-text__container'>
+                          <div className='user__text'>
+                            <h3>유저 닉네임</h3>
+                            <p>2주 전</p>
+                          </div>
+                          <p>{question.answer.content}</p>
                         </div>
-                        <p>{question.answer.content}</p>
                       </div>
-                    </div>
-                  )}
-                  <div className='like__container'>
-                    <div className='like-count__container'>
-                      <img src={thumbsUpIcon} alt='좋아요' />
-                      <p>좋아요</p>
-                    </div>
-                    <div className='unlike-count__container'>
-                      <img src={thumbsDownIcon} alt='싫어요' />
-                      <p>싫어요</p>
+                    )}
+                    <div className='like__container'>
+                      <div className='like-count__container'>
+                        <img src={thumbsUpIcon} alt='좋아요' />
+                        <p>좋아요</p>
+                      </div>
+                      <div className='unlike-count__container'>
+                        <img src={thumbsDownIcon} alt='싫어요' />
+                        <p>싫어요</p>
+                      </div>
                     </div>
                   </div>
                 </li>
