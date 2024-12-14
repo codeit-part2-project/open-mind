@@ -1,3 +1,5 @@
-const Answer = () => <h1>답변 페이지입니다.</h1>;
+import FeedHeader from 'components/feedHeader';
+
+const Answer = () => <FeedHeader />;
 
 export default Answer;
