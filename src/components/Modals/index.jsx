@@ -1,5 +1,6 @@
 import { useContext, useState, useRef } from 'react';
 import { AppContext } from 'components/Context';
+import { postQuestion } from 'api/questions';
 import icMessages from 'assets/images/icons/ic_Messages.svg';
 import icClose from 'assets/images/icons/ic_Close.svg';
 
@@ -15,6 +16,7 @@ const Modal = () => {
   // Form 제출 이벤트
   const postFormHandler = (e) => {
     e.preventDefault();
+    postQuestion(profile.id, { content: content.current.value.trim() });
     exitModal();
   };
   // 실제 이벤트 발생 지점과 버블링 지점에서 target이 일치하면 모달 닫기

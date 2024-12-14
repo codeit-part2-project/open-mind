@@ -9,8 +9,8 @@ const AppProvider = ({ children }) => {
   /**
    * openModal 함수 사용 시 data 객체를 아래처럼 주어야합니다.
    * return 되는 값은 data 객체를 가지고 있는 내부 함수 입니다.
-   * onClick={openModal({name : 'test', imageSource : 'https://example.com'})}처럼 리턴받는 함수를 핸들러로 등록하면 됩니다.
-   * @param {{name : 'test', imageSource : 'https://exmaple.com/'}} data
+   * onClick={openModal({ id : 1, name : 'test', imageSource : 'https://example.com'})}처럼 리턴받는 함수를 핸들러로 등록하면 됩니다.
+   * @param {{ id : 1, name : 'test', imageSource : 'https://exmaple.com/'}} data
    * @returns { () => {setProfile(data); setIsModalOpen(true); } }
    */
   const openModal = (data) => () => {
