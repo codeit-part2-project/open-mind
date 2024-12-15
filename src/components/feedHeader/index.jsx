@@ -39,16 +39,16 @@ const FeedHeader = () => {
           <Link to='/'>
             <img className='max-w-[124px] md:max-w-[170px]' src={logo} alt='Logo' />
           </Link>
-          <img className='rounded-full max-w-[104px] max-h-[104px] md:max-w-[136px] md:max-h-[136px]' src={profileImg} alt='Banner' />
+          <img className='rounded-full max-w-[104px] max-h-[104px] md:max-w-[136px] md:max-h-[136px]' src={profileImg} alt='Profile_Img' />
           <div className='font-normal text-2xl/[30px] md:text-[32px]/[40px]'>{name}</div>
           <div className='flex gap-3'>
-            <div className='flex justify-center items-center w-10 h-10 rounded-full bg-[#542F1A]'>
+            <div className='flex justify-center items-center w-10 h-10 rounded-full bg-brown-40'>
               <img className='w-[18px] h-[18px]' style={style} src={urlCopy} alt='url_copy' />
             </div>
-            <div className='flex justify-center items-center w-10 h-10 rounded-full bg-[#FEE500]'>
+            <div className='flex justify-center items-center w-10 h-10 rounded-full bg-yellow-50'>
               <img className='w-[18px] h-[18px]' src={kakaotalk} alt='kakaotalk_share' />
             </div>
-            <div className='flex justify-center items-center w-10 h-10 rounded-full bg-[#1877F2]'>
+            <div className='flex justify-center items-center w-10 h-10 rounded-full bg-blue-50'>
               <img className='w-[18px] h-[18px]' style={style} src={facebook} alt='facebook_share' />
             </div>
           </div>
