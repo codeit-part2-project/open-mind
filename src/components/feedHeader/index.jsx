@@ -6,14 +6,19 @@ import kakaotalk from 'assets/images/icons/ic_Kakaotalk.svg';
 import facebook from 'assets/images/icons/ic_Facebook.svg';
 import { getSubject } from 'api/subjects';
 import { useCallback, useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 
 const style = {
   filter: 'invert(100%) sepia(0%) saturate(0%) hue-rotate(192deg) brightness(107%) contrast(105%)',
 };
 
-const FeedHeader = () => {
+const FeedHeader = ({ onClick }) => {
   // 프로필 사진과 이름을 getSubject 함수로 불러옵니다.
   // 테스트용으로 만들었으며 차후에 id 값으로 고유한 이미지와 이름을 불러오도록 수정해야합니다.
+
+  FeedHeader.propTypes = {
+    onClick: PropTypes.func,
+  };
 
   const [name, setName] = useState('');
   const [profileImg, setProfileImg] = useState('');
@@ -29,6 +34,7 @@ const FeedHeader = () => {
 
   const handleCopyUrl = () => {
     navigator.clipboard.writeText(currentUrl);
+    onClick();
   };
 
   useEffect(() => {
