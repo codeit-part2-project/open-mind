@@ -1,4 +1,4 @@
-import banner from 'assets/images/img_Banner.svg';
+import headerImg from 'assets/images/img_Header.svg';
 import logo from 'assets/images/img_Logo.svg';
 import { Link } from 'react-router-dom';
 import urlCopy from 'assets/images/icons/ic_Link.svg';
@@ -33,7 +33,7 @@ const FeedHeader = () => {
     <div className='fixed'>
       <div className='flex flex-col items-center relative'>
         <div className='w-screen overflow-hidden flex justify-center'>
-          <img className='min-w-[906px] md:min-w-[1200px]' src={banner} alt='Banner_Image' />
+          <img className='min-w-[906px] md:min-w-[1200px]' src={headerImg} alt='Header_Image' />
         </div>
         <div className='flex flex-col items-center gap-3 absolute top-[40px] md:top-[50px]'>
           <Link to='/'>
