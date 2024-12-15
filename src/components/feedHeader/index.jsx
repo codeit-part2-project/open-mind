@@ -1,4 +1,4 @@
-import banner from 'assets/images/img_Banner.svg';
+import headerImg from 'assets/images/img_Header.svg';
 import logo from 'assets/images/img_Logo.svg';
 import { Link } from 'react-router-dom';
 import urlCopy from 'assets/images/icons/ic_Link.svg';
@@ -33,22 +33,22 @@ const FeedHeader = () => {
     <div className='fixed'>
       <div className='flex flex-col items-center relative'>
         <div className='w-screen overflow-hidden flex justify-center'>
-          <img className='min-w-[906px] md:min-w-[1200px]' src={banner} alt='Banner_Image' />
+          <img className='min-w-[906px] md:min-w-[1200px]' src={headerImg} alt='Header_Image' />
         </div>
         <div className='flex flex-col items-center gap-3 absolute top-[40px] md:top-[50px]'>
           <Link to='/'>
             <img className='max-w-[124px] md:max-w-[170px]' src={logo} alt='Logo' />
           </Link>
-          <img className='rounded-full max-w-[104px] max-h-[104px] md:max-w-[136px] md:max-h-[136px]' src={profileImg} alt='Banner' />
+          <img className='rounded-full max-w-[104px] max-h-[104px] md:max-w-[136px] md:max-h-[136px]' src={profileImg} alt='Profile_Img' />
           <div className='font-normal text-2xl/[30px] md:text-[32px]/[40px]'>{name}</div>
           <div className='flex gap-3'>
-            <div className='flex justify-center items-center w-10 h-10 rounded-full bg-[#542F1A]'>
+            <div className='flex justify-center items-center w-10 h-10 rounded-full bg-brown-40'>
               <img className='w-[18px] h-[18px]' style={style} src={urlCopy} alt='url_copy' />
             </div>
-            <div className='flex justify-center items-center w-10 h-10 rounded-full bg-[#FEE500]'>
+            <div className='flex justify-center items-center w-10 h-10 rounded-full bg-yellow-50'>
               <img className='w-[18px] h-[18px]' src={kakaotalk} alt='kakaotalk_share' />
             </div>
-            <div className='flex justify-center items-center w-10 h-10 rounded-full bg-[#1877F2]'>
+            <div className='flex justify-center items-center w-10 h-10 rounded-full bg-blue-50'>
               <img className='w-[18px] h-[18px]' style={style} src={facebook} alt='facebook_share' />
             </div>
           </div>
