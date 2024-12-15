@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { getSubjectById, postSubject } from 'api/subjects';
 import imgLogo from 'assets/images/img_Logo.svg';
 import imgBanner from 'assets/images/img_Banner.svg';
 import icArrowDashRight from 'assets/images/icons/ic_Arrow-dash-right.svg';
@@ -7,6 +8,36 @@ import { ReactComponent as IcPerson } from 'assets/images/icons/ic_Person.svg';
 
 const Home = () => {
   const [name, setName] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (!name.trim()) {
+      setErrorMessage('이름을 입력해주세요.');
+      return;
+    }
+
+    const storedId = localStorage.getItem('id');
+
+    if (storedId) {
+      const storedSubject = await getSubjectById(storedId);
+
+      if (storedSubject.name === name.trim()) {
+        navigate(`/post/${storedId}/answer`);
+      } else {
+        setErrorMessage('이전에 등록했던 이름을 입력해 주세요.');
+      }
+    } else {
+      const newSubject = await postSubject({ name: name.trim() });
+
+      if (newSubject.id) {
+        localStorage.setItem('id', newSubject.id);
+        navigate(`/post/${newSubject.id}/answer`);
+      }
+    }
+  };
 
   return (
     <div className='flex flex-col items-center relative overflow-hidden w-full h-screen bg-gray-20 z-[1]'>
@@ -21,7 +52,10 @@ const Home = () => {
         </Link>
       </div>
 
-      <form className='flex flex-col relative bg-white rounded-[16px] p-[24px] mt-[24px] mx-[35px] z-[1] w-[calc(100%-70px)] max-w-[350px] md:p-[32px] md:w-[calc(100%-368px)] md:max-w-[400px] md:mx-[184px]'>
+      <form
+        onSubmit={handleSubmit}
+        className='flex flex-col relative bg-white rounded-[16px] p-[24px] mt-[24px] mx-[35px] z-[1] w-[calc(100%-70px)] max-w-[350px] md:p-[32px] md:w-[calc(100%-368px)] md:max-w-[400px] md:mx-[184px]'
+      >
         <IcPerson className='absolute top-[37px] left-[40px] w-[20px] h-[20px] fill-gray-40 md:top-[45px] md:left-[48px] fill-gray-40' />
         <input
           type='text'
@@ -30,6 +64,7 @@ const Home = () => {
           value={name}
           onChange={(e) => setName(e.target.value)}
         />
+        {errorMessage && <div className='text-[14px] mt-[8px] font-medium pl-[16px] text-red-50'>{errorMessage}</div>}
         <button
           type='submit'
           className='w-full mt-[16px] bg-brown-40 text-white text-[16px] leading-[22px] py-[12px] px-[24px] rounded-[8px] border-none cursor-pointer transition-colors duration-300 hover:bg-brown-50'
