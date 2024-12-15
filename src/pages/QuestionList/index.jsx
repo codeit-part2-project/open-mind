@@ -1,5 +1,5 @@
 import Logo from 'assets/images/img_Logo.svg';
-import CardList from 'components/CardList';
+import CardList from 'components/CardList/index';
 import { Link } from 'react-router-dom';
 
 const QuestionList = () => (
