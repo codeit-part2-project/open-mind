@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { getQuestionBySubjectId } from 'api/questions';
-import thumbsUpIcon from '../../assets/images/icons/thumbs-up.png';
-import thumbsDownIcon from '../../assets/images/icons/thumbs-down.png';
-import messagesIcon from '../../assets/images/icons/Messages.png';
-import qusetionBoxImg from '../../assets/images/img_QuestionBox.png';
+import thumbsUpIcon from '../../assets/images/icons/thumbs-up.svg';
+import thumbsDownIcon from '../../assets/images/icons/thumbs-down.svg';
+import messagesIcon from '../../assets/images/icons/Messages.svg';
+import qusetionBoxImg from '../../assets/images/img_QusetionBox.svg';
 
 const Feed = () => {
   const { id: subjectId } = useParams(); // URL에서 subjectId를 가져옴
@@ -42,16 +42,16 @@ const Feed = () => {
       <header className='bg-blue-50 h-[177px] mb-[176px]'>헤더 입니다</header>
       <section className='feed__section flex justify-center items-center'>
         <div className='feed__container bg-brown-10 border border-brown-20 rounded-[16px]'>
-          <div className='question-count__container'>
+          <div className='question-count__container flex justify-center items-center py-[16px] gap-[8px]'>
             <img src={messagesIcon} alt='말풍선 이미지' />
             {questions.length > 0 ? <h1>{questions.length}개의 질문이 있습니다</h1> : <h1>아직 질문이 없습니다.</h1>}
           </div>
           {questions.length > 0 ? (
             <ul className='feed-questions__ul'>
               {questions.map((question) => (
-                <li key={question.id} className='feed-question__li'>
-                  <div className='question__container flex flex-col justify-center p-[24px]'>
-                    <p className='checked-answer'>답변 확인 표시</p>
+                <li key={question.id} className='feed-question__li '>
+                  <div className='question__container flex flex-col justify-center p-[24px] gap-[24px] bg-gray-10 shadow-1pt'>
+                    <p className='checked-answer '>답변 확인 표시</p>
                     <div className='question-title__container'>
                       <h2 className='question__title w-[247px]'>{question.content}</h2>
                       <p>2주 전</p>
