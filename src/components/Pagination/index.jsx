@@ -9,6 +9,8 @@ const Pagination = ({ data }) => {
   const [disabledArrowLeft, setDisabledArrowLeft] = useState(true);
   const [disabledArrowRight, setDisabledArrowRight] = useState(false);
 
+  const btnHoverAnimation = 'hover:transform hover:translate-y-[-5px] transition-transform duration-300 ease-in-out';
+
   // 페이지네이션의 시작 번호 계산 (ex.두번째 페이지네이션 : 6)
   const startNum = Math.floor((activeNum - 1) / 5) * 5 + 1;
   // 페이지네이션 번호 버튼 배열
@@ -67,19 +69,19 @@ const Pagination = ({ data }) => {
   }, [mobile, count, setLimit, setOffset, activeNum]);
 
   return (
-    <div className='flex gap-6'>
+    <div className='flex gap-6 justify-center items-center my-8 md:mt-20 md:mb-16'>
       <button type='button' onClick={prevClick} disabled={disabledArrowLeft}>
-        <img src={IconLeftArrow} alt='왼쪽 화살표' />
+        <img src={IconLeftArrow} alt='왼쪽 화살표' className={disabledArrowLeft ? '' : btnHoverAnimation} />
       </button>
       {pages.map((value) => {
-        const active = activeNum === value ? 'bg-red-50' : 'bg-yellow-50';
+        const activeColor = activeNum === value ? 'font-semibold text-brown-40' : 'text-gray-40';
         return (
-          <button type='button' key={value} onClick={() => pageSelect(value)} className={`${active}`}>
+          <button type='button' key={value} onClick={() => pageSelect(value)} className={`text-xl ${activeColor} ${btnHoverAnimation}`}>
             {value}
           </button>
         );
       })}
-      <button type='button' onClick={nextClick} disabled={disabledArrowRight}>
+      <button type='button' onClick={nextClick} disabled={disabledArrowRight} className={disabledArrowRight ? '' : btnHoverAnimation}>
         <img src={IconRightArrow} alt='오른쪽 화살표' />
       </button>
     </div>
