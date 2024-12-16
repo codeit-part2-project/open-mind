@@ -16,8 +16,9 @@ const Answer = () => {
   return (
     <>
       <FeedHeader onClick={handleToastLoad} />
-      <Toast isToast={isToast} />
+      {isToast && <Toast />}
     </>
   );
 };
+
 export default Answer;

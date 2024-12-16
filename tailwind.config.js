@@ -1,4 +1,5 @@
 /** @type {import('tailwindcss').Config} */
+
 module.exports = {
   content: ['./src/**/*.{js,jsx,ts,tsx}'],
   theme: {
@@ -33,6 +34,30 @@ module.exports = {
         '1pt': '0px 4px 4px 0px rgba(140, 140, 140, 0.25)',
         '2pt': '0px 4px 4px 0px rgba(0, 0, 0, 0.25)',
         '3pt': '0px 16px 20px 0px rgba(48, 48, 48, 0.62)',
+      },
+
+      animation: {
+        slideUp: 'slideUp 0.5s ease-out forwards',
+        slideUpTablet: 'slideUpTablet 0.5s ease-out forwards',
+      },
+      keyframes: {
+        slideUp: {
+          '0%': {
+            bottom: '70px',
+          },
+          '100%': {
+            bottom: '100px',
+          },
+        },
+
+        slideUpTablet: {
+          '0%': {
+            bottom: '30px',
+          },
+          '100%': {
+            bottom: '60px',
+          },
+        },
       },
     },
   },
