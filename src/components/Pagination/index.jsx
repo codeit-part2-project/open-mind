@@ -69,7 +69,7 @@ const Pagination = ({ data }) => {
   }, [mobile, count, setLimit, setOffset, activeNum]);
 
   return (
-    <div className='flex gap-6 justify-center items-center my-8'>
+    <div className='flex gap-6 justify-center items-center my-8 md:mt-20 md:mb-16'>
       <button type='button' onClick={prevClick} disabled={disabledArrowLeft}>
         <img src={IconLeftArrow} alt='왼쪽 화살표' className={disabledArrowLeft ? '' : btnHoverAnimation} />
       </button>
