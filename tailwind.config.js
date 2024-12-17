@@ -37,26 +37,16 @@ module.exports = {
       },
 
       animation: {
-        slideUp: 'slideUp 0.5s ease-out forwards',
-        slideUpTablet: 'slideUpTablet 0.5s ease-out forwards',
+        'slide-up-fade': 'slideUpFade 0.5s ease-out, fadeOut 0.5s ease-out 4.5s',
       },
       keyframes: {
-        slideUp: {
-          '0%': {
-            bottom: '70px',
-          },
-          '100%': {
-            bottom: '100px',
-          },
+        slideUpFade: {
+          '0%': { transform: 'translateX(-50%) translateY(30px)', opacity: '0' },
+          '100%': { transform: 'translateX(-50%) translateY(0px)', opacity: '1' },
         },
-
-        slideUpTablet: {
-          '0%': {
-            bottom: '30px',
-          },
-          '100%': {
-            bottom: '60px',
-          },
+        fadeOut: {
+          '0%': { opacity: '1' },
+          '100%': { opacity: '0' },
         },
       },
     },

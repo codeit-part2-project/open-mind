@@ -10,7 +10,7 @@ const Answer = () => {
 
     setTimeout(() => {
       setIsToast(false);
-    }, 5000);
+    }, 4950);
   };
 
   return (
