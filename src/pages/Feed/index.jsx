@@ -70,7 +70,7 @@ const Feed = () => {
                       </div>
                     </div>
                   )}
-                  <CountingFavorite like={question.like} dislike={question.dislike} />
+                  <CountingFavorite like={question.like} dislike={question.dislike} questionId={question.id} />
                 </div>
               </li>
             ))}
