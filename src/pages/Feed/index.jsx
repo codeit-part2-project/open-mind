@@ -1,25 +1,23 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { getQuestionBySubjectId } from 'api/questions';
-import thumbsUpIcon from 'assets/images/icons/thumbs-up.svg';
-import thumbsDownIcon from 'assets/images/icons/thumbs-down.svg';
+
 import messagesIcon from 'assets/images/icons/Messages.svg';
 import qusetionBoxImg from 'assets/images/img_QusetionBox.svg';
+import CountingFavorite from 'components/Feed/favorite';
 
 const Feed = () => {
-  const { id: subjectId } = useParams(); // URL에서 subjectId를 가져옴
-  const [questions, setQuestions] = useState([]); // 질문 목록 상태
-  const [loading, setLoading] = useState(true); // 로딩 상태
-  const [error, setError] = useState(''); // 오류 메시지 상태
-  const [favoriteCount, setFavoriteCount] = useState(0); // 좋아요 상태
-  const [unFavoriteCount, setUnFavoriteCount] = useState(0); // 싫어요 상태
+  const { id: subjectId } = useParams();
+  const [questions, setQuestions] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
 
   useEffect(() => {
     const fetchQuestions = async () => {
       try {
         setLoading(true);
         setError('');
-        const params = { page: 1, pageSize: 10 }; // 필요한 경우 쿼리 파라미터 설정
+        const params = { page: 1, pageSize: 10 };
         const response = await getQuestionBySubjectId(subjectId, params);
         if (response.results) {
           setQuestions(response.results);
@@ -38,14 +36,6 @@ const Feed = () => {
 
   if (loading) return <div className='feed-loading'>로딩 중...</div>;
   if (error) return <div className='feed-error'>오류: {error}</div>;
-
-  const countingFavorite = () => {
-    setFavoriteCount(favoriteCount + 1);
-  };
-
-  const countingUnFavorite = () => {
-    setUnFavoriteCount(unFavoriteCount + 1);
-  };
 
   return (
     <>
@@ -84,16 +74,7 @@ const Feed = () => {
                         </div>
                       </div>
                     )}
-                    <div className='like__container flex gap-[32px] text-gray-60 border-t pt-[25px] '>
-                      <button type='button' onClick={countingFavorite} className='like-count__container flex justify-center items-center gap-[6px]'>
-                        <img src={thumbsUpIcon} alt='좋아요' />
-                        <p className='text-sm leading-[18px] font-medium text-gray-40'>좋아요 {favoriteCount}</p>
-                      </button>
-                      <button type='button' onClick={countingUnFavorite} className='unlike-count__container flex justify-center items-center gap-[6px]'>
-                        <img src={thumbsDownIcon} alt='싫어요' />
-                        <p className='text-sm leading-[18px] font-medium text-gray-40'>싫어요 {unFavoriteCount}</p>
-                      </button>
-                    </div>
+                    <CountingFavorite like={question.like} dislike={question.dislike} />
                   </div>
                 </li>
               ))}
