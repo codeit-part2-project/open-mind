@@ -34,6 +34,14 @@ module.exports = {
         '2pt': '0px 4px 4px 0px rgba(0, 0, 0, 0.25)',
         '3pt': '0px 16px 20px 0px rgba(48, 48, 48, 0.62)',
       },
+      screens: {
+        pc: '1200px',
+      },
+      gridTemplateColumns: {
+        mobaileLow: 'repeat(2, minmax(186px, 220px))',
+        tabletLow: 'repeat(3, minmax(186px, 220px))',
+        pcLow: 'repeat(4, minmax(186px, 220px))',
+      },
     },
   },
   plugins: [],

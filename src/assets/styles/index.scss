@@ -16,3 +16,9 @@ input::placeholder,
 textarea::placeholder {
   font-family: Pretendard, sans-serif;
 }
+
+@layer utilities {
+  .hide-after-6 > *:nth-child(n+7) {
+    @apply hidden;
+  }
+}
