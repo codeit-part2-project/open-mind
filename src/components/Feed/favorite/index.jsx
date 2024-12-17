@@ -3,11 +3,20 @@ import PropTypes from 'prop-types';
 import { ReactComponent as ThumbsUpIcon } from 'assets/images/icons/thumbs-up.svg';
 import { ReactComponent as ThumbsDownIcon } from 'assets/images/icons/thumbs-down.svg';
 
+// const handlePostReaction = async (questionId, reactionType) => {
+//   try {
+
+//   }
+// }
+
 const CountingFavorite = ({ like, dislike }) => {
   const [favoriteCount, setFavoriteCount] = useState(like);
   const [unFavoriteCount, setUnFavoriteCount] = useState(dislike);
   const [clickFavorite, setClickFavorite] = useState(false);
   const [clickUnFavorite, setClickUnFavorite] = useState(false);
+
+  // const [postLoading, setPostLoading] = useState(true);
+  // const [postError, setPostError] = useState('');
 
   CountingFavorite.propTypes = {
     like: PropTypes.number.isRequired,
