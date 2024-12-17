@@ -6,14 +6,19 @@ import kakaotalk from 'assets/images/icons/ic_Kakaotalk.svg';
 import facebook from 'assets/images/icons/ic_Facebook.svg';
 import { getSubject } from 'api/subjects';
 import { useCallback, useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 
 const style = {
   filter: 'invert(100%) sepia(0%) saturate(0%) hue-rotate(192deg) brightness(107%) contrast(105%)',
 };
 
-const FeedHeader = () => {
+const FeedHeader = ({ onClick }) => {
   // 프로필 사진과 이름을 getSubject 함수로 불러옵니다.
   // 테스트용으로 만들었으며 차후에 id 값으로 고유한 이미지와 이름을 불러오도록 수정해야합니다.
+
+  FeedHeader.propTypes = {
+    onClick: PropTypes.func,
+  };
 
   const [name, setName] = useState('');
   const [profileImg, setProfileImg] = useState('');
@@ -24,6 +29,13 @@ const FeedHeader = () => {
     setProfileImg(results[0].imageSource);
     setName(results[0].name);
   }, []);
+
+  const currentUrl = window.location.href;
+
+  const handleCopyUrl = () => {
+    navigator.clipboard.writeText(currentUrl);
+    onClick();
+  };
 
   useEffect(() => {
     handleLoad();
@@ -42,9 +54,9 @@ const FeedHeader = () => {
           <img className='rounded-full max-w-[104px] max-h-[104px] md:max-w-[136px] md:max-h-[136px]' src={profileImg} alt='Profile_Img' />
           <div className='font-normal text-2xl/[30px] md:text-[32px]/[40px]'>{name}</div>
           <div className='flex gap-3'>
-            <div className='flex justify-center items-center w-10 h-10 rounded-full bg-brown-40'>
+            <button className='flex justify-center items-center w-10 h-10 rounded-full bg-brown-40' type='button' onClick={handleCopyUrl}>
               <img className='w-[18px] h-[18px]' style={style} src={urlCopy} alt='url_copy' />
-            </div>
+            </button>
             <div className='flex justify-center items-center w-10 h-10 rounded-full bg-yellow-50'>
               <img className='w-[18px] h-[18px]' src={kakaotalk} alt='kakaotalk_share' />
             </div>
