@@ -6,45 +6,48 @@ import messagesIcon from 'assets/images/icons/Messages.svg';
 import qusetionBoxImg from 'assets/images/img_QusetionBox.svg';
 import CountingFavorite from 'components/Feed/favorite';
 
-const fetchQuestions = async (subjectId, setQuestions, setGetLoading, setGetError) => {
-  try {
-    setGetLoading(true);
-    setGetError('');
-    const params = { limit: 10, offset: 0 };
-    const response = await getQuestionBySubjectId(subjectId, params);
-    if (response.results) {
-      setQuestions(response.results);
-    } else {
-      throw new Error('질문 데이터를 가져오는 데 실패했습니다.');
-    }
-  } catch (err) {
-    setGetError(err.message);
-  } finally {
-    setGetLoading(false);
-  }
-};
-
 const Feed = () => {
   const { id: subjectId } = useParams();
   const [questions, setQuestions] = useState([]);
-  const [getLoading, setGetLoading] = useState(true);
-
-  const [getError, setGetError] = useState('');
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
 
   useEffect(() => {
-    fetchQuestions(subjectId, setQuestions, setGetLoading, setGetError);
+    const fetchQuestions = async () => {
+      try {
+        setLoading(true);
+        setError('');
+        const params = { limit: 3, offset: 0 };
+        const response = await getQuestionBySubjectId(subjectId, params);
+        if (response.results) {
+          setQuestions(response.results);
+          console.log(response.results);
+        } else {
+          throw new Error('질문 데이터를 가져오는 데 실패했습니다.');
+        }
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchQuestions();
   }, [subjectId]);
 
-  if (getLoading) return <div className='feed-loading'>로딩 중...</div>;
-  if (getError) return <div className='feed-error'>오류: {getError}</div>;
+  if (loading) return <div className='feed-loading'>로딩 중...</div>;
+  if (error) return <div className='feed-error'>오류: {error}</div>;
 
   return (
-    <section className='feed__section flex flex-col gap-[48px] justify-center items-center  bg-gray-20 p-[24px] pt-[176px] md:p-[32px]'>
+    <section className='feed__section flex flex-col gap-[48px] justify-center items-center bg-gray-20 p-[24px] pt-[176px] md:p-[32px]'>
       <div className='feed__container bg-brown-10 border border-brown-20 rounded-[16px] w-full pb-[16px] max-w-[327px] desktop:max-w-[716px] md:max-w-[704px]'>
         <div className='question-count__container flex justify-center items-center py-[16px] gap-[8px] '>
           <img src={messagesIcon} alt='말풍선 이미지' />
-
-          <h1 className='text-lg font-normal text-brown-40 leading-6 md:text-xl md:leading-[25px]'>{questions.length > 0 ? `${questions.length}개의 질문이 있습니다` : '아직 질문이 없습니다.'}</h1>
+          {questions.length > 0 ? (
+            <h1 className='text-lg font-normal text-brown-40 leading-6 md:text-xl md:leading-[25px]'>{questions.length}개의 질문이 있습니다</h1>
+          ) : (
+            <h1 className='text-lg font-normal text-brown-40 leading-6 md:text-xl md:leading-[25px]'>아직 질문이 없습니다.</h1>
+          )}
         </div>
         {questions.length > 0 ? (
           <ul className='feed-questions__ul flex flex-col gap-[16px]'>
@@ -70,7 +73,7 @@ const Feed = () => {
                       </div>
                     </div>
                   )}
-                  <CountingFavorite like={question.like} dislike={question.dislike} questionId={question.id} />
+                  <CountingFavorite like={question.like} dislike={question.dislike} />
                 </div>
               </li>
             ))}
