@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
-import IconLeftArrow from 'assets/images/icons/ic_Arrow-left.svg';
-import IconRightArrow from 'assets/images/icons/ic_Arrow-right.svg';
+import { ReactComponent as IconLeftArrow } from 'assets/images/icons/ic_Arrow-left.svg';
+import { ReactComponent as IconRightArrow } from 'assets/images/icons/ic_Arrow-right.svg';
 
 const Pagination = ({ data }) => {
   const { limit, sort, count, cardLimit, setLimit, setOffset } = data;
@@ -70,8 +70,8 @@ const Pagination = ({ data }) => {
 
   return (
     <div className='flex gap-6 justify-center items-center my-8 md:mt-20 md:mb-16'>
-      <button type='button' onClick={prevClick} disabled={disabledArrowLeft}>
-        <img src={IconLeftArrow} alt='왼쪽 화살표' className={disabledArrowLeft ? '' : btnHoverAnimation} />
+      <button type='button' onClick={prevClick} disabled={disabledArrowLeft} className={disabledArrowLeft ? '' : btnHoverAnimation}>
+        <IconLeftArrow alt='왼쪽 화살표' className='fill-gray-40' />
       </button>
       {pages.map((value) => {
         const activeColor = activeNum === value ? 'font-semibold text-brown-40' : 'text-gray-40';
@@ -82,7 +82,7 @@ const Pagination = ({ data }) => {
         );
       })}
       <button type='button' onClick={nextClick} disabled={disabledArrowRight} className={disabledArrowRight ? '' : btnHoverAnimation}>
-        <img src={IconRightArrow} alt='오른쪽 화살표' />
+        <IconRightArrow alt='오른쪽 화살표' className='fill-gray-40' />
       </button>
     </div>
   );

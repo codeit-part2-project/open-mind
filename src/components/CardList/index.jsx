@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import QuestionImage from 'assets/images/icons/ic_Messages.svg';
+import { ReactComponent as QuestionImage } from 'assets/images/icons/ic_Messages.svg';
 import { useNavigate } from 'react-router-dom';
 
 const CardList = ({ cards }) => {
@@ -28,7 +28,7 @@ const CardList = ({ cards }) => {
             <div className='text-[18px] text-gray-60 font-normal mb-[30px]'>{item.name}</div>
           </div>
           <div className='flex items-center text-gray-40 text-[14px] leading-[18px] font-normal gap-1'>
-            <img className='size-4' src={QuestionImage} alt='질문아이콘' />
+            <QuestionImage alt='질문아이콘' className='size-4 fill-gray-40' />
             <div className='flex-1'>받은 질문</div>
             <div>{item.questionCount}개</div>
           </div>
