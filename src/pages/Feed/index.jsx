@@ -1,6 +1,8 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import { getQuestionBySubjectId } from 'api/questions';
+
+import { AppContext } from 'components/Context';
 
 import messagesIcon from 'assets/images/icons/Messages.svg';
 import qusetionBoxImg from 'assets/images/img_QusetionBox.svg';
@@ -14,6 +16,8 @@ const Feed = () => {
   const [offset, setOffset] = useState(0);
   const [hasMore, setHasMore] = useState(false);
   const observerRef = useRef(null);
+
+  const { openModal } = useContext(AppContext);
 
   useEffect(() => {
     const fetchQuestions = async () => {
@@ -116,7 +120,11 @@ const Feed = () => {
         )}
         <div ref={observerRef} className='h-1' />
       </div>
-      <button type='button' className='bg-brown-40 shadow-3pt px-[24px] py-[12px] rounded-[200px] text-gray-10 text-xl font-normal leading-[25px] self-end'>
+      <button
+        type='button'
+        className='bg-brown-40 shadow-3pt px-[24px] py-[12px] rounded-[200px] text-gray-10 text-xl font-normal leading-[25px] self-end'
+        onClick={openModal({ id: 9425, name: '테스트', imageSource: 'https://fastly.picsum.photos/id/208/200/200.jpg?hmac=J1BdqRgAAAId9wernbPINrW38haBGOtrpEqn3m2wjlY' })}
+      >
         <span className='block md:hidden'>질문 작성</span>
         <span className='hidden md:block'>질문 작성하기</span>
       </button>
