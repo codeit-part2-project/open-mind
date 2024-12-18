@@ -42,16 +42,16 @@ const FeedHeader = ({ onClick }) => {
   }, [handleLoad]);
 
   return (
-    <div className='fixed'>
-      <div className='flex flex-col items-center relative'>
+    <div>
+      <div className='flex justify-center relative'>
         <div className='w-screen overflow-hidden flex justify-center'>
           <img className='min-w-[906px] md:min-w-[1200px]' src={headerImg} alt='Header_Image' />
         </div>
-        <div className='flex flex-col items-center gap-3 absolute top-[40px] md:top-[50px]'>
+        <div className='flex flex-col items-center absolute gap-3 top-[40px] md:top-[50px]'>
           <Link to='/'>
             <img className='max-w-[124px] md:max-w-[170px]' src={logo} alt='Logo' />
           </Link>
-          <img className='rounded-full max-w-[104px] max-h-[104px] md:max-w-[136px] md:max-h-[136px]' src={profileImg} alt='Profile_Img' />
+          {profileImg && <img className='rounded-full max-w-[104px] max-h-[104px] md:max-w-[136px] md:max-h-[136px]' src={profileImg} alt='Profile_Img' />}
           <div className='font-normal text-2xl/[30px] md:text-[32px]/[40px]'>{name}</div>
           <div className='flex gap-3'>
             <button className='flex justify-center items-center w-10 h-10 rounded-full bg-brown-40' type='button' onClick={handleCopyUrl}>
