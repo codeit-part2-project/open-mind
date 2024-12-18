@@ -26,10 +26,10 @@ const SortDropDown = ({ changeSort }) => {
     <div className='relative'>
       <button type='button' className={`flex items-center gap-2 border rounded-lg py-2 px-3 text-sm  ${isOpen ? 'border-gray-60' : 'border-gray-40'} `} onClick={toggleDropdown}>
         <span className={`text-sm ${isOpen ? 'text-gray-40' : 'text-gray-60'}`}>{sortText}</span>
-        <img src={isOpen ? DropDonwUpImg : DropDownUnderImg} alt='화살표 이미지' />
+        <img src={isOpen ? DropDonwUpImg : DropDownUnderImg} alt='화살표 이미지' className='w-3.5 h-3.5' />
       </button>
       {isOpen && (
-        <ul className='flex flex-col items-center mt-2 border rounded-lg border-gray-30 text-sm cursor-pointer'>
+        <ul className='flex flex-col items-center absolute top-10 left-0 right-0 mt-2 border rounded-lg border-gray-30 bg-gray-10 text-sm cursor-pointer'>
           <li className={`py-1 ${sortText === '이름순' ? 'text-blue-50' : ''}`} onClick={onClick} role='presentation'>
             이름순
           </li>
