@@ -9,9 +9,7 @@ import ToastUrlCopy from 'components/toastUrlCopy';
 import ToastDelete from 'components/toastDelete';
 // import { deleteSubject } from 'api/subjects';
 
-
 const Answer = () => {
-  
   const { id } = useParams();
   const [subject, setSubject] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -44,7 +42,7 @@ const Answer = () => {
     localStorage.removeItem('id');
     handleToastDelete();
   };
-  
+
   useEffect(() => {
     const fetchSubject = async () => {
       try {
@@ -72,7 +70,7 @@ const Answer = () => {
 
   if (!subject) {
     return <div>질문 대상을 불러오는 데 실패했습니다.</div>;
-  }  
+  }
 
   return (
     <>
