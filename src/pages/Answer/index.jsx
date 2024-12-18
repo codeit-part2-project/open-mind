@@ -1,31 +1,21 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { getSubjectById } from 'api/subjects';
-import FeedHeader from 'components/Header';
+// import { deleteSubject } from 'api/subjects';
+import Header from 'components/Header';
 import Delete from 'components/DeleteBtn';
 import CountQuestion from 'components/CountQuestion';
 import QnAList from 'components/QnAList';
-import ToastUrlCopy from 'components/ToastUrlCopyTxt';
 import ToastDelete from 'components/ToastDeleteTxt';
-// import { deleteSubject } from 'api/subjects';
 
 const Answer = () => {
   const { id } = useParams();
   const [subject, setSubject] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [isToastUrlCopy, setIsToastUrlCopy] = useState(false);
   const [isToastDelete, setIsToastDelete] = useState(false);
 
   const navigate = useNavigate();
-
-  const handleToastUrlCopyLoad = () => {
-    setIsToastUrlCopy(true);
-
-    setTimeout(() => {
-      setIsToastUrlCopy(false);
-    }, 5000);
-  };
 
   const handleToastDelete = () => {
     setIsToastDelete(true);
@@ -74,16 +64,14 @@ const Answer = () => {
 
   return (
     <>
-      <FeedHeader onClick={handleToastUrlCopyLoad} />
+      <Header imageSource={subject.imageSource} name={subject.name} />
       <div className='flex w-screen mt-[145px] justify-center'>
         <Delete onClick={handleDelete} id={id} />
-        {/* 민서님이 작업하신 공용 컴포넌트 자리입니다. */}
         <ul className='pt-[353px] md:pt-[423px]'>
           <CountQuestion count={subject.questionCount} />
           <QnAList subjectId={subject.id} name={subject.name} imageSource={subject.imageSource} />
         </ul>
       </div>
-      {isToastUrlCopy && <ToastUrlCopy />}
       {isToastDelete && <ToastDelete />}
     </>
   );
