@@ -3,6 +3,8 @@ import { useParams } from 'react-router-dom';
 import { getSubjectById } from 'api/subjects';
 import FeedHeader from 'components/feedHeader';
 import Toast from 'components/toast';
+import CountQuestion from 'components/CountQuestion';
+import QnAList from 'components/QnAList';
 
 const Answer = () => {
   const { id } = useParams();
@@ -52,6 +54,10 @@ const Answer = () => {
     <>
       <FeedHeader onClick={handleToastLoad} />
       {isToast && <Toast />}
+      <ul className='pt-[353px] md:pt-[423px]'>
+        <CountQuestion count={subject.questionCount} />
+        <QnAList subjectId={subject.id} name={subject.name} imageSource={subject.imageSource} />
+      </ul>
     </>
   );
 };
