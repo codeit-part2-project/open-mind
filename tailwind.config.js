@@ -37,7 +37,7 @@ module.exports = {
       },
 
       animation: {
-        'slide-up-fade': 'slideUpFade 0.5s ease-out, fadeOut 0.5s ease-out 4.5s',
+        'slide-up-fade': 'slideUpFade 0.5s ease-out, fadeOut 0.5s ease-out 4.6s',
       },
       keyframes: {
         slideUpFade: {

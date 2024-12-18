@@ -1,7 +1,7 @@
 import FeedHeader from 'components/feedHeader';
 import ToastUrlCopy from 'components/toastUrlCopy';
 import { useState } from 'react';
-import Delete from 'pages/Answer/delete';
+import Delete from 'components/delete';
 import { useNavigate } from 'react-router-dom';
 import ToastDelete from 'components/toastDelete';
 // import { deleteSubject } from 'api/subjects';
@@ -19,7 +19,7 @@ const Answer = () => {
 
     setTimeout(() => {
       setIsToastUrlCopy(false);
-    }, 4950);
+    }, 5000);
   };
 
   const handleToastDelete = () => {
@@ -28,7 +28,7 @@ const Answer = () => {
     setTimeout(() => {
       setIsToastDelete(false);
       navigate('/');
-    }, 4950);
+    }, 5000);
   };
 
   const handleDelete = () => {
@@ -41,7 +41,7 @@ const Answer = () => {
   return (
     <>
       <FeedHeader onClick={handleToastUrlCopyLoad} />
-      <div className='pt-[322px] md:pt-[369px] flex w-screen justify-center'>
+      <div className='flex w-screen mt-[145px] justify-center'>
         <Delete onClick={handleDelete} id={id} />
         {/* 민서님이 작업하신 공용 컴포넌트 자리입니다. */}
       </div>
