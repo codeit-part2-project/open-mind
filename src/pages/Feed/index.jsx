@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { getQuestionBySubjectId } from 'api/questions';
 
@@ -12,7 +12,8 @@ const Feed = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [offset, setOffset] = useState(0);
-  // const [hasMore, setHasMore] = useState(false);
+  const [hasMore, setHasMore] = useState(false);
+  const observerRef = useRef(null);
 
   useEffect(() => {
     const fetchQuestions = async () => {
@@ -23,6 +24,7 @@ const Feed = () => {
         const response = await getQuestionBySubjectId(subjectId, params);
         if (response.results) {
           setQuestions((prev) => [...prev, ...response.results]);
+          setHasMore(response.results.length > 0);
         } else {
           throw new Error('질문 데이터를 가져오는 데 실패했습니다.');
         }
@@ -36,11 +38,37 @@ const Feed = () => {
     fetchQuestions();
   }, [subjectId, offset]);
 
-  const loadHandleQuestion = (e) => {
-    e.preventDefault();
-    setOffset((prev) => prev + 3);
-  };
-  if (loading) return <div className='feed-loading'>로딩 중...</div>;
+  const loadMoreQuestions = useCallback(
+    (entries) => {
+      const [entry] = entries;
+      if (entry.isIntersecting && hasMore && !loading) {
+        setOffset((prev) => prev + 3);
+      }
+    },
+    [hasMore, loading],
+  );
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(loadMoreQuestions, {
+      root: null,
+      rootMargin: '0px',
+      threshold: 1.0,
+    });
+
+    const targetCurrent = observerRef.current;
+
+    if (targetCurrent) {
+      observer.observe(targetCurrent);
+    }
+
+    return () => {
+      if (targetCurrent) {
+        observer.unobserve(targetCurrent);
+      }
+    };
+  }, [loadMoreQuestions]);
+
+  if (loading && questions.length === 0) return <div className='feed-loading'>로딩 중...</div>;
   if (error) return <div className='feed-error'>오류: {error}</div>;
 
   return (
@@ -86,9 +114,7 @@ const Feed = () => {
         ) : (
           <img src={qusetionBoxImg} alt='질문박스 이미지' />
         )}
-        <button type='button' onClick={loadHandleQuestion}>
-          데이터 불러오기
-        </button>
+        <div ref={observerRef} className='h-1' />
       </div>
       <button type='button' className='bg-brown-40 shadow-3pt px-[24px] py-[12px] rounded-[200px] text-gray-10 text-xl font-normal leading-[25px] self-end'>
         <span className='block md:hidden'>질문 작성</span>
