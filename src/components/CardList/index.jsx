@@ -1,7 +1,9 @@
 import PropTypes from 'prop-types';
 import QuestionImage from 'assets/images/icons/ic_Messages.svg';
+import { useNavigate } from 'react-router-dom';
 
 const CardList = ({ cards }) => {
+  const Navigate = useNavigate();
   CardList.propTypes = {
     cards: PropTypes.arrayOf(
       PropTypes.shape({
@@ -13,10 +15,14 @@ const CardList = ({ cards }) => {
     ).isRequired,
   };
 
+  const cardMove = (id) => {
+    Navigate(`/post/${id}`);
+  };
+
   return (
     <div className='grid gap-4 grid-cols-mobaileLow justify-center mx-6 mb-[31px] md:grid-cols-tabletLow md:mx-[130px] md:mb-[61px] md:gap-5 lg:grid-cols-pcLow lg:mx-[130px] lg:mb-[46px] pc:mb-10 pc:mx-[130px]'>
       {cards.map((item) => (
-        <div className=' max-w-[220px] border rounded-2xl border-gray-40 bg-gray-10 px-4 py-4' key={item.id}>
+        <div onClick={() => cardMove(item.id)} role='presentation' className='max-w-[220px] border rounded-2xl border-gray-40 bg-gray-10 px-4 py-4' key={item.id}>
           <div className='flex flex-col'>
             <img className='rounded-full object-cover size-12 leading-6 mb-3' src={item.imageSource} alt='유저프로필' />
             <div className='text-[18px] text-gray-60 font-normal mb-[30px]'>{item.name}</div>
