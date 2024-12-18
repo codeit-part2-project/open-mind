@@ -1,24 +1,46 @@
 import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { getSubjectById } from 'api/subjects';
 import FeedHeader from 'components/feedHeader';
-import Toast from 'components/toast';
+import Delete from 'components/delete';
 import CountQuestion from 'components/CountQuestion';
 import QnAList from 'components/QnAList';
+import ToastUrlCopy from 'components/toastUrlCopy';
+import ToastDelete from 'components/toastDelete';
+// import { deleteSubject } from 'api/subjects';
 
 const Answer = () => {
   const { id } = useParams();
-  const [isToast, setIsToast] = useState(false);
   const [subject, setSubject] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [isToastUrlCopy, setIsToastUrlCopy] = useState(false);
+  const [isToastDelete, setIsToastDelete] = useState(false);
 
-  const handleToastLoad = () => {
-    setIsToast(true);
+  const navigate = useNavigate();
+
+  const handleToastUrlCopyLoad = () => {
+    setIsToastUrlCopy(true);
 
     setTimeout(() => {
-      setIsToast(false);
-    }, 4950);
+      setIsToastUrlCopy(false);
+    }, 5000);
+  };
+
+  const handleToastDelete = () => {
+    setIsToastDelete(true);
+
+    setTimeout(() => {
+      setIsToastDelete(false);
+      navigate('/');
+    }, 5000);
+  };
+
+  const handleDelete = () => {
+    // deleteSubject(id);
+    // ↑위 함수는 서버 데이터를 삭제하는 함수라서 일부로 막아뒀습니다. 삭제 동작은 확인했습니다.
+    localStorage.removeItem('id');
+    handleToastDelete();
   };
 
   useEffect(() => {
@@ -52,12 +74,17 @@ const Answer = () => {
 
   return (
     <>
-      <FeedHeader onClick={handleToastLoad} />
-      {isToast && <Toast />}
-      <ul className='pt-[353px] md:pt-[423px]'>
-        <CountQuestion count={subject.questionCount} />
-        <QnAList subjectId={subject.id} name={subject.name} imageSource={subject.imageSource} />
-      </ul>
+      <FeedHeader onClick={handleToastUrlCopyLoad} />
+      <div className='flex w-screen mt-[145px] justify-center'>
+        <Delete onClick={handleDelete} id={id} />
+        {/* 민서님이 작업하신 공용 컴포넌트 자리입니다. */}
+        <ul className='pt-[353px] md:pt-[423px]'>
+          <CountQuestion count={subject.questionCount} />
+          <QnAList subjectId={subject.id} name={subject.name} imageSource={subject.imageSource} />
+        </ul>
+      </div>
+      {isToastUrlCopy && <ToastUrlCopy />}
+      {isToastDelete && <ToastDelete />}
     </>
   );
 };
