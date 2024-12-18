@@ -1,5 +1,5 @@
 import FeedHeader from 'components/feedHeader';
-import Toast from 'components/toast';
+import ToastUrlCopy from 'components/toastUrlCopy';
 import { useState } from 'react';
 import Delete from 'pages/Answer/delete';
 import { useNavigate } from 'react-router-dom';
@@ -33,7 +33,7 @@ const Answer = () => {
         <Delete onClick={handleDelete} id={id} />
         {/* 민서님이 작업하신 공용 컴포넌트 자리입니다. */}
       </div>
-      {isToast && <Toast />}
+      {isToast && <ToastUrlCopy />}
     </>
   );
 };
