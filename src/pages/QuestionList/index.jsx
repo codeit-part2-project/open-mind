@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect, useRef } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { useMediaQuery } from 'react-responsive';
 import { Link } from 'react-router-dom';
 import CardList from 'components/CardList/index';
@@ -14,7 +14,6 @@ const QuestionList = () => {
   const [sort, setSort] = useState('time');
   const [count, setCount] = useState();
   const [cards, setCards] = useState([]);
-  const selectRef = useRef(null);
 
   const readSubject = useCallback(async () => {
     const subjects = await getSubject({ limit, offset, sort });
@@ -22,9 +21,8 @@ const QuestionList = () => {
     setCards([...subjects.results]);
   }, [limit, offset, sort]);
 
-  // eslint-disable-next-line
-  const changeSort = () => {
-    if (selectRef.current.value === '이름순') setSort('name');
+  const changeSort = (sortName) => {
+    if (sortName === '이름순') setSort('name');
     else setSort('time');
     setLimit(cardLimit ? 6 : 8);
     setOffset(0);
@@ -52,7 +50,7 @@ const QuestionList = () => {
         </header>
         <section className='flex flex-row justify-between gap-[42px] mx-6 whitespace-nowrap mb-4 md:flex-col md:items-center md:gap-3 md:mb-[30px]'>
           <h1 className='text-2xl font-normal flex-1 md:text-[40px] md:leading-[47px]'>누구에게 질문할까요?</h1>
-          <SortDropDown />
+          <SortDropDown changeSort={changeSort} />
         </section>
         <CardList cards={cards} />
       </div>
