@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { getSubjectById } from 'api/subjects';
-import FeedHeader from 'components/feedHeader';
-import Delete from 'components/delete';
+import FeedHeader from 'components/Header';
+import Delete from 'components/DeleteBtn';
 import CountQuestion from 'components/CountQuestion';
 import QnAList from 'components/QnAList';
-import ToastUrlCopy from 'components/toastUrlCopy';
-import ToastDelete from 'components/toastDelete';
+import ToastUrlCopy from 'components/ToastUrlCopyTxt';
+import ToastDelete from 'components/ToastDeleteTxt';
 // import { deleteSubject } from 'api/subjects';
 
 const Answer = () => {
