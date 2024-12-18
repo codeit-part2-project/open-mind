@@ -4,7 +4,7 @@ import IconLeftArrow from 'assets/images/icons/ic_Arrow-left.svg';
 import IconRightArrow from 'assets/images/icons/ic_Arrow-right.svg';
 
 const Pagination = ({ data }) => {
-  const { limit, sort, count, mobile, setLimit, setOffset } = data;
+  const { limit, sort, count, cardLimit, setLimit, setOffset } = data;
   const [activeNum, setActiveNum] = useState(1);
   const [disabledArrowLeft, setDisabledArrowLeft] = useState(true);
   const [disabledArrowRight, setDisabledArrowRight] = useState(false);
@@ -58,7 +58,7 @@ const Pagination = ({ data }) => {
   }, [checkArrowBtn]);
 
   useEffect(() => {
-    const cardCnt = mobile ? 6 : 8;
+    const cardCnt = cardLimit ? 6 : 8;
     setLimit(cardCnt);
     if (activeNum > Math.ceil(count / cardCnt)) {
       setActiveNum(Math.ceil(count / cardCnt));
@@ -66,7 +66,7 @@ const Pagination = ({ data }) => {
     } else {
       setOffset((activeNum - 1) * cardCnt);
     }
-  }, [mobile, count, setLimit, setOffset, activeNum]);
+  }, [cardLimit, count, setLimit, setOffset, activeNum]);
 
   return (
     <div className='flex gap-6 justify-center items-center my-8 md:mt-20 md:mb-16'>
@@ -93,7 +93,7 @@ Pagination.propTypes = {
     limit: PropTypes.number.isRequired,
     sort: PropTypes.string.isRequired,
     count: PropTypes.number.isRequired,
-    mobile: PropTypes.bool.isRequired,
+    cardLimit: PropTypes.bool.isRequired,
     setLimit: PropTypes.func.isRequired,
     setOffset: PropTypes.func.isRequired,
   }).isRequired,
