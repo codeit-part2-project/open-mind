@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import PropTypes from 'prop-types';
 import { ReactComponent as ThumbsUpIcon } from 'assets/images/icons/thumbs-up.svg';
 import { ReactComponent as ThumbsDownIcon } from 'assets/images/icons/thumbs-down.svg';
+import PropTypes from 'prop-types';
 
 const CountingFavorite = ({ like, dislike }) => {
   const [favoriteCount, setFavoriteCount] = useState(like);
@@ -15,22 +15,20 @@ const CountingFavorite = ({ like, dislike }) => {
   };
 
   const countingHandleFavorite = () => {
-    if (clickFavorite) {
-      setClickFavorite(false);
-      setFavoriteCount(favoriteCount - 1);
-    } else {
+    if (!clickFavorite) {
       setClickFavorite(true);
-      setFavoriteCount(favoriteCount + 1);
+      setFavoriteCount((prev) => prev + 1);
+    } else {
+      setFavoriteCount((prev) => prev + 1);
     }
   };
 
   const countingHandleUnFavorite = () => {
-    if (clickUnFavorite) {
-      setClickUnFavorite(false);
-      setUnFavoriteCount(unFavoriteCount - 1);
-    } else {
+    if (!clickUnFavorite) {
       setClickUnFavorite(true);
-      setUnFavoriteCount(unFavoriteCount + 1);
+      setUnFavoriteCount((prev) => prev + 1);
+    } else {
+      setUnFavoriteCount((prev) => prev + 1);
     }
   };
 
