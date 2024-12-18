@@ -35,7 +35,6 @@ module.exports = {
         '2pt': '0px 4px 4px 0px rgba(0, 0, 0, 0.25)',
         '3pt': '0px 16px 20px 0px rgba(48, 48, 48, 0.62)',
       },
-
       animation: {
         'slide-up-fade': 'slideUpFade 0.5s ease-out, fadeOut 0.5s ease-out 4.5s',
       },
@@ -48,6 +47,9 @@ module.exports = {
           '0%': { opacity: '1' },
           '100%': { opacity: '0' },
         },
+      },
+      screens: {
+        desktop: '1200px',
       },
     },
   },
