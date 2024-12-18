@@ -1,13 +1,14 @@
 import { useState, useCallback, useEffect } from 'react';
 import { useMediaQuery } from 'react-responsive';
-import { Link } from 'react-router-dom';
-import CardList from 'components/CardList/index';
+import { Link, useNavigate } from 'react-router-dom';
+import CardList from 'components/CardList';
 import Pagination from 'components/Pagination';
 import SortDropDown from 'components/SortDropDown';
 import { getSubject } from 'api/subjects';
 import Logo from 'assets/images/img_Logo.svg';
 
 const QuestionList = () => {
+  const navigate = useNavigate();
   const cardLimit = useMediaQuery({ query: '(max-width : 1023px)' });
   const [limit, setLimit] = useState(cardLimit ? 6 : 8);
   const [offset, setOffset] = useState(0);
@@ -32,6 +33,15 @@ const QuestionList = () => {
     readSubject();
   }, [readSubject]);
 
+  const onClickPageMove = () => {
+    const storedId = localStorage.getItem('id');
+    if (storedId) {
+      navigate(`/post/${storedId}/answer`);
+    } else {
+      navigate('/');
+    }
+  };
+
   return (
     <div className='min-w-[436px] max-w-[1200px] mx-auto'>
       <div className=' md:mb-[76px] lg:mb-[91px] pc:mb-[97px] mt-10 mb-10'>
@@ -42,7 +52,11 @@ const QuestionList = () => {
             </Link>
           </div>
           <div>
-            <button className='flex flex-row justify-bettwen gap-[4px] bg-brown-10 border-brown-40 border rounded-lg px-3 py-2 text-sm text-brown-40 font-normal whitespace-nowrap' type='button'>
+            <button
+              className='flex flex-row justify-bettwen gap-[4px] bg-brown-10 border-brown-40 border rounded-lg px-3 py-2 text-sm text-brown-40 font-normal whitespace-nowrap'
+              type='button'
+              onClick={onClickPageMove}
+            >
               <div>답변하러 가기</div>
               <div>→</div>
             </button>
