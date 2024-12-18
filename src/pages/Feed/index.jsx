@@ -11,17 +11,18 @@ const Feed = () => {
   const [questions, setQuestions] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [offset, setOffset] = useState(0);
+  // const [hasMore, setHasMore] = useState(false);
 
   useEffect(() => {
     const fetchQuestions = async () => {
       try {
         setLoading(true);
         setError('');
-        const params = { limit: 3, offset: 0 };
+        const params = { limit: 3, offset };
         const response = await getQuestionBySubjectId(subjectId, params);
         if (response.results) {
-          setQuestions(response.results);
-          console.log(response.results);
+          setQuestions((prev) => [...prev, ...response.results]);
         } else {
           throw new Error('질문 데이터를 가져오는 데 실패했습니다.');
         }
@@ -33,8 +34,12 @@ const Feed = () => {
     };
 
     fetchQuestions();
-  }, [subjectId]);
+  }, [subjectId, offset]);
 
+  const loadHandleQuestion = (e) => {
+    e.preventDefault();
+    setOffset((prev) => prev + 3);
+  };
   if (loading) return <div className='feed-loading'>로딩 중...</div>;
   if (error) return <div className='feed-error'>오류: {error}</div>;
 
@@ -81,6 +86,9 @@ const Feed = () => {
         ) : (
           <img src={qusetionBoxImg} alt='질문박스 이미지' />
         )}
+        <button type='button' onClick={loadHandleQuestion}>
+          데이터 불러오기
+        </button>
       </div>
       <button type='button' className='bg-brown-40 shadow-3pt px-[24px] py-[12px] rounded-[200px] text-gray-10 text-xl font-normal leading-[25px] self-end'>
         <span className='block md:hidden'>질문 작성</span>
