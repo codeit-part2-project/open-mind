@@ -25,7 +25,7 @@ const Modal = () => {
   };
   // TextArea 유효성 검사
   const changeContentHandler = () => {
-    if (content.current.value !== '') setIsContent(true);
+    if (content.current.value.trim() !== '') setIsContent(true);
     else setIsContent(false);
   };
 
