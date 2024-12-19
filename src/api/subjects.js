@@ -1,7 +1,7 @@
 const BASE_URL = `${process.env.REACT_APP_BASE_URL}subjects/`;
 
 // 질문 대상 목록 조회
-const getSubject = async (params = {}) => {
+const getSubjects = async (params = {}) => {
   const query = new URLSearchParams(params).toString();
   try {
     const response = await fetch(`${BASE_URL}?${query}`);
@@ -10,8 +10,9 @@ const getSubject = async (params = {}) => {
     }
     const subject = await response.json();
     return subject;
-  } catch ({ message }) {
-    return message;
+  } catch (e) {
+    console.error(e);
+    throw e;
   }
 };
 
@@ -64,4 +65,4 @@ const deleteSubject = async (id) => {
   }
 };
 
-export { getSubject, getSubjectById, postSubject, deleteSubject };
+export { getSubjects, getSubjectById, postSubject, deleteSubject };
