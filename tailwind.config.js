@@ -42,6 +42,9 @@ module.exports = {
         mobileLow: 'repeat(2, 1fr)',
         tabletLow: 'repeat(4, minmax(186px, 220px))',
       },
+      fontFamily: {
+        actor: ['Actor', 'sans-serif'],
+      },
     },
   },
   plugins: [],

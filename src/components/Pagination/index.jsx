@@ -79,7 +79,7 @@ const Pagination = ({ data }) => {
   }, [cardLimit, count, setLimit, setOffset, activeNum]);
 
   return (
-    <div className='flex gap-6 justify-center items-center my-8 md:mt-20 md:mb-16'>
+    <div className='flex gap-6 justify-center items-center font-actor my-8 md:mt-20 md:mb-16'>
       <button type='button' onClick={prevClick} disabled={disabledArrowLeft} className={disabledArrowLeft ? '' : btnHoverAnimation}>
         <IconLeftArrow alt='왼쪽 화살표' className='fill-gray-40' />
       </button>

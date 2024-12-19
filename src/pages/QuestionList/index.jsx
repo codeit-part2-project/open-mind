@@ -69,7 +69,6 @@ const QuestionList = () => {
         <SortDropDown changeSort={changeSort} />
       </div>
 
-      {/* 카드 리스트 영역 */}
       <div className='mx-6 md:mx-8'>
         <div className='relative'>
           {loading && (
