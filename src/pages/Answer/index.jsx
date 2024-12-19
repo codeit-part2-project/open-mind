@@ -75,10 +75,9 @@ const Answer = () => {
   return (
     <>
       <FeedHeader onClick={handleToastUrlCopyLoad} />
-      <div className='flex w-screen mt-[145px] justify-center'>
+      <div className='flex flex-col items-center justify-center gap-[8px] md:gap-[19px] box-border bg-gray-20 pt-[145px] md:pt-[135px] p-[24px] pb-[168px] md:p-[32px] md:pb-[140px]'>
         <Delete onClick={handleDelete} id={id} />
-        {/* 민서님이 작업하신 공용 컴포넌트 자리입니다. */}
-        <ul className='pt-[353px] md:pt-[423px]'>
+        <ul className='w-full max-w-full bg-brown-10 border border-brown-20 rounded-[16px] pb-[16px] desktop:max-w-[716px] md:max-w-[704px]'>
           <CountQuestion count={subject.questionCount} />
           <QnAList subjectId={subject.id} name={subject.name} imageSource={subject.imageSource} />
         </ul>
