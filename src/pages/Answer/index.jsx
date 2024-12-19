@@ -6,6 +6,7 @@ import DeleteIdBtn from 'components/DeleteIdBtn';
 import CountQuestion from 'components/CountQuestion';
 import QnAList from 'components/QnAList';
 import ToastDeleteId from 'components/ToastDeleteId';
+import questionBoxImg from 'assets/images/img_QuestionBox.svg';
 
 const Answer = () => {
   const { id } = useParams();
@@ -90,7 +91,10 @@ const Answer = () => {
       <div className='flex flex-col w-screen mt-[145px] justify-center items-center'>
         <DeleteIdBtn onClick={handleDelete} id={id} />
         {isDelete ? (
-          <CountQuestion count={0} />
+          <>
+            <CountQuestion count={0} />
+            <img src={questionBoxImg} alt='질문 박스 이미지' />
+          </>
         ) : (
           <ul>
             <CountQuestion count={subject.questionCount} />
