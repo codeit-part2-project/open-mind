@@ -76,8 +76,8 @@ const Feed = () => {
   if (error) return <div className='feed-error'>오류: {error}</div>;
 
   return (
-    <section className='feed__section flex flex-col gap-[48px] justify-center items-center bg-gray-20 p-[24px] pt-[176px] md:p-[32px]'>
-      <div className='feed__container bg-brown-10 border border-brown-20 rounded-[16px] w-full pb-[16px] max-w-[327px] desktop:max-w-[716px] md:max-w-[704px]'>
+    <section className='feed__section flex flex-col gap-[48px] justify-center items-center bg-gray-20 p-[24px] pt-[176px] md:p-[32px] relative'>
+      <div className='feed__container bg-brown-10 border border-brown-20 rounded-[16px] w-full pb-[16px]  desktop:max-w-[716px] md:max-w-[704px]'>
         <div className='question-count__container flex justify-center items-center py-[16px] gap-[8px] '>
           <img src={messagesIcon} alt='말풍선 이미지' />
           {questions.length > 0 ? (
@@ -122,7 +122,7 @@ const Feed = () => {
       </div>
       <button
         type='button'
-        className='bg-brown-40 shadow-3pt px-[24px] py-[12px] rounded-[200px] text-gray-10 text-xl font-normal leading-[25px] self-end'
+        className='bg-brown-40 shadow-2pt px-[16px] py-[8px] rounded-[200px] text-gray-10 text-base font-normal leading-[25px] self-end fixed bottom-[16px] right-[16px] md:text-xl md:bottom-[24px] md:right-[24px] md:px-[24px] md:py-[12px]'
         onClick={openModal({ id: 9425, name: '테스트', imageSource: 'https://fastly.picsum.photos/id/208/200/200.jpg?hmac=J1BdqRgAAAId9wernbPINrW38haBGOtrpEqn3m2wjlY' })}
       >
         <span className='block md:hidden'>질문 작성</span>
