@@ -1,25 +1,15 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { getSubjectById } from 'api/subjects';
-import FeedHeader from 'components/feedHeader';
-import ToastUrlCopy from 'components/toastUrlCopy';
+import Header from 'components/Header';
 import CountQuestion from 'components/CountQuestion';
 import QnAList from 'components/QnAList';
 
 const Feed = () => {
   const { id } = useParams();
-  const [isToast, setIsToast] = useState(false);
   const [subject, setSubject] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
-
-  const handleToastLoad = () => {
-    setIsToast(true);
-
-    setTimeout(() => {
-      setIsToast(false);
-    }, 4950);
-  };
 
   useEffect(() => {
     const fetchSubject = async () => {
@@ -52,9 +42,8 @@ const Feed = () => {
 
   return (
     <>
-      <FeedHeader onClick={handleToastLoad} />
+      <Header imageSource={subject.imageSource} name={subject.name} />
       <div className='flex flex-col items-center justify-center gap-[8px] md:gap-[19px] box-border bg-gray-20 pt-[176px] md:pt-[189px] p-[24px] pb-[168px] md:p-[32px] md:pb-[140px]'>
-        {isToast && <ToastUrlCopy />}
         <ul className='w-full max-w-full bg-brown-10 border border-brown-20 rounded-[16px] pb-[16px] desktop:max-w-[716px] md:max-w-[704px]'>
           <CountQuestion count={subject.questionCount} />
           <QnAList subjectId={subject.id} name={subject.name} imageSource={subject.imageSource} />
