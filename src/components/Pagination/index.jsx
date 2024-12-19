@@ -4,6 +4,16 @@ import { ReactComponent as IconLeftArrow } from 'assets/images/icons/ic_Arrow-le
 import { ReactComponent as IconRightArrow } from 'assets/images/icons/ic_Arrow-right.svg';
 
 const Pagination = ({ data }) => {
+  Pagination.propTypes = {
+    data: PropTypes.shape({
+      limit: PropTypes.number.isRequired,
+      sort: PropTypes.string.isRequired,
+      count: PropTypes.number.isRequired,
+      cardLimit: PropTypes.bool.isRequired,
+      setLimit: PropTypes.func.isRequired,
+      setOffset: PropTypes.func.isRequired,
+    }).isRequired,
+  };
   const { limit, sort, count, cardLimit, setLimit, setOffset } = data;
   const [activeNum, setActiveNum] = useState(1);
   const [disabledArrowLeft, setDisabledArrowLeft] = useState(true);
@@ -88,14 +98,4 @@ const Pagination = ({ data }) => {
   );
 };
 
-Pagination.propTypes = {
-  data: PropTypes.shape({
-    limit: PropTypes.number.isRequired,
-    sort: PropTypes.string.isRequired,
-    count: PropTypes.number.isRequired,
-    cardLimit: PropTypes.bool.isRequired,
-    setLimit: PropTypes.func.isRequired,
-    setOffset: PropTypes.func.isRequired,
-  }).isRequired,
-};
 export default Pagination;
