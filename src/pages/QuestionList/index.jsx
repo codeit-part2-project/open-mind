@@ -9,17 +9,20 @@ import Logo from 'assets/images/img_Logo.svg';
 
 const QuestionList = () => {
   const navigate = useNavigate();
-  const cardLimit = useMediaQuery({ query: '(max-width : 1023px)' });
+  const cardLimit = useMediaQuery({ query: '(max-width : 867px)' });
   const [limit, setLimit] = useState(cardLimit ? 6 : 8);
   const [offset, setOffset] = useState(0);
   const [sort, setSort] = useState('time');
   const [count, setCount] = useState();
   const [cards, setCards] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const readSubject = useCallback(async () => {
+    setLoading(true);
     const subjects = await getSubject({ limit, offset, sort });
     setCount(Number(subjects.count));
     setCards([...subjects.results]);
+    setLoading(false);
   }, [limit, offset, sort]);
 
   const changeSort = (sortName) => {
@@ -43,33 +46,42 @@ const QuestionList = () => {
   };
 
   return (
-    <div className='min-w-[436px] max-w-[1200px] mx-auto'>
-      <div className=' md:mb-[76px] lg:mb-[91px] pc:mb-[97px] mt-10 mb-10'>
-        <header className='flex flex-col items-center gap-[20px] mb-[52px] md:flex-row md:justify-between md:mx-[50px] md:mb-10 lg:mx-[50px] pc:mx-[130px]'>
-          <div>
-            <Link to='/'>
-              <img className='w-[146px] h-[57px]' src={Logo} alt='site-logo' />
-            </Link>
-          </div>
-          <div>
-            <button
-              className='flex flex-row justify-bettwen gap-[4px] bg-brown-10 border-brown-40 border rounded-lg px-3 py-2 text-sm text-brown-40 font-normal whitespace-nowrap'
-              type='button'
-              onClick={onClickPageMove}
-            >
-              <div>답변하러 가기</div>
-              <div>→</div>
-            </button>
-          </div>
-        </header>
-        <section className='flex flex-row justify-between gap-[42px] mx-6 whitespace-nowrap mb-4 md:flex-col md:items-center md:gap-3 md:mb-[30px]'>
-          <h1 className='text-2xl font-normal flex-1 md:text-[40px] md:leading-[47px]'>누구에게 질문할까요?</h1>
-          <SortDropDown changeSort={changeSort} />
-        </section>
-        <CardList cards={cards} />
+    <>
+      <header className='mx-6 tablet:mx-[50px] pc:mx-auto pc:w-[940px]'>
+        <div className='flex flex-col items-center gap-[20px] my-10 md:flex-row md:justify-between'>
+          <Link to='/'>
+            <img className='w-[146px] h-[57px]' src={Logo} alt='site-logo' />
+          </Link>
+
+          <button
+            className='flex flex-row justify-between gap-[4px] bg-brown-10 border-brown-40 border rounded-lg px-3 py-2 text-sm text-brown-40 font-normal whitespace-nowrap'
+            type='button'
+            onClick={onClickPageMove}
+          >
+            <div>답변하러 가기</div>
+            <div>→</div>
+          </button>
+        </div>
+      </header>
+
+      <div className='flex justify-between gap-1 mx-6 mb-4 md:flex-col md:items-center md:gap-5 md:mx-8 md:mb-6'>
+        <h1 className='flex-1 text-2xl font-normal md:text-[40px]'>누구에게 질문할까요?</h1>
+        <SortDropDown changeSort={changeSort} />
       </div>
+
+      <div className='mx-6 md:mx-8'>
+        <div className='relative'>
+          {loading && (
+            <div className='absolute inset-0 border rounded-2xl flex justify-center items-center bg-gray-20 z-10'>
+              <div className='w-10 h-10 border-4 border-t-transparent border-brown-30 rounded-full animate-spin' />
+            </div>
+          )}
+          <CardList cards={cards} cardLimit={cardLimit} />
+        </div>
+      </div>
+
       <Pagination data={{ limit, sort, count, cardLimit, setLimit, setOffset }} />
-    </div>
+    </>
   );
 };
 

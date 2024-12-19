@@ -36,11 +36,14 @@ module.exports = {
       },
       screens: {
         pc: '1200px',
+        tablet: '868px',
       },
       gridTemplateColumns: {
-        mobaileLow: 'repeat(2, minmax(186px, 220px))',
-        tabletLow: 'repeat(3, minmax(186px, 220px))',
-        pcLow: 'repeat(4, minmax(186px, 220px))',
+        mobileLow: 'repeat(2, 1fr)',
+        tabletLow: 'repeat(4, minmax(186px, 220px))',
+      },
+      fontFamily: {
+        actor: ['Actor', 'sans-serif'],
       },
     },
   },
