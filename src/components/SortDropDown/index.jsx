@@ -30,10 +30,10 @@ const SortDropDown = ({ changeSort }) => {
       </button>
       {isOpen && (
         <ul className='flex flex-col items-center absolute top-10 left-0 right-0 mt-2 border rounded-lg border-gray-30 bg-gray-10 text-sm shadow-1pt cursor-pointer'>
-          <li className={`py-1 ${sortText === '이름순' ? 'text-blue-50' : ''}`} onClick={onClick} role='presentation'>
+          <li className={`py-2 ${sortText === '이름순' ? 'text-blue-50' : ''}`} onClick={onClick} role='presentation'>
             이름순
           </li>
-          <li className={`py-1 ${sortText === '최신순' ? 'text-blue-50' : ''}`} onClick={onClick} role='presentation'>
+          <li className={`py-2 ${sortText === '최신순' ? 'text-blue-50' : ''}`} onClick={onClick} role='presentation'>
             최신순
           </li>
         </ul>
