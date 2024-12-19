@@ -15,11 +15,14 @@ const QuestionList = () => {
   const [sort, setSort] = useState('time');
   const [count, setCount] = useState();
   const [cards, setCards] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const readSubject = useCallback(async () => {
+    setLoading(true);
     const subjects = await getSubject({ limit, offset, sort });
     setCount(Number(subjects.count));
     setCards([...subjects.results]);
+    setLoading(false);
   }, [limit, offset, sort]);
 
   const changeSort = (sortName) => {
@@ -51,7 +54,7 @@ const QuestionList = () => {
           </Link>
 
           <button
-            className='flex flex-row justify-bettwen gap-[4px] bg-brown-10 border-brown-40 border rounded-lg px-3 py-2 text-sm text-brown-40 font-normal whitespace-nowrap'
+            className='flex flex-row justify-between gap-[4px] bg-brown-10 border-brown-40 border rounded-lg px-3 py-2 text-sm text-brown-40 font-normal whitespace-nowrap'
             type='button'
             onClick={onClickPageMove}
           >
@@ -65,7 +68,19 @@ const QuestionList = () => {
         <h1 className='flex-1 text-2xl font-normal md:text-[40px]'>누구에게 질문할까요?</h1>
         <SortDropDown changeSort={changeSort} />
       </div>
-      <CardList cards={cards} />
+
+      {/* 카드 리스트 영역 */}
+      <div className='mx-6 md:mx-8'>
+        <div className='relative'>
+          {loading && (
+            <div className='absolute inset-0 border rounded-2xl flex justify-center items-center bg-gray-20 z-10'>
+              <div className='w-10 h-10 border-4 border-t-transparent border-brown-30 rounded-full animate-spin' />
+            </div>
+          )}
+          <CardList cards={cards} cardLimit={cardLimit} />
+        </div>
+      </div>
+
       <Pagination data={{ limit, sort, count, cardLimit, setLimit, setOffset }} />
     </>
   );
