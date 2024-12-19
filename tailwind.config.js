@@ -28,11 +28,15 @@ module.exports = {
         red: {
           50: 'rgba(185, 51, 51, 1)',
         },
+        dim: 'rgba(0,0,0, 0.54)',
       },
       boxShadow: {
         '1pt': '0px 4px 4px 0px rgba(140, 140, 140, 0.25)',
         '2pt': '0px 4px 4px 0px rgba(0, 0, 0, 0.25)',
         '3pt': '0px 16px 20px 0px rgba(48, 48, 48, 0.62)',
+      },
+      screens: {
+        desktop: '1200px', // 데스크탑 사이즈를 1200px로 정의
       },
     },
   },
