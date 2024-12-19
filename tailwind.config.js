@@ -28,6 +28,7 @@ module.exports = {
         red: {
           50: 'rgba(185, 51, 51, 1)',
         },
+        dim: 'rgba(0,0,0, 0.54)',
       },
       boxShadow: {
         '1pt': '0px 4px 4px 0px rgba(140, 140, 140, 0.25)',
