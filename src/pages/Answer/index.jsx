@@ -1,46 +1,50 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { getSubjectById } from 'api/subjects';
-import FeedHeader from 'components/feedHeader';
-import Delete from 'components/delete';
+import { getSubjectById, deleteSubject } from 'api/subjects';
+import Header from 'components/Header';
+import DeleteIdBtn from 'components/DeleteIdBtn';
 import CountQuestion from 'components/CountQuestion';
 import QnAList from 'components/QnAList';
-import ToastUrlCopy from 'components/toastUrlCopy';
-import ToastDelete from 'components/toastDelete';
-// import { deleteSubject } from 'api/subjects';
+import ToastDeleteId from 'components/ToastDeleteId';
+import questionBoxImg from 'assets/images/img_QuestionBox.svg';
 
 const Answer = () => {
   const { id } = useParams();
   const [subject, setSubject] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [isToastUrlCopy, setIsToastUrlCopy] = useState(false);
-  const [isToastDelete, setIsToastDelete] = useState(false);
-
+  const [isDelete, setIsDelete] = useState(false);
+  const isLocalId = localStorage.getItem('id');
   const navigate = useNavigate();
 
-  const handleToastUrlCopyLoad = () => {
-    setIsToastUrlCopy(true);
-
-    setTimeout(() => {
-      setIsToastUrlCopy(false);
-    }, 5000);
-  };
-
   const handleToastDelete = () => {
-    setIsToastDelete(true);
+    setIsDelete(true);
 
     setTimeout(() => {
-      setIsToastDelete(false);
       navigate('/');
-    }, 5000);
+    }, 3000);
   };
 
-  const handleDelete = () => {
-    // deleteSubject(id);
-    // ↑위 함수는 서버 데이터를 삭제하는 함수라서 일부로 막아뒀습니다. 삭제 동작은 확인했습니다.
-    localStorage.removeItem('id');
-    handleToastDelete();
+  const handleDelete = async () => {
+    // const userConfirmed = window.confirm('정말로 삭제하시겠습니까?', ''); // user 확인작업은 confirm으로 임시로 만들었습니다.
+    // if (userConfirmed) {
+    // }
+    // NOTE: 사용자에게 정말로 삭제할 것인지 2차로 확인하는 동작 구현을 위해 작성한 코드 입니다.
+    //       window.confirm이 린터 규칙 문제가 있을 것 같아서 일단은 주석처리 하였습니다.
+
+    try {
+      const response = await deleteSubject(id);
+      if (!response.ok) {
+        throw new Error('삭제 중 오류가 발생했습니다. 페이지를 새로고침 합니다.');
+      }
+      localStorage.removeItem('id');
+      handleToastDelete();
+    } catch (err) {
+      setError(err.message);
+      setTimeout(() => {
+        setError(null);
+      }, 3000);
+    }
   };
 
   useEffect(() => {
@@ -48,8 +52,16 @@ const Answer = () => {
       try {
         setIsLoading(true);
         setError(null);
-        const response = await getSubjectById(id);
-        setSubject(response);
+        if (!isDelete) {
+          if (isLocalId) {
+            const response = await getSubjectById(id);
+            setSubject(response);
+          } else {
+            setTimeout(() => {
+              navigate('/');
+            }, 3000);
+          }
+        }
       } catch (err) {
         setError('질문 대상을 불러오는 중 오류가 발생했습니다.');
       } finally {
@@ -58,7 +70,7 @@ const Answer = () => {
     };
 
     fetchSubject();
-  }, [id]);
+  }, [id, isDelete, isLocalId, navigate]);
 
   if (isLoading) {
     return <div>로딩 중...</div>;
@@ -74,17 +86,22 @@ const Answer = () => {
 
   return (
     <>
-      <FeedHeader onClick={handleToastUrlCopyLoad} />
-      <div className='flex w-screen mt-[145px] justify-center'>
-        <Delete onClick={handleDelete} id={id} />
-        {/* 민서님이 작업하신 공용 컴포넌트 자리입니다. */}
-        <ul className='pt-[353px] md:pt-[423px]'>
-          <CountQuestion count={subject.questionCount} />
-          <QnAList subjectId={subject.id} name={subject.name} imageSource={subject.imageSource} />
-        </ul>
+      <Header imageSource={subject.imageSource} name={subject.name} />
+      <div className='flex flex-col items-center justify-center gap-[8px] md:gap-[19px] box-border bg-gray-20 pt-[145px] md:pt-[135px] p-[24px] pb-[168px] md:p-[32px] md:pb-[140px]'>
+        <DeleteIdBtn onClick={handleDelete} id={id} />
+        {isDelete ? (
+          <>
+            <CountQuestion count={0} />
+            <img src={questionBoxImg} alt='질문 박스 이미지' />
+          </>
+        ) : (
+          <ul className='w-full max-w-full bg-brown-10 border border-brown-20 rounded-[16px] pb-[16px] desktop:max-w-[716px] md:max-w-[704px]'>
+            <CountQuestion count={subject.questionCount} />
+            <QnAList subjectId={subject.id} name={subject.name} imageSource={subject.imageSource} />
+          </ul>
+        )}
       </div>
-      {isToastUrlCopy && <ToastUrlCopy />}
-      {isToastDelete && <ToastDelete />}
+      {isDelete && <ToastDeleteId />}
     </>
   );
 };

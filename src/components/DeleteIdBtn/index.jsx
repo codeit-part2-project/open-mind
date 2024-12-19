@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 
-const Delete = ({ onClick, id }) => {
-  Delete.propTypes = {
+const DeleteIdBtn = ({ onClick, id }) => {
+  DeleteIdBtn.propTypes = {
     onClick: PropTypes.func,
     id: PropTypes.string,
   };
@@ -23,4 +23,4 @@ const Delete = ({ onClick, id }) => {
   );
 };
 
-export default Delete;
+export default DeleteIdBtn;
