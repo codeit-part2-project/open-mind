@@ -4,6 +4,15 @@ import PropTypes from 'prop-types';
 const AppContext = createContext();
 
 const AppProvider = ({ children }) => {
+  /**
+   * children prop 유효성 검사
+   * PropType.node : 해당 prop 값이 렌더링 가능한 값이어야 됨
+   * isRequired : children prop은 필수임
+   */
+  AppProvider.propTypes = {
+    children: PropTypes.node.isRequired,
+  };
+
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [profile, setProfile] = useState(null);
   /**
@@ -14,23 +23,22 @@ const AppProvider = ({ children }) => {
    * @returns { () => {setProfile(data); setIsModalOpen(true); } }
    */
   const openModal = (data) => () => {
+    const scrollBarWidth = window.innerWidth - document.documentElement.clientWidth;
+    document.body.style.overflow = 'hidden';
+    document.body.style.paddingRight = `${scrollBarWidth}px`;
+
     setProfile(data);
     setIsModalOpen(true);
   };
-  const closeModal = () => setIsModalOpen(false);
+  const closeModal = () => {
+    document.body.style.overflow = '';
+    document.body.style.paddingRight = 0;
+    setIsModalOpen(false);
+  };
 
   const contextValue = useMemo(() => ({ isModalOpen, profile, openModal, closeModal }), [isModalOpen, profile]);
 
   return <AppContext.Provider value={contextValue}>{children}</AppContext.Provider>;
-};
-
-/**
- * children prop 유효성 검사
- * PropType.node : 해당 prop 값이 렌더링 가능한 값이어야 됨
- * isRequired : children prop은 필수임
- */
-AppProvider.propTypes = {
-  children: PropTypes.node.isRequired,
 };
 
 export { AppProvider, AppContext };
