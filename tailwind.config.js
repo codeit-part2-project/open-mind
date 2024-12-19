@@ -36,7 +36,8 @@ module.exports = {
         '3pt': '0px 16px 20px 0px rgba(48, 48, 48, 0.62)',
       },
       animation: {
-        'slide-up-fade': 'slideUpFade 0.5s ease-out, fadeOut 0.5s ease-out 4.6s',
+        'slide-up-fade-urlCopy': 'slideUpFade 0.5s ease-out, fadeOut 0.5s ease-out 4.6s',
+        'slide-up-fade-delete': 'slideUpFade 0.5s ease-out, fadeOut 0.5s ease-out 2.6s',
       },
       keyframes: {
         slideUpFade: {
