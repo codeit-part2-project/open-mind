@@ -4,15 +4,15 @@ import { ReactComponent as ThumbsDownIcon } from 'assets/images/icons/thumbs-dow
 import PropTypes from 'prop-types';
 
 const CountingFavorite = ({ like, dislike }) => {
-  const [favoriteCount, setFavoriteCount] = useState(like);
-  const [unFavoriteCount, setUnFavoriteCount] = useState(dislike);
-  const [clickFavorite, setClickFavorite] = useState(false);
-  const [clickUnFavorite, setClickUnFavorite] = useState(false);
-
   CountingFavorite.propTypes = {
     like: PropTypes.number.isRequired,
     dislike: PropTypes.number.isRequired,
   };
+
+  const [favoriteCount, setFavoriteCount] = useState(like);
+  const [unFavoriteCount, setUnFavoriteCount] = useState(dislike);
+  const [clickFavorite, setClickFavorite] = useState(false);
+  const [clickUnFavorite, setClickUnFavorite] = useState(false);
 
   const countingHandleFavorite = () => {
     if (!clickFavorite) {
