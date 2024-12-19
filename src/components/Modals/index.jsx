@@ -49,7 +49,7 @@ const Modal = () => {
           <textarea
             name='question-content'
             id='questionContent'
-            className='flex-1 w-full rounded-lg p-4 bg-gray-20 resize-none focus:outline-brown-30'
+            className='flex-1 w-full rounded-lg p-4 bg-gray-20 resize-none focus:outline focus:outline-1 focus:outline-brown-40'
             placeholder='질문을 입력해주세요'
             onChange={changeContentHandler}
             ref={content}
