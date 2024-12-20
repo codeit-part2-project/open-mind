@@ -34,6 +34,17 @@ module.exports = {
         '2pt': '0px 4px 4px 0px rgba(0, 0, 0, 0.25)',
         '3pt': '0px 16px 20px 0px rgba(48, 48, 48, 0.62)',
       },
+      screens: {
+        pc: '1200px',
+        tablet: '868px',
+      },
+      gridTemplateColumns: {
+        mobileLow: 'repeat(2, 1fr)',
+        tabletLow: 'repeat(4, minmax(186px, 220px))',
+      },
+      fontFamily: {
+        actor: ['Actor', 'sans-serif'],
+      },
     },
   },
   plugins: [],
