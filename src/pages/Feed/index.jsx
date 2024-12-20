@@ -2,6 +2,7 @@ import { useEffect, useState, useContext, useCallback, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import { getSubjectById } from 'api/subjects';
 import { getQuestionBySubjectId } from 'api/questions';
+
 import { AppContext } from 'components/Context';
 import Header from 'components/Header';
 import CountQuestion from 'components/CountQuestion';
@@ -12,8 +13,8 @@ const Feed = () => {
   const [profileLoading, setProfileLoading] = useState(true);
   const [profileError, setProfileError] = useState('');
   const [profile, setProfile] = useState(null);
-
-  const { openModal } = useContext(AppContext);
+  // eslint-disable-next-line
+  const { openModal, postObject } = useContext(AppContext);
 
   const [questionList, setQuestionList] = useState([]);
 
@@ -47,14 +48,22 @@ const Feed = () => {
         const params = { limit: 3, offset };
         const response = await getQuestionBySubjectId(subjectId, params);
         if (response.results) {
-          setQuestionList((prev) => [...prev, ...response.results]);
+          setQuestionList((prev) => {
+            // 새로운 질문을 기존 데이터에 중복 없이 추가
+            const updatedList = [...prev];
+            response.results.forEach((newQuestion) => {
+              if (!updatedList.some((question) => question.id === newQuestion.id)) {
+                updatedList.push(newQuestion);
+              }
+            });
+            return updatedList;
+          });
           setHasMore(response.next !== null);
         } else {
           throw new Error('질문 목록을 불러오는 데 실패했습니다.');
         }
       } catch (err) {
-        // eslint-disable-next-line
-        console.err(err.toString());
+        console.error(err.toString());
       } finally {
         setListLoading(false);
       }
@@ -62,6 +71,14 @@ const Feed = () => {
 
     fetchQuestions();
   }, [subjectId, offset]);
+
+  // 새 질문이 추가되면 질문 리스트 맨 앞에 삽입
+  useEffect(() => {
+    if (postObject) {
+      setQuestionList((prev) => [postObject, ...prev]); // 새 질문을 리스트 맨 앞에 삽입
+      setOffset((prev) => prev + 1); // 페이지네이션 offset을 유지
+    }
+  }, [postObject]);
 
   const loadMoreQuestions = useCallback(
     (entries) => {

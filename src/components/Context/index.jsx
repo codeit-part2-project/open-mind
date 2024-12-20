@@ -15,6 +15,7 @@ const AppProvider = ({ children }) => {
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [profile, setProfile] = useState(null);
+  const [postObject, setPostObject] = useState(null);
   /**
    * openModal 함수 사용 시 data 객체를 아래처럼 주어야합니다.
    * return 되는 값은 data 객체를 가지고 있는 내부 함수 입니다.
@@ -36,7 +37,7 @@ const AppProvider = ({ children }) => {
     setIsModalOpen(false);
   };
 
-  const contextValue = useMemo(() => ({ isModalOpen, profile, openModal, closeModal }), [isModalOpen, profile]);
+  const contextValue = useMemo(() => ({ isModalOpen, profile, openModal, closeModal, postObject, setPostObject }), [isModalOpen, profile, postObject]);
 
   return <AppContext.Provider value={contextValue}>{children}</AppContext.Provider>;
 };
