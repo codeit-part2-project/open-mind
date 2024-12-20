@@ -1,4 +1,5 @@
 /** @type {import('tailwindcss').Config} */
+
 module.exports = {
   content: ['./src/**/*.{js,jsx,ts,tsx}'],
   theme: {
@@ -37,6 +38,20 @@ module.exports = {
       },
       screens: {
         desktop: '1200px', // 데스크탑 사이즈를 1200px로 정의
+      },
+      animation: {
+        'slide-up-fade-urlCopy': 'slideUpFade 0.5s ease-out, fadeOut 0.5s ease-out 4.6s',
+        'slide-up-fade-delete': 'slideUpFade 0.5s ease-out, fadeOut 0.5s ease-out 2.6s',
+      },
+      keyframes: {
+        slideUpFade: {
+          '0%': { transform: 'translateX(-50%) translateY(30px)', opacity: '0' },
+          '100%': { transform: 'translateX(-50%) translateY(0px)', opacity: '1' },
+        },
+        fadeOut: {
+          '0%': { opacity: '1' },
+          '100%': { opacity: '0' },
+        },
       },
     },
   },
