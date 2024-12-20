@@ -37,7 +37,7 @@ module.exports = {
         '3pt': '0px 16px 20px 0px rgba(48, 48, 48, 0.62)',
       },
       screens: {
-        desktop: '1200px', // 데스크탑 사이즈를 1200px로 정의
+        desktop: '1200px',
       },
       animation: {
         'slide-up-fade-urlCopy': 'slideUpFade 0.5s ease-out, fadeOut 0.5s ease-out 4.6s',
