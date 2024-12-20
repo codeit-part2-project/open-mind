@@ -34,7 +34,7 @@ const QnAList = ({ name, imageSource, questionList }) => {
           <AnswerStatus answer={question.answer} />
           <QuestionContent createdAt={question.createdAt} content={question.content} />
           <AnswerContent answer={question.answer} name={name} imageSource={imageSource} />
-          <CountFavorite like={question.like} dislike={question.dislike} />
+          <CountFavorite id={question.id} like={question.like} dislike={question.dislike} />
         </li>
       ))}
     </ul>
