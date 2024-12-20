@@ -39,11 +39,11 @@ const CountFavorite = ({ like, dislike, id }) => {
     <div className=' flex gap-[32px] text-gray-60 border-t pt-[25px] '>
       <button type='button' onClick={countingHandleFavorite} className='flex justify-center items-center gap-[6px]'>
         <ThumbsUpIcon className={`${clickFavorite ? 'fill-blue-50' : 'fill-gray-40'}`} />
-        <p className={`text-sm leading-[18px] font-medium  ${clickFavorite ? 'text-blue-50' : 'text-gray-40'}`}>좋아요 {favoriteCount}</p>
+        <p className={`text-sm leading-[18px] font-medium  ${clickFavorite ? 'text-blue-50' : 'text-gray-40'}`}>좋아요 {`${favoriteCount || ''}`}</p>
       </button>
       <button type='button' onClick={countingHandleUnFavorite} className='flex justify-center items-center gap-[6px]'>
         <ThumbsDownIcon className={`${clickUnFavorite ? 'fill-red-50' : 'fill-gray-40'}`} />
-        <p className={`text-sm leading-[18px] font-medium ${clickUnFavorite ? 'text-red-50' : 'text-gray-40'} `}>싫어요 {unFavoriteCount}</p>
+        <p className={`text-sm leading-[18px] font-medium ${clickUnFavorite ? 'text-red-50' : 'text-gray-40'} `}>싫어요 {`${unFavoriteCount || ''}`}</p>
       </button>
     </div>
   );
