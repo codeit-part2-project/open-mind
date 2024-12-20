@@ -13,7 +13,7 @@ const style = {
 
 const Header = ({ imageSource, name }) => {
   Header.propTypes = {
-    imageSource: PropTypes.number,
+    imageSource: PropTypes.string,
     name: PropTypes.string,
   };
 
