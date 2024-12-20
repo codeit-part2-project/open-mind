@@ -3,8 +3,8 @@ import { ReactComponent as ThumbsUpIcon } from 'assets/images/icons/thumbs-up.sv
 import { ReactComponent as ThumbsDownIcon } from 'assets/images/icons/thumbs-down.svg';
 import PropTypes from 'prop-types';
 
-const CountingFavorite = ({ like, dislike }) => {
-  CountingFavorite.propTypes = {
+const CountFavorite = ({ like, dislike }) => {
+  CountFavorite.propTypes = {
     like: PropTypes.number.isRequired,
     dislike: PropTypes.number.isRequired,
   };
@@ -46,4 +46,4 @@ const CountingFavorite = ({ like, dislike }) => {
   );
 };
 
-export default CountingFavorite;
+export default CountFavorite;
