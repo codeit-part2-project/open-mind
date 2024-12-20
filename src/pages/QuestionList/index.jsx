@@ -1,16 +1,16 @@
 import { useState, useCallback, useEffect } from 'react';
-import { useMediaQuery } from 'react-responsive';
 import { Link, useNavigate } from 'react-router-dom';
 import CardList from 'components/CardList';
 import Pagination from 'components/Pagination';
 import SortDropDown from 'components/SortDropDown';
 import { getSubject } from 'api/subjects';
 import Logo from 'assets/images/img_Logo.svg';
+import useViewport from 'hooks/useViewport';
 
 const QuestionList = () => {
   const navigate = useNavigate();
-  const cardLimit = useMediaQuery({ query: '(max-width : 867px)' });
-  const [limit, setLimit] = useState(cardLimit ? 6 : 8);
+  const width = useViewport();
+  const [limit, setLimit] = useState(width <= 867 ? 6 : 8);
   const [offset, setOffset] = useState(0);
   const [sort, setSort] = useState('time');
   const [count, setCount] = useState();
@@ -28,7 +28,7 @@ const QuestionList = () => {
   const changeSort = (sortName) => {
     if (sortName === '이름순') setSort('name');
     else setSort('time');
-    setLimit(cardLimit ? 6 : 8);
+    setLimit(width <= 867 ? 6 : 8);
     setOffset(0);
   };
 
@@ -76,11 +76,11 @@ const QuestionList = () => {
               <div className='w-10 h-10 border-4 border-t-transparent border-brown-30 rounded-full animate-spin' />
             </div>
           )}
-          <CardList cards={cards} cardLimit={cardLimit} />
+          <CardList cards={cards} pageWidth={width} />
         </div>
       </div>
 
-      <Pagination data={{ limit, sort, count, cardLimit, setLimit, setOffset }} />
+      <Pagination data={{ limit, sort, count, pageWidth: width, setLimit, setOffset }} />
     </>
   );
 };

@@ -2,9 +2,7 @@ import PropTypes from 'prop-types';
 import { ReactComponent as QuestionImage } from 'assets/images/icons/ic_Messages.svg';
 import { useNavigate } from 'react-router-dom';
 
-const CardList = ({ cards, cardLimit }) => {
-  const Navigate = useNavigate();
-
+const CardList = ({ cards, pageWidth }) => {
   CardList.propTypes = {
     cards: PropTypes.arrayOf(
       PropTypes.shape({
@@ -14,8 +12,10 @@ const CardList = ({ cards, cardLimit }) => {
         questionCount: PropTypes.number.isRequired,
       }),
     ).isRequired,
-    cardLimit: PropTypes.bool.isRequired,
+    pageWidth: PropTypes.number.isRequired,
   };
+
+  const Navigate = useNavigate();
 
   const cardMove = (id) => {
     Navigate(`/post/${id}`);
@@ -24,7 +24,7 @@ const CardList = ({ cards, cardLimit }) => {
   return (
     <div className='grid grid-rows-3 grid-cols-2 gap-4 md:gap-5 md:grid-rows-2 md:grid-cols-3 tablet:grid-cols-tabletLow tablet:justify-center'>
       {cards.map((item, i) => {
-        const DISPLAY_CLASS_NAME = cardLimit && i > 5 ? 'hidden' : '';
+        const DISPLAY_CLASS_NAME = pageWidth <= 867 && i > 5 ? 'hidden' : '';
 
         return (
           <div

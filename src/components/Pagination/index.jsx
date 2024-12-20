@@ -9,12 +9,12 @@ const Pagination = ({ data }) => {
       limit: PropTypes.number.isRequired,
       sort: PropTypes.string.isRequired,
       count: PropTypes.number.isRequired,
-      cardLimit: PropTypes.bool.isRequired,
+      pageWidth: PropTypes.number.isRequired,
       setLimit: PropTypes.func.isRequired,
       setOffset: PropTypes.func.isRequired,
     }).isRequired,
   };
-  const { limit, sort, count, cardLimit, setLimit, setOffset } = data;
+  const { limit, sort, count, pageWidth, setLimit, setOffset } = data;
   const [activeNum, setActiveNum] = useState(1);
   const [disabledArrowLeft, setDisabledArrowLeft] = useState(true);
   const [disabledArrowRight, setDisabledArrowRight] = useState(false);
@@ -68,7 +68,7 @@ const Pagination = ({ data }) => {
   }, [checkArrowBtn]);
 
   useEffect(() => {
-    const cardCnt = cardLimit ? 6 : 8;
+    const cardCnt = pageWidth <= 867 ? 6 : 8;
     setLimit(cardCnt);
     if (activeNum > Math.ceil(count / cardCnt)) {
       setActiveNum(Math.ceil(count / cardCnt));
@@ -76,7 +76,7 @@ const Pagination = ({ data }) => {
     } else {
       setOffset((activeNum - 1) * cardCnt);
     }
-  }, [cardLimit, count, setLimit, setOffset, activeNum]);
+  }, [pageWidth, count, setLimit, setOffset, activeNum]);
 
   return (
     <div className='flex gap-6 justify-center items-center font-actor my-8 md:mt-20 md:mb-16'>
