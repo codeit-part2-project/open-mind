@@ -13,7 +13,7 @@ const Feed = () => {
   const [profileLoading, setProfileLoading] = useState(true);
   const [profileError, setProfileError] = useState('');
   const [profile, setProfile] = useState(null);
-  // eslint-disable-next-line
+
   const { openModal, postObject } = useContext(AppContext);
 
   const [questionList, setQuestionList] = useState([]);
@@ -63,6 +63,7 @@ const Feed = () => {
           throw new Error('질문 목록을 불러오는 데 실패했습니다.');
         }
       } catch (err) {
+        // eslint-disable-next-line
         console.error(err.toString());
       } finally {
         setListLoading(false);
@@ -77,6 +78,7 @@ const Feed = () => {
     if (postObject) {
       setQuestionList((prev) => [postObject, ...prev]); // 새 질문을 리스트 맨 앞에 삽입
       setOffset((prev) => prev + 1); // 페이지네이션 offset을 유지
+      setProfile((prev) => ({ ...prev, questionCount: prev.questionCount + 1 }));
     }
   }, [postObject]);
 
