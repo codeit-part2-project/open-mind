@@ -6,7 +6,8 @@ import logo from 'assets/images/img_Logo.svg';
 import urlCopy from 'assets/images/icons/ic_Link.svg';
 import kakaotalk from 'assets/images/icons/ic_Kakaotalk.svg';
 import facebook from 'assets/images/icons/ic_Facebook.svg';
-import useKakaoShare from 'hooks/customHooks';
+import useKakaoShare from 'hooks/useKakaoShare';
+import useFacebookShare from 'hooks/useFacebookShare';
 
 const style = {
   filter: 'invert(100%) sepia(0%) saturate(0%) hue-rotate(192deg) brightness(107%) contrast(105%)',
@@ -23,6 +24,7 @@ const Header = ({ imageSource, name }) => {
   const currentUrl = window.location.href;
 
   const { shareKakao } = useKakaoShare(name);
+  const { shareFacebook } = useFacebookShare();
 
   const handleToastUrlCopyLoad = () => {
     setIsToastUrlCopy(true);
@@ -64,9 +66,10 @@ const Header = ({ imageSource, name }) => {
               <button className='flex justify-center items-center w-10 h-10 rounded-full bg-yellow-50' type='button' onClick={shareKakao}>
                 <img className='w-[18px] h-[18px]' src={kakaotalk} alt='kakaotalk_share' />
               </button>
-              <div className='flex justify-center items-center w-10 h-10 rounded-full bg-blue-50'>
+
+              <button type='button' className='flex justify-center items-center w-10 h-10 rounded-full bg-blue-50' onClick={shareFacebook}>
                 <img className='w-[18px] h-[18px]' style={style} src={facebook} alt='facebook_share' />
-              </div>
+              </button>
             </div>
           </div>
         </div>
