@@ -56,7 +56,7 @@ const Home = () => {
         onSubmit={handleSubmit}
         className='flex flex-col relative bg-white rounded-[16px] p-[24px] mt-[24px] mx-[35px] z-[1] w-[calc(100%-70px)] max-w-[350px] md:p-[32px] md:w-[calc(100%-368px)] md:max-w-[400px] md:mx-[184px]'
       >
-        <IcPerson className='absolute top-[37px] left-[40px] w-[20px] h-[20px] fill-gray-40 md:top-[45px] md:left-[48px] fill-gray-40' />
+        <IcPerson className='absolute top-[37px] left-[40px] w-[20px] h-[20px] md:top-[45px] md:left-[48px] fill-gray-40' />
         <input
           type='text'
           placeholder='이름을 입력하세요'
