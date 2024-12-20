@@ -13,8 +13,8 @@ const style = {
 
 const Header = ({ imageSource, name }) => {
   Header.propTypes = {
-    imageSource: PropTypes.number,
-    name: PropTypes.string,
+    imageSource: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
   };
 
   const [isToastUrlCopy, setIsToastUrlCopy] = useState(false);
