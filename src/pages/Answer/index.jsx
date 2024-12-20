@@ -22,7 +22,7 @@ const Answer = () => {
 
     setTimeout(() => {
       navigate('/');
-    }, 3000);
+    }, 2000);
   };
 
   const handleDelete = async () => {
@@ -90,10 +90,10 @@ const Answer = () => {
       <div className='flex flex-col items-center justify-center gap-[8px] md:gap-[19px] box-border bg-gray-20 pt-[145px] md:pt-[135px] p-[24px] pb-[168px] md:p-[32px] md:pb-[140px]'>
         <DeleteIdBtn onClick={handleDelete} id={id} />
         {isDelete ? (
-          <>
+          <div className='w-full max-w-full bg-brown-10 border border-brown-20 rounded-[16px] pb-[16px] desktop:max-w-[716px] md:max-w-[704px]'>
             <CountQuestion count={0} />
-            <img src={questionBoxImg} alt='질문 박스 이미지' />
-          </>
+            <img src={questionBoxImg} alt='질문 박스 이미지' className='mx-auto mt-[50px] mb-[86px] h-[118px] w-[114px] md:mt-[54px] md:mb-[49px] md:h-[154px] md:w-[150px]' />
+          </div>
         ) : (
           <ul className='w-full max-w-full bg-brown-10 border border-brown-20 rounded-[16px] pb-[16px] desktop:max-w-[716px] md:max-w-[704px]'>
             <CountQuestion count={subject.questionCount} />
