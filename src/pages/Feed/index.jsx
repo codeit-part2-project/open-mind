@@ -131,7 +131,10 @@ const Feed = () => {
         </ul>
         <button
           type='button'
-          className='fixed bottom-[16px] right-[16px] self-end md:bottom-[24px] md:right-[24px] w-auto h-auto px-[16px] py-[8px] md:px-[24px] md:py-[12px] rounded-[200px] bg-brown-40 shadow-2pt text-gray-10 text-base md:text-xl font-normal leading-[25px]'
+          className='fixed bottom-[16px] md:bottom-[24px] w-auto h-auto px-[16px] py-[8px] md:px-[24px] md:py-[12px] rounded-[200px] bg-brown-40 shadow-2pt text-gray-10 text-base md:text-xl font-normal leading-[25px]'
+          style={{
+            right: `calc(16px + var(--scroll-bar-width, 0px))`,
+          }}
           onClick={openModal({ id: profile.id, name: profile.name, imageSource: profile.imageSource })}
         >
           <span className='block md:hidden'>질문 작성</span>

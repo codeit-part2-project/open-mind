@@ -27,13 +27,16 @@ const AppProvider = ({ children }) => {
     const scrollBarWidth = window.innerWidth - document.documentElement.clientWidth;
     document.body.style.overflow = 'hidden';
     document.body.style.paddingRight = `${scrollBarWidth}px`;
+    document.documentElement.style.setProperty('--scroll-bar-width', `${scrollBarWidth}px`); // CSS 변수 설정
 
     setProfile(data);
     setIsModalOpen(true);
   };
+
   const closeModal = () => {
     document.body.style.overflow = '';
     document.body.style.paddingRight = 0;
+    document.documentElement.style.removeProperty('--scroll-bar-width'); // CSS 변수 제거
     setIsModalOpen(false);
   };
 
