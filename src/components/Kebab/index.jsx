@@ -1,11 +1,12 @@
 import PropTypes from 'prop-types';
+import { useEffect, useRef } from 'react';
+import QuestionDelete from 'components/QuestionDelete';
 import kebab from 'assets/images/icons/ic_Kebab.svg';
 import { ReactComponent as Rejection } from 'assets/images/icons/ic_Rejection.svg';
 import { ReactComponent as Edit } from 'assets/images/icons/ic_Edit.svg';
 import { ReactComponent as Close } from 'assets/images/icons/ic_Close.svg';
-import { useEffect, useRef } from 'react';
 
-const Kebab = ({ id, isAnswer, isKebabOpen, onKebabClick }) => {
+const Kebab = ({ id, isAnswer, isKebabOpen, onKebabClick, onDeleteQuestion }) => {
   Kebab.propTypes = {
     isAnswer: PropTypes.shape({
       id: PropTypes.number.isRequired,
@@ -17,6 +18,7 @@ const Kebab = ({ id, isAnswer, isKebabOpen, onKebabClick }) => {
     id: PropTypes.number.isRequired,
     isKebabOpen: PropTypes.bool.isRequired,
     onKebabClick: PropTypes.func.isRequired,
+    onDeleteQuestion: PropTypes.func.isRequired,
   };
 
   const menuRef = useRef(null);
@@ -32,7 +34,7 @@ const Kebab = ({ id, isAnswer, isKebabOpen, onKebabClick }) => {
 
   useEffect(() => {
     const handleClickOutside = (event) => {
-      if (menuRef.current && !menuRef.current.contains(event.target)) {
+      if (menuRef.current && !menuRef.current.contains(event.target) && !event.target.closest('button')) {
         onKebabClick(null);
       }
     };
@@ -62,10 +64,7 @@ const Kebab = ({ id, isAnswer, isKebabOpen, onKebabClick }) => {
                 </button>
               </div>
               <div className='flex justify-center items-center'>
-                <button type='button' className='flex justify-center items-center gap-2 rounded-lg w-[103px] h-[30px] text-gray-50 hover:text-gray-60 hover:bg-gray-20' onClick={handleMenuItemClick}>
-                  <Close className='w-3.5 h-3.5 fill-current' />
-                  <p>질문삭제</p>
-                </button>
+                <QuestionDelete id={id} onDeleteQuestion={onDeleteQuestion} />
               </div>
             </>
           ) : (
@@ -77,10 +76,7 @@ const Kebab = ({ id, isAnswer, isKebabOpen, onKebabClick }) => {
                 </button>
               </div>
               <div className='flex justify-center items-center'>
-                <button type='button' className='flex justify-center items-center gap-2 rounded-lg w-[103px] h-[30px] text-gray-50 hover:text-gray-60 hover:bg-gray-20' onClick={handleMenuItemClick}>
-                  <Close className='w-3.5 h-3.5 fill-current' />
-                  <p>질문삭제</p>
-                </button>
+                <QuestionDelete id={id} onDeleteQuestion={onDeleteQuestion} />
               </div>
               <div className='flex justify-center items-center'>
                 <button type='button' className='flex justify-center items-center gap-2 rounded-lg w-[103px] h-[30px] text-gray-50 hover:text-gray-60 hover:bg-gray-20' onClick={handleMenuItemClick}>
