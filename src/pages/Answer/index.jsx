@@ -88,7 +88,7 @@ const Answer = () => {
   return (
     <>
       <Header imageSource={subject.imageSource} name={subject.name} />
-      <div className='flex flex-col w-screen mt-[145px] justify-center items-center'>
+      <div className='flex flex-col items-center justify-center gap-[8px] md:gap-[19px] box-border bg-gray-20 pt-[145px] md:pt-[135px] p-[24px] pb-[168px] md:p-[32px] md:pb-[140px]'>
         <DeleteIdBtn onClick={handleDelete} id={id} />
         {isDelete ? (
           <>
@@ -96,7 +96,7 @@ const Answer = () => {
             <img src={questionBoxImg} alt='질문 박스 이미지' />
           </>
         ) : (
-          <ul>
+          <ul className='w-full max-w-full bg-brown-10 border border-brown-20 rounded-[16px] pb-[16px] desktop:max-w-[716px] md:max-w-[704px]'>
             <CountQuestion count={subject.questionCount} />
             <QnAList subjectId={subject.id} name={subject.name} imageSource={subject.imageSource} />
           </ul>
