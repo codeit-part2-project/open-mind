@@ -10,7 +10,7 @@ const QuestionContent = ({ createdAt, content }) => {
   return (
     <div>
       <p className='mb-[4px] text-sm font-normal leading-[18px] text-gray-40'>질문 · {formatCreatedAt(createdAt)}</p>
-      <p className='text-base font-normal leading-[22px] md:text-lg md:leading-6'>{content}</p>
+      <p className='text-base font-normal leading-[22px] md:text-lg md:leading-6 font-actor'>{content}</p>
     </div>
   );
 };

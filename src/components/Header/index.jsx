@@ -48,7 +48,7 @@ const Header = ({ imageSource, name }) => {
 
   return (
     <>
-      <div>
+      <div className='bg-white'>
         <div className='flex justify-center relative'>
           <div className='w-screen overflow-hidden flex justify-center'>
             <img className='min-w-[906px] md:min-w-[1200px]' src={headerImg} alt='Header_Image' />

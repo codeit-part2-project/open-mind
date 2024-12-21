@@ -43,6 +43,9 @@ module.exports = {
         'slide-up-fade-urlCopy': 'slideUpFade 0.5s ease-out, fadeOut 0.5s ease-out 4.6s',
         'slide-up-fade-delete': 'slideUpFade 0.5s ease-out, fadeOut 0.5s ease-out 2.6s',
       },
+      fontFamily: {
+        actor: ['Actor', 'sans-serif'],
+      },
       keyframes: {
         slideUpFade: {
           '0%': { transform: 'translateX(-50%) translateY(30px)', opacity: '0' },

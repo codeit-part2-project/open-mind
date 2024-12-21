@@ -9,7 +9,7 @@ const CountQuestion = ({ count }) => {
   return (
     <div className='flex items-center justify-center gap-[8px] py-[16px]'>
       <MessagesIcon className='w-[22px] h-[22px] fill-brown-40 md:w-[24px] md:h-[24px]' />
-      <p className='text-lg leading-6 text-brown-40 md:text-xl md:leading-[25px]'>{count === 0 ? '아직 질문이 없습니다' : `${count}개의 질문이 있습니다`}</p>
+      <p className='text-lg leading-6 text-brown-40 font-actor md:text-xl md:leading-[25px]'>{count === 0 ? '아직 질문이 없습니다' : `${count}개의 질문이 있습니다`}</p>
     </div>
   );
 };
