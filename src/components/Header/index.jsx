@@ -13,8 +13,8 @@ const style = {
 
 const Header = ({ imageSource, name }) => {
   Header.propTypes = {
-    imageSource: PropTypes.number,
-    name: PropTypes.string,
+    imageSource: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
   };
 
   const [isToastUrlCopy, setIsToastUrlCopy] = useState(false);
@@ -43,7 +43,7 @@ const Header = ({ imageSource, name }) => {
 
   return (
     <>
-      <div>
+      <header className='w-screen bg-white'>
         <div className='flex justify-center relative'>
           <div className='w-screen overflow-hidden flex justify-center'>
             <img className='min-w-[906px] md:min-w-[1200px]' src={headerImg} alt='Header_Image' />
@@ -67,7 +67,7 @@ const Header = ({ imageSource, name }) => {
             </div>
           </div>
         </div>
-      </div>
+      </header>
       {isToastUrlCopy && <ToastUrlCopy />}
     </>
   );
