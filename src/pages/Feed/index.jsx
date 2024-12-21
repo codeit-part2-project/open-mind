@@ -116,7 +116,7 @@ const Feed = () => {
   if (profileError) return <div className='feed-error'>오류: {profileError}</div>;
 
   return (
-    <>
+    <div className='h-screen bg-gray-20'>
       <Header imageSource={profile.imageSource} name={profile.name} />
       <div className='flex flex-col items-center justify-center gap-[8px] md:gap-[19px] box-border bg-gray-20 pt-[176px] md:pt-[189px] p-[24px] pb-[168px] md:p-[32px] md:pb-[140px]'>
         <ul className='w-full max-w-full bg-brown-10 border border-brown-20 rounded-[16px] pb-[16px] desktop:max-w-[716px] md:max-w-[704px]'>
@@ -138,7 +138,7 @@ const Feed = () => {
           <span className='hidden md:block'>질문 작성하기</span>
         </button>
       </div>
-    </>
+    </div>
   );
 };
 
