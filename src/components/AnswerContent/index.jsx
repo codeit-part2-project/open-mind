@@ -92,6 +92,7 @@ const AnswerContent = ({ answer, name, imageSource, id, onAnswerSubmit }) => {
 
   useEffect(() => {
     setUpdatedAnswer(answer);
+    setTextareaValue('');
   }, [answer]);
 
   if (updatedAnswer && updatedAnswer.isRejected) {
