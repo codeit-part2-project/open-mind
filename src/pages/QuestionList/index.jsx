@@ -54,7 +54,7 @@ const QuestionList = () => {
           </Link>
 
           <button
-            className='flex flex-row justify-between gap-[4px] bg-brown-10 border-brown-40 border rounded-lg px-3 py-2 text-sm text-brown-40 font-normal whitespace-nowrap'
+            className='flex flex-row justify-between gap-[4px] bg-brown-10 border-brown-40 border rounded-lg px-3 py-2 text-sm text-brown-40 font-normal whitespace-nowrap transition-colors duration-300 hover:bg-brown-20'
             type='button'
             onClick={onClickPageMove}
           >
