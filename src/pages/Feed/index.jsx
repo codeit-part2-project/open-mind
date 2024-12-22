@@ -1,5 +1,5 @@
 import { useEffect, useState, useContext, useCallback, useRef } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { getSubjectById } from 'api/subjects';
 import { getQuestionBySubjectId } from 'api/questions';
 
@@ -25,20 +25,29 @@ const Feed = () => {
 
   const observerRef = useRef(null);
 
+  const navigate = useNavigate();
+
   useEffect(() => {
     const getProfile = async () => {
       try {
         setProfileLoading(true);
         setProfileError('');
-        setProfile(await getSubjectById(subjectId));
+        const response = await getSubjectById(subjectId);
+        if (typeof response === 'string' && response.includes('에러')) {
+          throw new Error('존재하지 않는 피드로 접근하여 오류가 발생했습니다. 잠시 후 홈으로 이동합니다.');
+        }
+        setProfile(response);
       } catch (e) {
-        setProfileError(e.toString());
+        setProfileError(e.message);
+        setTimeout(() => {
+          navigate('/');
+        }, 3000);
       } finally {
         setProfileLoading(false);
       }
     };
     getProfile();
-  }, [subjectId]);
+  }, [subjectId, navigate]);
 
   useEffect(() => {
     const fetchQuestions = async () => {
@@ -113,7 +122,7 @@ const Feed = () => {
   }, [loadMoreQuestions]);
 
   if (profileLoading) return <div className='feed-loading'>로딩 중...</div>;
-  if (profileError) return <div className='feed-error'>오류: {profileError}</div>;
+  if (profileError) return <div className='feed-error'>{profileError}</div>;
 
   return (
     <div className='h-screen bg-gray-20'>
