@@ -73,14 +73,7 @@ const QnAList = ({ subjectId, name, imageSource, onDeleteQuestion }) => {
               <div className='flex place-content-between items-center'>
                 <AnswerStatus answer={question.answer} />
                 {isAnswerPage && (
-                  <Kebab
-                    id={question.id}
-                    isAnswer={question.answer}
-                    isKebabOpen={visibleMenuId === question.id}
-                    onKebabClick={handleKebabClick}
-                    onClick={handleDeleteQuestion}
-                    onDeleteQuestion={handleDeleteQuestion}
-                  />
+                  <Kebab id={question.id} isAnswer={question.answer} isKebabOpen={visibleMenuId === question.id} onKebabClick={handleKebabClick} onDeleteQuestion={handleDeleteQuestion} />
                 )}
               </div>
               <QuestionContent createdAt={question.createdAt} content={question.content} />
