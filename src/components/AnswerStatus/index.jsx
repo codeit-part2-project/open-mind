@@ -10,6 +10,7 @@ const AnswerStatus = ({ answer }) => {
       isRejected: PropTypes.bool.isRequired,
       createdAt: PropTypes.string.isRequired,
     }),
+    // answerStatus: PropTypes.string.isRequired,
   };
 
   return (
