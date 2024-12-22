@@ -8,7 +8,7 @@ import CountFavorite from 'components/CountFavorite';
 import Kebab from 'components/Kebab';
 import questionBoxImg from 'assets/images/img_QuestionBox.svg';
 
-const QnAList = ({ name, imageSource, questionList }) => {
+const QnAList = ({ name, imageSource, questionList, setQuestionList, onDeleteQuestion }) => {
   QnAList.propTypes = {
     name: PropTypes.string.isRequired,
     imageSource: PropTypes.string.isRequired,
@@ -28,6 +28,8 @@ const QnAList = ({ name, imageSource, questionList }) => {
         ).isRequired,
       }),
     ).isRequired,
+    setQuestionList: PropTypes.func.isRequired,
+    onDeleteQuestion: PropTypes.func.isRequired,
   };
 
   const [visibleMenuId, setVisibleMenuId] = useState(null);
@@ -40,6 +42,11 @@ const QnAList = ({ name, imageSource, questionList }) => {
     // setVisibleMenuId(visibleMenuId === id ? null : id);
   };
 
+  const handleDeleteQuestion = (questionId) => {
+    setQuestionList((prevQuestions) => prevQuestions.filter((question) => question.id !== questionId));
+    onDeleteQuestion(questionId);
+  };
+
   return (
     <div>
       {questionList.length > 0 ? (
@@ -48,7 +55,16 @@ const QnAList = ({ name, imageSource, questionList }) => {
             <li key={question.id} className='mx-[16px] flex flex-col gap-[24px] justify-center rounded-2xl bg-gray-10 p-[24px] shadow-1pt md:gap-[32px]'>
               <div className='flex place-content-between items-center'>
                 <AnswerStatus answer={question.answer} />
-                {isAnswerPage && <Kebab id={question.id} isAnswer={question.answer} isKebabOpen={visibleMenuId === question.id} onKebabClick={handleKebabClick} />}
+                {isAnswerPage && (
+                  <Kebab
+                    id={question.id}
+                    isAnswer={question.answer}
+                    isKebabOpen={visibleMenuId === question.id}
+                    onKebabClick={handleKebabClick}
+                    onClick={handleDeleteQuestion}
+                    onDeleteQuestion={handleDeleteQuestion}
+                  />
+                )}
               </div>
               <QuestionContent createdAt={question.createdAt} content={question.content} />
               <AnswerContent answer={question.answer} name={name} imageSource={imageSource} />

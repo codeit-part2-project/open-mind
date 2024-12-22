@@ -14,6 +14,7 @@ const Answer = () => {
   const [profileLoading, setProfileLoading] = useState(true);
   const [profileError, setProfileError] = useState('');
   const [profile, setProfile] = useState(null);
+  const [questionCount, setQuestionCount] = useState(0);
   const [error, setError] = useState(null);
   const [isDelete, setIsDelete] = useState(false);
   const LocalId = localStorage.getItem('id');
@@ -48,6 +49,14 @@ const Answer = () => {
     }
   };
 
+  const handleQuestionDelete = () => {
+    setProfile((prevSubject) => ({
+      ...prevSubject,
+      questionCount: prevSubject.questionCount - 1,
+    }));
+    setQuestionCount((prevCount) => prevCount - 1);
+  };
+
   useEffect(() => {
     const getProfile = async () => {
       try {
@@ -60,6 +69,7 @@ const Answer = () => {
               throw new Error('존재하지 않는 피드로 접근하여 오류가 발생했습니다. 잠시 후 홈으로 이동합니다.');
             } else {
               setProfile(response);
+              setQuestionCount(response.questionCount);
             }
           } else {
             throw new Error('잘못된 접근입니다. 잠시 후 홈으로 이동합니다.');
@@ -144,8 +154,8 @@ const Answer = () => {
           </div>
         ) : (
           <ul className='w-full max-w-full bg-brown-10 border border-brown-20 rounded-[16px] pb-[16px] desktop:max-w-[716px] md:max-w-[704px]'>
-            <CountQuestion count={profile.questionCount} />
-            <QnAList name={profile.name} imageSource={profile.imageSource} questionList={questionList} />
+            <CountQuestion count={questionCount} />
+            <QnAList name={profile.name} imageSource={profile.imageSource} questionList={questionList} setQuestionList={setQuestionList} onDeleteQuestion={handleQuestionDelete} />
             {listLoading && (
               <div className='flex justify-center items-center my-10'>
                 <div className='w-10 h-10 border-4 border-t-transparent border-brown-30 rounded-full animate-spin' />
