@@ -32,7 +32,7 @@ const CardList = ({ cards, pageWidth }) => {
           <div
             onClick={() => cardMove(item.id)}
             role='presentation'
-            className={`flex flex-col justify-between border rounded-2xl border-gray-40 bg-gray-10 px-4 py-4 cursor-pointer ${DISPLAY_CLASS_NAME} ${btnHoverAnimation}`}
+            className={`flex flex-col justify-between border rounded-2xl border-gray-40 bg-gray-10 px-4 py-4 cursor-pointer ${DISPLAY_CLASS_NAME} ${btnHoverAnimation} hover:border-gray-50`}
             key={item.id}
           >
             <div className='flex flex-col'>
