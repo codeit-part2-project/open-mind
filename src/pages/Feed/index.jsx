@@ -116,9 +116,9 @@ const Feed = () => {
   if (profileError) return <div className='feed-error'>오류: {profileError}</div>;
 
   return (
-    <>
+    <div className='h-screen bg-gray-20'>
       <Header imageSource={profile.imageSource} name={profile.name} />
-      <div className='flex flex-col items-center justify-center gap-[8px] md:gap-[19px] box-border bg-gray-20 pt-[176px] md:pt-[189px] p-[24px] pb-[168px] md:p-[32px] md:pb-[140px]'>
+      <div className='flex flex-col items-center justify-center gap-[8px] p-[24px] pt-[176px] pb-[120px] bg-gray-20 md:gap-[19px] md:pt-[189px] md:px-[32px]'>
         <ul className='w-full max-w-full bg-brown-10 border border-brown-20 rounded-[16px] pb-[16px] desktop:max-w-[716px] md:max-w-[704px]'>
           <CountQuestion count={profile.questionCount} />
           <QnAList name={profile.name} imageSource={profile.imageSource} questionList={questionList} />
@@ -131,14 +131,17 @@ const Feed = () => {
         </ul>
         <button
           type='button'
-          className='fixed bottom-[16px] right-[16px] self-end md:bottom-[24px] md:right-[24px] w-auto h-auto px-[16px] py-[8px] md:px-[24px] md:py-[12px] rounded-[200px] bg-brown-40 shadow-2pt text-gray-10 text-base md:text-xl font-normal leading-[25px]'
+          className='fixed bottom-[16px] md:bottom-[24px] w-auto h-auto px-[16px] py-[8px] md:px-[24px] md:py-[12px] rounded-[200px] bg-brown-40 shadow-2pt text-gray-10 text-base md:text-xl font-normal leading-[25px]'
+          style={{
+            right: `calc(16px + var(--scroll-bar-width, 0px))`,
+          }}
           onClick={openModal({ id: profile.id, name: profile.name, imageSource: profile.imageSource })}
         >
           <span className='block md:hidden'>질문 작성</span>
           <span className='hidden md:block'>질문 작성하기</span>
         </button>
       </div>
-    </>
+    </div>
   );
 };
 

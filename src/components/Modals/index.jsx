@@ -36,13 +36,13 @@ const Modal = () => {
         <label htmlFor='questionContent' className='flex flex-col flex-1'>
           <div className='flex w-full items-center gap-2'>
             <MessagesIcon className='w-[22px] h-[22px] fill-gray-60 md:w-[24px] md:h-[24px]' />
-            <p className='flex-1 text-xl text-left'>질문을 작성해주세요</p>
+            <p className='flex-1 text-xl text-left font-actor'>질문을 작성해주세요</p>
             <button type='button' onClick={exitModal}>
               <img src={icClose} alt='닫기 아이콘' />
             </button>
           </div>
           <div className='flex items-center gap-1 mt-6 mb-2'>
-            <span className='text-lg'>To.</span>
+            <span className='text-l font-actor'>To.</span>
             <img src={profile.imageSource} alt='프로필' className='w-7 h-7 rounded-full' />
             <p className='flex-1 text-left'>{profile.name}</p>
           </div>
