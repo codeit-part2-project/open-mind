@@ -8,6 +8,7 @@ import AnswerDelete from 'components/AnswerDelete';
 
 const Kebab = ({ id, isAnswer, isKebabOpen, onKebabClick, onDeleteQuestion, onAnswerDeleted }) => {
   Kebab.propTypes = {
+    id: PropTypes.number.isRequired,
     isAnswer: PropTypes.shape({
       id: PropTypes.number.isRequired,
       questionId: PropTypes.number.isRequired,
@@ -15,7 +16,6 @@ const Kebab = ({ id, isAnswer, isKebabOpen, onKebabClick, onDeleteQuestion, onAn
       isRejected: PropTypes.bool.isRequired,
       createdAt: PropTypes.string.isRequired,
     }),
-    id: PropTypes.number.isRequired,
     isKebabOpen: PropTypes.bool.isRequired,
     onKebabClick: PropTypes.func.isRequired,
     onDeleteQuestion: PropTypes.func.isRequired,

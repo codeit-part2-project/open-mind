@@ -22,9 +22,9 @@ const AnswerContent = ({ answer, name, imageSource, id, onAnswerSubmit }) => {
     imageSource: 'https://fastly.picsum.photos/id/772/200/200.jpg?hmac=9euSj4JHTPr7uT5QWVmeNJ8JaqAXY8XmJnYfr_DfBJc',
   };
 
-  if (answer) {
-    console.log(answer);
-  }
+  // if (answer) {
+  //   console.log(answer);
+  // }
 
   const location = useLocation();
   const [textareaValue, setTextareaValue] = useState('');
