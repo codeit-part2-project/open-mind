@@ -38,10 +38,16 @@ module.exports = {
       },
       screens: {
         desktop: '1200px',
+        pc: '1200px',
+        tablet: '868px',
       },
       animation: {
         'slide-up-fade-urlCopy': 'slideUpFade 0.5s ease-out, fadeOut 0.5s ease-out 4.6s',
         'slide-up-fade-delete': 'slideUpFade 0.5s ease-out, fadeOut 0.5s ease-out 2.6s',
+      },
+      gridTemplateColumns: {
+        mobileLow: 'repeat(2, 1fr)',
+        tabletLow: 'repeat(4, minmax(186px, 220px))',
       },
       fontFamily: {
         actor: ['Actor', 'sans-serif'],
