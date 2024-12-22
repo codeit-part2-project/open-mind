@@ -22,10 +22,6 @@ const AnswerContent = ({ answer, name, imageSource, id, onAnswerSubmit }) => {
     imageSource: 'https://fastly.picsum.photos/id/772/200/200.jpg?hmac=9euSj4JHTPr7uT5QWVmeNJ8JaqAXY8XmJnYfr_DfBJc',
   };
 
-  // if (answer) {
-  //   console.log(answer);
-  // }
-
   const location = useLocation();
   const [textareaValue, setTextareaValue] = useState('');
   const [updatedAnswer, setUpdatedAnswer] = useState(answer);
@@ -146,16 +142,6 @@ const AnswerContent = ({ answer, name, imageSource, id, onAnswerSubmit }) => {
         </div>
       );
     }
-
-    // return (
-    //   <div className='flex gap-[12px]'>
-    //     {renderProfileImg()}
-    //     <div className='flex-1'>
-    //       <p className='mb-[4px] mr-[8px] inline-block text-sm leading-[18px] md:text-lg md:leading-[24px]'>{name}</p>
-    //       {renderAnswerForm()}
-    //     </div>
-    //   </div>
-    // );
   }
 
   return null;

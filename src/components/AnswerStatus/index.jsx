@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types';
-// import Kebab from 'components/Kebab';
 
 const AnswerStatus = ({ answer }) => {
   AnswerStatus.propTypes = {
@@ -10,7 +9,6 @@ const AnswerStatus = ({ answer }) => {
       isRejected: PropTypes.bool.isRequired,
       createdAt: PropTypes.string.isRequired,
     }),
-    // answerStatus: PropTypes.string.isRequired,
   };
 
   return (
