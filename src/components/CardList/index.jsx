@@ -21,6 +21,8 @@ const CardList = ({ cards, pageWidth }) => {
     Navigate(`/post/${id}`);
   };
 
+  const btnHoverAnimation = 'hover:transform hover:translate-y-[-5px] transition-transform duration-300 ease-in-out';
+
   return (
     <div className='grid grid-rows-3 grid-cols-2 gap-4 md:gap-5 md:grid-rows-2 md:grid-cols-3 tablet:grid-cols-tabletLow tablet:justify-center'>
       {cards.map((item, i) => {
@@ -30,7 +32,7 @@ const CardList = ({ cards, pageWidth }) => {
           <div
             onClick={() => cardMove(item.id)}
             role='presentation'
-            className={`flex flex-col justify-between border rounded-2xl border-gray-40 bg-gray-10 px-4 py-4 cursor-pointer ${DISPLAY_CLASS_NAME}`}
+            className={`flex flex-col justify-between border rounded-2xl border-gray-40 bg-gray-10 px-4 py-4 cursor-pointer ${DISPLAY_CLASS_NAME} ${btnHoverAnimation}`}
             key={item.id}
           >
             <div className='flex flex-col'>
