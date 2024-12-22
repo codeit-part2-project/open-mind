@@ -23,9 +23,9 @@ const Feed = () => {
   const { id: subjectId } = useParams();
   const [profileLoading, setProfileLoading] = useState(true);
   const [profileError, setProfileError] = useState('');
-  const [profile, setProfile] = useState(null);
+  const [profile, setProfile] = useState({});
 
-  const { openModal, postObject } = useContext(AppContext);
+  const { openModal, postObject, setPostObject } = useContext(AppContext);
 
   const [questionList, setQuestionList] = useState([]);
 
@@ -70,14 +70,8 @@ const Feed = () => {
         const response = await getQuestionBySubjectId(subjectId, params);
         if (response.results) {
           setQuestionList((prev) => {
-            // 새로운 질문을 기존 데이터에 중복 없이 추가
-            const updatedList = [...prev];
-            response.results.forEach((newQuestion) => {
-              if (!updatedList.some((question) => question.id === newQuestion.id)) {
-                updatedList.push(newQuestion);
-              }
-            });
-            return updatedList;
+            const newQuestions = response.results.filter((newQuestion) => !prev.some((question) => question.id === newQuestion.id));
+            return [...prev, ...newQuestions];
           });
           setHasMore(response.next !== null);
         } else {
@@ -97,11 +91,28 @@ const Feed = () => {
   // 새 질문이 추가되면 질문 리스트 맨 앞에 삽입
   useEffect(() => {
     if (postObject) {
-      setQuestionList((prev) => [postObject, ...prev]); // 새 질문을 리스트 맨 앞에 삽입
-      setOffset((prev) => prev + 1); // 페이지네이션 offset을 유지
-      setProfile((prev) => ({ ...prev, questionCount: prev.questionCount + 1 }));
+      setQuestionList((prev) => {
+        const alreadyExists = prev.some((question) => question.id === postObject.id);
+        if (alreadyExists) {
+          return prev; // 중복되지 않으면 추가하지 않음
+        }
+        return [postObject, ...prev]; // 새 질문을 맨 앞에 추가
+      });
+
+      setOffset((prev) => prev + 1); // 페이지네이션 offset 유지
+
+      setProfile((prev) => {
+        const questionCount = prev && prev.questionCount ? prev.questionCount : 0;
+        return {
+          ...prev,
+          questionCount: questionCount + 1,
+        };
+      });
+
+      // postObject가 추가된 후 상태를 null로 리셋하여 다시 추가되지 않도록 방지
+      setPostObject(null); // postObject 상태를 null로 리셋
     }
-  }, [postObject]);
+  }, [postObject, setPostObject]); // postObject가 변경될 때만 실행
 
   const loadMoreQuestions = useCallback(
     (entries) => {
