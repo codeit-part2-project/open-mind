@@ -32,7 +32,7 @@ const AnswerContent = ({ answer, name, imageSource }) => {
 
   const renderAnswerHeader = () => (
     <div className='flex items-center mb-[4px]'>
-      <p className='mr-[8px] inline-block text-sm leading-[18px] md:text-lg md:leading-[24px]'>{name}</p>
+      <p className='mr-[8px] inline-block text-sm leading-[18px] md:text-lg md:leading-[24px] font-actor'>{name}</p>
       <p className='text-sm font-medium leading-[18px] text-gray-40'>{formatCreatedAt(answer.createdAt)}</p>
     </div>
   );
@@ -96,7 +96,7 @@ const AnswerContent = ({ answer, name, imageSource }) => {
       <div className='flex gap-[12px]'>
         {renderProfileImg()}
         <div className='flex-1'>
-          <p className='mb-[4px] mr-[8px] inline-block text-sm leading-[18px] md:text-lg md:leading-[24px]'>{name}</p>
+          <p className='mb-[4px] mr-[8px] inline-block text-sm leading-[18px] md:text-lg md:leading-[24px] font-actor'>{name}</p>
           {renderAnswerForm()}
         </div>
       </div>
