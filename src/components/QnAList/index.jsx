@@ -9,11 +9,12 @@ import CountFavorite from 'components/CountFavorite';
 import Kebab from 'components/Kebab';
 import questionBoxImg from 'assets/images/img_QuestionBox.svg';
 
-const QnAList = ({ subjectId, name, imageSource }) => {
+const QnAList = ({ subjectId, name, imageSource, onDeleteQuestion }) => {
   QnAList.propTypes = {
     subjectId: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
     imageSource: PropTypes.string.isRequired,
+    onDeleteQuestion: PropTypes.func.isRequired,
   };
 
   const [questionList, setQuestionList] = useState([]);
@@ -27,6 +28,11 @@ const QnAList = ({ subjectId, name, imageSource }) => {
   const handleKebabClick = (id) => {
     setVisibleMenuId((prevVisibleMenuId) => (prevVisibleMenuId === id ? null : id));
     // setVisibleMenuId(visibleMenuId === id ? null : id);
+  };
+
+  const handleDeleteQuestion = (questionId) => {
+    setQuestionList((prevQuestions) => prevQuestions.filter((question) => question.id !== questionId));
+    onDeleteQuestion(questionId);
   };
 
   useEffect(() => {
@@ -66,10 +72,19 @@ const QnAList = ({ subjectId, name, imageSource }) => {
             <li key={question.id} className='mx-[16px] flex flex-col gap-[24px] justify-center rounded-2xl bg-gray-10 p-[24px] shadow-1pt md:gap-[32px]'>
               <div className='flex place-content-between items-center'>
                 <AnswerStatus answer={question.answer} />
-                {isAnswerPage && <Kebab id={question.id} isAnswer={question.answer} isKebabOpen={visibleMenuId === question.id} onKebabClick={handleKebabClick} />}
+                {isAnswerPage && (
+                  <Kebab
+                    id={question.id}
+                    isAnswer={question.answer}
+                    isKebabOpen={visibleMenuId === question.id}
+                    onKebabClick={handleKebabClick}
+                    onClick={handleDeleteQuestion}
+                    onDeleteQuestion={handleDeleteQuestion}
+                  />
+                )}
               </div>
               <QuestionContent createdAt={question.createdAt} content={question.content} />
-              <AnswerContent answer={question.answer} name={name} imageSource={imageSource} />
+              <AnswerContent answer={question.answer} name={name} imageSource={imageSource} id={question.id} subjectId={subjectId} />
               <CountFavorite like={question.like} dislike={question.dislike} />
             </li>
           ))}

@@ -11,6 +11,7 @@ import questionBoxImg from 'assets/images/img_QuestionBox.svg';
 const Answer = () => {
   const { id } = useParams();
   const [subject, setSubject] = useState(null);
+  const [questionCount, setQuestionCount] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   const [isDelete, setIsDelete] = useState(false);
@@ -36,6 +37,14 @@ const Answer = () => {
     }
   };
 
+  const handleQuestionDelete = () => {
+    setSubject((prevSubject) => ({
+      ...prevSubject,
+      questionCount: prevSubject.questionCount - 1,
+    }));
+    setQuestionCount((prevCount) => prevCount - 1);
+  };
+
   useEffect(() => {
     const fetchSubject = async () => {
       try {
@@ -47,6 +56,7 @@ const Answer = () => {
               throw new Error('존재하지 않는 피드로 접근하여 오류가 발생했습니다. 잠시 후 홈으로 이동합니다.');
             } else {
               setSubject(response);
+              setQuestionCount(response.questionCount);
             }
           } else {
             throw new Error('잘못된 접근입니다. 잠시 후 홈으로 이동합니다.');
@@ -76,7 +86,7 @@ const Answer = () => {
   return (
     <div className='h-screen bg-gray-20'>
       <Header imageSource={subject.imageSource} name={subject.name} />
-      <div className='flex flex-col items-center gap-[8px] md:gap-[19px] box-border bg-gray-20 pt-[145px] md:pt-[135px] px-[24px] md:px-[32px] '>
+      <div className='flex flex-col items-center gap-[8px] md:gap-[19px] box-border bg-gray-20 pt-[145px] md:pt-[135px] pb-[168px] md:pb-[140px] px-[24px] md:px-[32px] '>
         <DeleteIdBtn onClick={handleDelete} id={id} />
         {isDelete ? (
           <div className='w-full max-w-full bg-brown-10 border border-brown-20 rounded-[16px] pb-[16px] desktop:max-w-[716px] md:max-w-[704px]'>
@@ -85,8 +95,8 @@ const Answer = () => {
           </div>
         ) : (
           <ul className='w-full max-w-full bg-brown-10 border border-brown-20 rounded-[16px] pb-[16px] desktop:max-w-[716px] md:max-w-[704px]'>
-            <CountQuestion count={subject.questionCount} />
-            <QnAList subjectId={subject.id} name={subject.name} imageSource={subject.imageSource} />
+            <CountQuestion count={questionCount} />
+            <QnAList subjectId={subject.id} name={subject.name} imageSource={subject.imageSource} onDeleteQuestion={handleQuestionDelete} />
           </ul>
         )}
       </div>
