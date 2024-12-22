@@ -54,7 +54,7 @@ const Feed = () => {
       try {
         setListLoading(true);
 
-        const params = { limit: 3, offset };
+        const params = { limit: 10, offset };
         const response = await getQuestionBySubjectId(subjectId, params);
         if (response.results) {
           setQuestionList((prev) => {
@@ -136,7 +136,7 @@ const Feed = () => {
               <div className='w-10 h-10 border-4 border-t-transparent border-brown-30 rounded-full animate-spin' />
             </div>
           )}
-          <div ref={observerRef} className='h-1' />
+          <div ref={observerRef} className='h-10' />
         </ul>
         <button
           type='button'
