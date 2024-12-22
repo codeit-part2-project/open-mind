@@ -4,7 +4,7 @@ import { useState } from 'react';
 import formatCreatedAt from 'utils/dateUtils';
 import { postAnswer } from 'api/answers';
 
-const AnswerContent = ({ answer, name, imageSource, id }) => {
+const AnswerContent = ({ answer, name, imageSource, id, onAnswerSubmit }) => {
   AnswerContent.propTypes = {
     answer: PropTypes.shape({
       id: PropTypes.number.isRequired,
@@ -15,11 +15,16 @@ const AnswerContent = ({ answer, name, imageSource, id }) => {
     name: PropTypes.string.isRequired,
     imageSource: PropTypes.string,
     id: PropTypes.number.isRequired,
+    onAnswerSubmit: PropTypes.func.isRequired,
   };
 
   AnswerContent.defaultProps = {
     imageSource: 'https://fastly.picsum.photos/id/772/200/200.jpg?hmac=9euSj4JHTPr7uT5QWVmeNJ8JaqAXY8XmJnYfr_DfBJc',
   };
+
+  if (answer) {
+    console.log(answer);
+  }
 
   const location = useLocation();
   const [textareaValue, setTextareaValue] = useState('');
@@ -49,6 +54,7 @@ const AnswerContent = ({ answer, name, imageSource, id }) => {
       // setError(null);
       response = await postAnswer(id, postBody);
       setUpdatedAnswer(response);
+      onAnswerSubmit(id, response);
     } catch (err) {
       // setError(`${response} : 답변을 등록하던 중 오류가 발생했습니다. 페이지를 새로고침합니다.`);
       // setTimeout(() => {
@@ -112,6 +118,18 @@ const AnswerContent = ({ answer, name, imageSource, id }) => {
   }
 
   if (isAnswerPage) {
+    if (updatedAnswer === null || !updatedAnswer) {
+      return (
+        <div className='flex gap-[12px]'>
+          {renderProfileImg()}
+          <div className='flex-1'>
+            <p className='mb-[4px] mr-[8px] inline-block text-sm leading-[18px] md:text-lg md:leading-[24px]'>{name}</p>
+            {renderAnswerForm()}
+          </div>
+        </div>
+      );
+    }
+
     if (updatedAnswer) {
       return (
         <div className='flex gap-[12px]'>
@@ -123,15 +141,16 @@ const AnswerContent = ({ answer, name, imageSource, id }) => {
         </div>
       );
     }
-    return (
-      <div className='flex gap-[12px]'>
-        {renderProfileImg()}
-        <div className='flex-1'>
-          <p className='mb-[4px] mr-[8px] inline-block text-sm leading-[18px] md:text-lg md:leading-[24px]'>{name}</p>
-          {renderAnswerForm()}
-        </div>
-      </div>
-    );
+
+    // return (
+    //   <div className='flex gap-[12px]'>
+    //     {renderProfileImg()}
+    //     <div className='flex-1'>
+    //       <p className='mb-[4px] mr-[8px] inline-block text-sm leading-[18px] md:text-lg md:leading-[24px]'>{name}</p>
+    //       {renderAnswerForm()}
+    //     </div>
+    //   </div>
+    // );
   }
 
   return null;

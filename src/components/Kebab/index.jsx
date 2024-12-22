@@ -6,7 +6,7 @@ import { ReactComponent as Rejection } from 'assets/images/icons/ic_Rejection.sv
 import { ReactComponent as Edit } from 'assets/images/icons/ic_Edit.svg';
 import AnswerDelete from 'components/AnswerDelete';
 
-const Kebab = ({ id, isAnswer, isKebabOpen, onKebabClick, onDeleteQuestion }) => {
+const Kebab = ({ id, isAnswer, isKebabOpen, onKebabClick, onDeleteQuestion, onAnswerDeleted }) => {
   Kebab.propTypes = {
     isAnswer: PropTypes.shape({
       id: PropTypes.number.isRequired,
@@ -19,6 +19,7 @@ const Kebab = ({ id, isAnswer, isKebabOpen, onKebabClick, onDeleteQuestion }) =>
     isKebabOpen: PropTypes.bool.isRequired,
     onKebabClick: PropTypes.func.isRequired,
     onDeleteQuestion: PropTypes.func.isRequired,
+    onAnswerDeleted: PropTypes.func.isRequired,
   };
 
   const menuRef = useRef(null);
@@ -26,6 +27,16 @@ const Kebab = ({ id, isAnswer, isKebabOpen, onKebabClick, onDeleteQuestion }) =>
   const handleMenuToggle = (e) => {
     e.stopPropagation();
     onKebabClick(id);
+  };
+
+  // const onKebabAnswerDeleted = (answerId) => {
+  //   onAnswerDeleted(answerId);
+  // };
+
+  const onDeleteAnswer = () => {
+    if (isAnswer) {
+      onAnswerDeleted(isAnswer.id);
+    }
   };
 
   useEffect(() => {
@@ -73,7 +84,7 @@ const Kebab = ({ id, isAnswer, isKebabOpen, onKebabClick, onDeleteQuestion }) =>
                 <QuestionDelete id={id} onDeleteQuestion={onDeleteQuestion} />
               </div>
               <div className='flex justify-center items-center'>
-                <AnswerDelete />
+                <AnswerDelete answerId={isAnswer.id} onAnswerDeleted={onDeleteAnswer} />
               </div>
             </>
           )}
