@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import { getQuestionBySubjectId } from 'api/questions';
 import AnswerStatus from 'components/AnswerStatus';
 import QuestionContent from 'components/QuestionContent';
 import AnswerContent from 'components/AnswerContent';
@@ -9,17 +8,30 @@ import CountFavorite from 'components/CountFavorite';
 import Kebab from 'components/Kebab';
 import questionBoxImg from 'assets/images/img_QuestionBox.svg';
 
-const QnAList = ({ subjectId, name, imageSource, onDeleteQuestion }) => {
+const QnAList = ({ name, imageSource, questionList, setQuestionList, onDeleteQuestion }) => {
   QnAList.propTypes = {
-    subjectId: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
     imageSource: PropTypes.string.isRequired,
+    questionList: PropTypes.arrayOf(
+      PropTypes.shape({
+        createdAt: PropTypes.string.isRequired,
+        like: PropTypes.number.isRequired,
+        dislike: PropTypes.number.isRequired,
+        answer: PropTypes.objectOf(
+          PropTypes.shape({
+            id: PropTypes.number.isRequired,
+            questionsId: PropTypes.number.isRequired,
+            content: PropTypes.string.isRequired,
+            isRejected: PropTypes.bool.isRequired,
+            createdAt: PropTypes.string.isRequired,
+          }),
+        ).isRequired,
+      }),
+    ).isRequired,
+    setQuestionList: PropTypes.func.isRequired,
     onDeleteQuestion: PropTypes.func.isRequired,
   };
 
-  const [questionList, setQuestionList] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
   const [visibleMenuId, setVisibleMenuId] = useState(null);
 
   const location = useLocation();
@@ -34,35 +46,6 @@ const QnAList = ({ subjectId, name, imageSource, onDeleteQuestion }) => {
     setQuestionList((prevQuestions) => prevQuestions.filter((question) => question.id !== questionId));
     onDeleteQuestion(questionId);
   };
-
-  useEffect(() => {
-    const fetchQuestions = async () => {
-      try {
-        setIsLoading(true);
-        setError(null);
-        const response = await getQuestionBySubjectId(subjectId);
-        if (response.results) {
-          setQuestionList(response.results);
-        } else {
-          throw new Error('질문 목록을 불러오는 데 실패했습니다.');
-        }
-      } catch (err) {
-        setError(err.message || '알 수 없는 오류가 발생했습니다.');
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchQuestions();
-  }, [subjectId]);
-
-  if (isLoading) {
-    return <div>로딩 중...</div>;
-  }
-
-  if (error) {
-    return <div>에러: {error}</div>;
-  }
 
   return (
     <div>
