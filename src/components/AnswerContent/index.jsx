@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import { useLocation } from 'react-router-dom';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import formatCreatedAt from 'utils/dateUtils';
 import { postAnswer } from 'api/answers';
 
@@ -89,6 +89,10 @@ const AnswerContent = ({ answer, name, imageSource, id, onAnswerSubmit }) => {
       </button>
     </form>
   );
+
+  useEffect(() => {
+    setUpdatedAnswer(answer);
+  }, [answer]);
 
   if (updatedAnswer && updatedAnswer.isRejected) {
     return (
