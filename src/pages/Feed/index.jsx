@@ -8,6 +8,17 @@ import Header from 'components/Header';
 import CountQuestion from 'components/CountQuestion';
 import QnAList from 'components/QnAList';
 
+const getDynamicLimit = () => {
+  const screenHeight = window.innerHeight;
+  if (screenHeight <= 600) {
+    return 5;
+  }
+  if (screenHeight <= 1200) {
+    return 10;
+  }
+  return 15;
+};
+
 const Feed = () => {
   const { id: subjectId } = useParams();
   const [profileLoading, setProfileLoading] = useState(true);
@@ -54,7 +65,8 @@ const Feed = () => {
       try {
         setListLoading(true);
 
-        const params = { limit: 10, offset };
+        const limit = getDynamicLimit();
+        const params = { limit, offset };
         const response = await getQuestionBySubjectId(subjectId, params);
         if (response.results) {
           setQuestionList((prev) => {
