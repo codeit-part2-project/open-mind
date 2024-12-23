@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import DropDonwUpImg from 'assets/images/icons/ic_Arrow-up.svg';
 import { ReactComponent as DropDownUnderImg } from 'assets/images/icons/ic_Arrow-down.svg';
@@ -11,7 +11,10 @@ const SortDropDown = ({ changeSort }) => {
 
   const [sortText, setSortText] = useState('최신순');
 
-  const toggleDropdown = () => {
+  const dropdownRef = useRef(null);
+
+  const toggleDropdown = (e) => {
+    e.stopPropagation();
     setIsOpen((prevState) => !prevState);
   };
 
@@ -22,18 +25,33 @@ const SortDropDown = ({ changeSort }) => {
     changeSort(target.textContent);
   };
 
+  // 외부 클릭 시 드롭다운을 닫는 함수
+  const handleClickOutside = (event) => {
+    if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+      setIsOpen(false);
+    }
+  };
+
+  // 컴포넌트 마운트 시 이벤트 리스너 추가
+  useEffect(() => {
+    document.addEventListener('click', handleClickOutside);
+    return () => {
+      document.removeEventListener('click', handleClickOutside);
+    };
+  }, []);
+
   return (
-    <div className='relative'>
+    <div className='relative' ref={dropdownRef}>
       <button type='button' className={`flex items-center gap-2 border rounded-lg py-2 px-3 text-sm  ${isOpen ? 'border-gray-60' : 'border-gray-40'} `} onClick={toggleDropdown}>
         <span className={`text-sm ${isOpen ? 'text-gray-60' : 'text-gray-40'}`}>{sortText}</span>
         {isOpen ? <img src={DropDonwUpImg} alt='위쪽 화살표' className='w-3.5 h-3.5' /> : <DropDownUnderImg className='w-3.5 h-3.5 fill-gray-40' />}
       </button>
       {isOpen && (
-        <ul className='flex flex-col items-center absolute top-10 left-0 right-0 z-20 mt-2 border rounded-lg border-gray-30 bg-gray-10 text-sm shadow-1pt cursor-pointer'>
-          <li className={`py-2 ${sortText === '이름순' ? 'text-blue-50' : ''}`} onClick={onClick} role='presentation'>
+        <ul className='flex flex-col  absolute top-10 left-0 right-0 z-20 mt-2 border rounded-lg border-gray-30 bg-gray-10 text-sm shadow-1pt cursor-pointer'>
+          <li className={`py-2 ${sortText === '이름순' ? 'text-blue-50' : ''} text-center rounded-lg hover:bg-gray-20`} onClick={onClick} role='presentation'>
             이름순
           </li>
-          <li className={`py-2 ${sortText === '최신순' ? 'text-blue-50' : ''}`} onClick={onClick} role='presentation'>
+          <li className={`py-2 ${sortText === '최신순' ? 'text-blue-50' : ''} text-center rounded-lg hover:bg-gray-20`} onClick={onClick} role='presentation'>
             최신순
           </li>
         </ul>

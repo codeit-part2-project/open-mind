@@ -9,6 +9,17 @@ import QnAList from 'components/QnAList';
 import ToastDeleteId from 'components/ToastDeleteId';
 import questionBoxImg from 'assets/images/img_QuestionBox.svg';
 
+const getDynamicLimit = () => {
+  const screenHeight = window.innerHeight;
+  if (screenHeight <= 600) {
+    return 5;
+  }
+  if (screenHeight <= 1200) {
+    return 10;
+  }
+  return 15;
+};
+
 const Answer = () => {
   const { id: subjectId } = useParams();
   const [profileLoading, setProfileLoading] = useState(true);
@@ -93,10 +104,14 @@ const Answer = () => {
       try {
         setListLoading(true);
 
-        const params = { limit: 3, offset };
+        const limit = getDynamicLimit();
+        const params = { limit, offset };
         const response = await getQuestionBySubjectId(subjectId, params);
         if (response.results) {
-          setQuestionList((prev) => [...prev, ...response.results]);
+          setQuestionList((prev) => {
+            const newQuestions = response.results.filter((newQuestion) => !prev.some((question) => question.id === newQuestion.id));
+            return [...prev, ...newQuestions];
+          });
           setHasMore(response.next !== null);
         } else {
           throw new Error('질문 목록을 불러오는 데 실패했습니다.');
