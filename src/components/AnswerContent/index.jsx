@@ -146,16 +146,6 @@ const AnswerContent = ({ answer, name, imageSource, id, onAnswerSubmit }) => {
         </div>
       );
     }
-
-    // return (
-    //   <div className='flex gap-[12px]'>
-    //     {renderProfileImg()}
-    //     <div className='flex-1'>
-    //       <p className='mb-[4px] mr-[8px] inline-block text-sm leading-[18px] md:text-lg md:leading-[24px]'>{name}</p>
-    //       {renderAnswerForm()}
-    //     </div>
-    //   </div>
-    // );
   }
 
   return null;

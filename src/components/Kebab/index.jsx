@@ -30,10 +30,6 @@ const Kebab = ({ id, isAnswer, isKebabOpen, onKebabClick, onDeleteQuestion, onAn
     onKebabClick(id);
   };
 
-  // const onKebabAnswerDeleted = (answerId) => {
-  //   onAnswerDeleted(answerId);
-  // };
-
   const onDeleteAnswer = () => {
     if (isAnswer) {
       onAnswerDeleted(isAnswer.id);

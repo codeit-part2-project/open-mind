@@ -15,9 +15,6 @@ const AnswerDelete = ({ answerId, onAnswerDeleted }) => {
   const navigate = useNavigate();
 
   const handleAnswerDelete = async () => {
-    // setIsDeleting(true);
-    // setError(null);
-
     setIsDeleting(true);
 
     try {
