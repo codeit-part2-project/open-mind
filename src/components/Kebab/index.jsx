@@ -3,10 +3,10 @@ import { useEffect, useRef } from 'react';
 import QuestionDelete from 'components/QuestionDelete';
 import AnswerRejection from 'components/AnswerRejection';
 import kebab from 'assets/images/icons/ic_Kebab.svg';
-import { ReactComponent as Edit } from 'assets/images/icons/ic_Edit.svg';
 import AnswerDelete from 'components/AnswerDelete';
+import AnswerEdit from 'components/AnswerEdit';
 
-const Kebab = ({ id, isAnswer, isKebabOpen, onKebabClick, onDeleteQuestion, onAnswerDeleted, setQuestionList }) => {
+const Kebab = ({ id, isAnswer, isKebabOpen, onKebabClick, onDeleteQuestion, onAnswerDeleted, setQuestionList, setEditId, answerId }) => {
   Kebab.propTypes = {
     id: PropTypes.number.isRequired,
     isAnswer: PropTypes.shape({
@@ -21,6 +21,8 @@ const Kebab = ({ id, isAnswer, isKebabOpen, onKebabClick, onDeleteQuestion, onAn
     onDeleteQuestion: PropTypes.func.isRequired,
     onAnswerDeleted: PropTypes.func.isRequired,
     setQuestionList: PropTypes.func.isRequired,
+    setEditId: PropTypes.func.isRequired,
+    answerId: PropTypes.number.isRequired,
   };
 
   const menuRef = useRef(null);
@@ -69,10 +71,7 @@ const Kebab = ({ id, isAnswer, isKebabOpen, onKebabClick, onDeleteQuestion, onAn
           ) : (
             <>
               <div className='flex justify-center items-center'>
-                <button type='button' className='flex justify-center items-center gap-2 rounded-lg w-[103px] h-[30px] text-gray-50 hover:text-gray-60 hover:bg-gray-20'>
-                  <Edit className='w-3.5 h-3.5 fill-current' />
-                  <p>수정하기</p>
-                </button>
+                <AnswerEdit id={id} setEditId={setEditId} answerId={answerId} />
               </div>
               <div className='flex justify-center items-center'>
                 <QuestionDelete id={id} onDeleteQuestion={onDeleteQuestion} />
