@@ -78,6 +78,7 @@ const QnAList = ({ name, imageSource, questionList, setQuestionList, onDeleteQue
                     onClick={handleDeleteQuestion}
                     onDeleteQuestion={handleDeleteQuestion}
                     onAnswerDeleted={handleAnswerDeleted}
+                    setQuestionList={setQuestionList}
                   />
                 )}
               </div>

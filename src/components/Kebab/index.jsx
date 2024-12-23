@@ -1,12 +1,12 @@
 import PropTypes from 'prop-types';
 import { useEffect, useRef } from 'react';
 import QuestionDelete from 'components/QuestionDelete';
+import AnswerRejection from 'components/AnswerRejection';
 import kebab from 'assets/images/icons/ic_Kebab.svg';
-import { ReactComponent as Rejection } from 'assets/images/icons/ic_Rejection.svg';
 import { ReactComponent as Edit } from 'assets/images/icons/ic_Edit.svg';
 import AnswerDelete from 'components/AnswerDelete';
 
-const Kebab = ({ id, isAnswer, isKebabOpen, onKebabClick, onDeleteQuestion, onAnswerDeleted }) => {
+const Kebab = ({ id, isAnswer, isKebabOpen, onKebabClick, onDeleteQuestion, onAnswerDeleted, setQuestionList }) => {
   Kebab.propTypes = {
     id: PropTypes.number.isRequired,
     isAnswer: PropTypes.shape({
@@ -20,6 +20,7 @@ const Kebab = ({ id, isAnswer, isKebabOpen, onKebabClick, onDeleteQuestion, onAn
     onKebabClick: PropTypes.func.isRequired,
     onDeleteQuestion: PropTypes.func.isRequired,
     onAnswerDeleted: PropTypes.func.isRequired,
+    setQuestionList: PropTypes.func.isRequired,
   };
 
   const menuRef = useRef(null);
@@ -59,10 +60,7 @@ const Kebab = ({ id, isAnswer, isKebabOpen, onKebabClick, onDeleteQuestion, onAn
           {!isAnswer ? (
             <>
               <div className='flex justify-center items-center rounded-lg'>
-                <button type='button' className='flex justify-center items-center gap-2 rounded-lg w-[103px] h-[30px] text-gray-50 hover:text-gray-60 hover:bg-gray-20'>
-                  <Rejection className='w-3.5 h-3.5 fill-current' />
-                  <p>답변거절</p>
-                </button>
+                <AnswerRejection id={id} setQuestionList={setQuestionList} />
               </div>
               <div className='flex justify-center items-center'>
                 <QuestionDelete id={id} onDeleteQuestion={onDeleteQuestion} />
