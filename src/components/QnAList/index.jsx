@@ -102,7 +102,7 @@ const QnAList = ({ name, imageSource, questionList, setQuestionList, onDeleteQue
                 <AnswerContent answer={question.answer} name={name} imageSource={imageSource} id={question.id} onAnswerSubmit={handleAnswerSubmit} />
               )}
 
-              <CountFavorite like={question.like} dislike={question.dislike} />
+              <CountFavorite like={question.like} dislike={question.dislike} id={question.id} />
             </li>
           ))}
         </ul>

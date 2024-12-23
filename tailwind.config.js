@@ -29,15 +29,28 @@ module.exports = {
         red: {
           50: 'rgba(185, 51, 51, 1)',
         },
+        dim: 'rgba(0,0,0, 0.54)',
       },
       boxShadow: {
         '1pt': '0px 4px 4px 0px rgba(140, 140, 140, 0.25)',
         '2pt': '0px 4px 4px 0px rgba(0, 0, 0, 0.25)',
         '3pt': '0px 16px 20px 0px rgba(48, 48, 48, 0.62)',
       },
+      screens: {
+        desktop: '1200px',
+        pc: '1200px',
+        tablet: '868px',
+      },
       animation: {
         'slide-up-fade-urlCopy': 'slideUpFade 0.5s ease-out, fadeOut 0.5s ease-out 4.6s',
-        'slide-up-fade-delete': 'slideUpFade 0.5s ease-out, fadeOut 0.5s ease-out 1.6s',
+        'slide-up-fade-delete': 'slideUpFade 0.5s ease-out, fadeOut 0.5s ease-out 2.6s',
+      },
+      gridTemplateColumns: {
+        mobileLow: 'repeat(2, 1fr)',
+        tabletLow: 'repeat(4, minmax(186px, 220px))',
+      },
+      fontFamily: {
+        actor: ['Actor', 'sans-serif'],
       },
       keyframes: {
         slideUpFade: {
@@ -48,9 +61,6 @@ module.exports = {
           '0%': { opacity: '1' },
           '100%': { opacity: '0' },
         },
-      },
-      screens: {
-        desktop: '1200px',
       },
     },
   },

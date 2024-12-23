@@ -22,15 +22,10 @@ const AnswerContent = ({ answer, name, imageSource, id, onAnswerSubmit }) => {
     imageSource: 'https://fastly.picsum.photos/id/772/200/200.jpg?hmac=9euSj4JHTPr7uT5QWVmeNJ8JaqAXY8XmJnYfr_DfBJc',
   };
 
-  // if (answer) {
-  //   console.log(answer);
-  // }
-
   const location = useLocation();
   const [textareaValue, setTextareaValue] = useState('');
   const [updatedAnswer, setUpdatedAnswer] = useState(answer);
   const [isLoading, setIsLoading] = useState(false);
-  // const [error, setError] = useState(null);
 
   const isFeedPage = location.pathname.startsWith('/post/') && !location.pathname.includes('/answer');
   const isAnswerPage = location.pathname.startsWith('/post/') && location.pathname.includes('/answer');
@@ -64,7 +59,6 @@ const AnswerContent = ({ answer, name, imageSource, id, onAnswerSubmit }) => {
       setIsLoading(false);
     }
   };
-
   const renderProfileImg = () => <img src={imageSource} alt={`${name}의 프로필`} className='w-[32px] h-[32px] md:w-[48px] md:h-[48px] rounded-full object-cover' />;
 
   const renderAnswerHeader = () => (
