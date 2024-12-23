@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types';
-// import Kebab from 'components/Kebab';
 
 const AnswerStatus = ({ answer }) => {
   AnswerStatus.propTypes = {

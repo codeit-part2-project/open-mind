@@ -39,12 +39,26 @@ const QnAList = ({ name, imageSource, questionList, setQuestionList, onDeleteQue
 
   const handleKebabClick = (id) => {
     setVisibleMenuId((prevVisibleMenuId) => (prevVisibleMenuId === id ? null : id));
-    // setVisibleMenuId(visibleMenuId === id ? null : id);
   };
 
   const handleDeleteQuestion = (questionId) => {
     setQuestionList((prevQuestions) => prevQuestions.filter((question) => question.id !== questionId));
     onDeleteQuestion(questionId);
+  };
+
+  const handleAnswerSubmit = (questionId, answer) => {
+    setQuestionList((prevQuestions) => prevQuestions.map((question) => (question.id === questionId ? { ...question, answer } : question)));
+  };
+
+  const handleAnswerDeleted = (answerId) => {
+    setQuestionList((prevQuestions) =>
+      prevQuestions.map((question) => {
+        if (question.answer && question.answer.id === answerId) {
+          return { ...question, answer: null };
+        }
+        return question;
+      }),
+    );
   };
 
   return (
@@ -63,11 +77,12 @@ const QnAList = ({ name, imageSource, questionList, setQuestionList, onDeleteQue
                     onKebabClick={handleKebabClick}
                     onClick={handleDeleteQuestion}
                     onDeleteQuestion={handleDeleteQuestion}
+                    onAnswerDeleted={handleAnswerDeleted}
                   />
                 )}
               </div>
               <QuestionContent createdAt={question.createdAt} content={question.content} />
-              <AnswerContent answer={question.answer} name={name} imageSource={imageSource} />
+              <AnswerContent answer={question.answer} name={name} imageSource={imageSource} id={question.id} onAnswerSubmit={handleAnswerSubmit} />
               <CountFavorite like={question.like} dislike={question.dislike} />
             </li>
           ))}

@@ -111,6 +111,7 @@ const Answer = () => {
 
     fetchQuestions();
   }, [subjectId, offset]);
+
   const loadMoreQuestions = useCallback(
     (entries) => {
       const [entry] = entries;
