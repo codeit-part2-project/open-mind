@@ -6,7 +6,7 @@ import kebab from 'assets/images/icons/ic_Kebab.svg';
 import { ReactComponent as Edit } from 'assets/images/icons/ic_Edit.svg';
 import AnswerDelete from 'components/AnswerDelete';
 
-const Kebab = ({ id, isAnswer, isKebabOpen, onKebabClick, onDeleteQuestion, onAnswerDeleted }) => {
+const Kebab = ({ id, isAnswer, isKebabOpen, onKebabClick, onDeleteQuestion, onAnswerDeleted, setQuestionList }) => {
   Kebab.propTypes = {
     id: PropTypes.number.isRequired,
     isAnswer: PropTypes.shape({
@@ -20,6 +20,7 @@ const Kebab = ({ id, isAnswer, isKebabOpen, onKebabClick, onDeleteQuestion, onAn
     onKebabClick: PropTypes.func.isRequired,
     onDeleteQuestion: PropTypes.func.isRequired,
     onAnswerDeleted: PropTypes.func.isRequired,
+    setQuestionList: PropTypes.func.isRequired,
   };
 
   const menuRef = useRef(null);
@@ -63,7 +64,7 @@ const Kebab = ({ id, isAnswer, isKebabOpen, onKebabClick, onDeleteQuestion, onAn
           {!isAnswer ? (
             <>
               <div className='flex justify-center items-center rounded-lg'>
-                <AnswerRejection id={id} />
+                <AnswerRejection id={id} setQuestionList={setQuestionList} />
               </div>
               <div className='flex justify-center items-center'>
                 <QuestionDelete id={id} onDeleteQuestion={onDeleteQuestion} />

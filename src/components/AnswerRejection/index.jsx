@@ -3,9 +3,10 @@ import { useState } from 'react';
 import { postAnswer } from 'api/answers';
 import { ReactComponent as Rejection } from 'assets/images/icons/ic_Rejection.svg';
 
-const AnswerRejection = ({ id }) => {
+const AnswerRejection = ({ id, setQuestionList }) => {
   AnswerRejection.propTypes = {
     id: PropTypes.number.isRequired,
+    setQuestionList: PropTypes.func.isRequired,
   };
 
   const [isLoading, setIsLoading] = useState(false);
@@ -17,10 +18,19 @@ const AnswerRejection = ({ id }) => {
       setIsLoading(true);
       setError(null);
 
-      await postAnswer(id, {
+      const result = await postAnswer(id, {
         content: defaultContent,
         isRejected: true,
       });
+
+      setQuestionList((prevQuestions) =>
+        prevQuestions.map((question) => {
+          if (question.id === id) {
+            return { ...question, answer: result };
+          }
+          return question;
+        }),
+      );
     } catch (err) {
       setError('답변 거절 중 오류가 발생했습니다.');
     } finally {
