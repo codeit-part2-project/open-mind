@@ -7,6 +7,7 @@ import AnswerContent from 'components/AnswerContent';
 import CountFavorite from 'components/CountFavorite';
 import Kebab from 'components/Kebab';
 import questionBoxImg from 'assets/images/img_QuestionBox.svg';
+import AnswerEditForm from 'components/AnswerEditForm';
 
 const QnAList = ({ name, imageSource, questionList, setQuestionList, onDeleteQuestion }) => {
   QnAList.propTypes = {
@@ -33,9 +34,9 @@ const QnAList = ({ name, imageSource, questionList, setQuestionList, onDeleteQue
   };
 
   const [visibleMenuId, setVisibleMenuId] = useState(null);
-
   const location = useLocation();
   const isAnswerPage = location.pathname.startsWith('/post/') && location.pathname.includes('/answer');
+  const [editId, setEditId] = useState(null);
 
   const handleKebabClick = (id) => {
     setVisibleMenuId((prevVisibleMenuId) => (prevVisibleMenuId === id ? null : id));
@@ -79,11 +80,28 @@ const QnAList = ({ name, imageSource, questionList, setQuestionList, onDeleteQue
                     onDeleteQuestion={handleDeleteQuestion}
                     onAnswerDeleted={handleAnswerDeleted}
                     setQuestionList={setQuestionList}
+                    setEditId={setEditId}
+                    answerId={question.answer ? question.answer.id : null}
                   />
                 )}
               </div>
-              <QuestionContent createdAt={question.createdAt} content={question.content} />
-              <AnswerContent answer={question.answer} name={name} imageSource={imageSource} id={question.id} onAnswerSubmit={handleAnswerSubmit} />
+              <QuestionContent
+                createdAt={question.createdAt}
+                content={question.content || ''} // content가 null일 경우 기본 값 제공
+              />
+              {question.answer && question.answer.id === editId ? (
+                <AnswerEditForm
+                  answer={question.answer || { content: '' }} // answer가 없으면 빈 객체를 넘겨줌
+                  name={name}
+                  imageSource={imageSource}
+                  id={question.id}
+                  setEditId={setEditId}
+                  setQuestionList={setQuestionList}
+                />
+              ) : (
+                <AnswerContent answer={question.answer} name={name} imageSource={imageSource} id={question.id} onAnswerSubmit={handleAnswerSubmit} />
+              )}
+
               <CountFavorite like={question.like} dislike={question.dislike} />
             </li>
           ))}
