@@ -6,6 +6,8 @@ import logo from 'assets/images/img_Logo.svg';
 import urlCopy from 'assets/images/icons/ic_Link.svg';
 import kakaotalk from 'assets/images/icons/ic_Kakaotalk.svg';
 import facebook from 'assets/images/icons/ic_Facebook.svg';
+import useKakaoShare from 'hooks/useKakaoShare';
+import useFacebookShare from 'hooks/useFacebookShare';
 
 const style = {
   filter: 'invert(100%) sepia(0%) saturate(0%) hue-rotate(192deg) brightness(107%) contrast(105%)',
@@ -20,6 +22,9 @@ const Header = ({ imageSource, name }) => {
   const [isToastUrlCopy, setIsToastUrlCopy] = useState(false);
 
   const currentUrl = window.location.href;
+  const scrollBarWidth = window.innerWidth - document.documentElement.clientWidth;
+  const { shareKakao } = useKakaoShare(name);
+  const { shareFacebook } = useFacebookShare();
 
   const handleToastUrlCopyLoad = () => {
     setIsToastUrlCopy(true);
@@ -43,7 +48,7 @@ const Header = ({ imageSource, name }) => {
 
   return (
     <>
-      <header className='w-screen bg-white'>
+      <header className={`w-[calc(100vw - ${scrollBarWidth}px)] bg-white`}>
         <div className='flex justify-center relative'>
           <div className='w-screen overflow-hidden flex justify-center'>
             <img className='min-w-[906px] md:min-w-[1200px]' src={headerImg} alt='Header_Image' />
@@ -58,12 +63,13 @@ const Header = ({ imageSource, name }) => {
               <button className='flex justify-center items-center w-10 h-10 rounded-full bg-brown-40' type='button' onClick={handleCopyUrl}>
                 <img className='w-[18px] h-[18px]' style={style} src={urlCopy} alt='url_copy' />
               </button>
-              <div className='flex justify-center items-center w-10 h-10 rounded-full bg-yellow-50'>
+              <button className='flex justify-center items-center w-10 h-10 rounded-full bg-yellow-50' type='button' onClick={shareKakao}>
                 <img className='w-[18px] h-[18px]' src={kakaotalk} alt='kakaotalk_share' />
-              </div>
-              <div className='flex justify-center items-center w-10 h-10 rounded-full bg-blue-50'>
+              </button>
+
+              <button type='button' className='flex justify-center items-center w-10 h-10 rounded-full bg-blue-50' onClick={shareFacebook}>
                 <img className='w-[18px] h-[18px]' style={style} src={facebook} alt='facebook_share' />
-              </div>
+              </button>
             </div>
           </div>
         </div>
