@@ -56,7 +56,7 @@ const Home = () => {
       <div className='w-full flex justify-center md:absolute md:top-[45px] md:right-[50px] md:w-auto xl:right-[130px] z-[1]'>
         <Link
           to='/list'
-          className='flex items-center gap-1 bg-brown-10 border border-brown-40 text-brown-40 py-[8px] px-[12px] rounded-lg transition-colors duration-300 hover:bg-brown-20 md:py-[12px] md:px-[24px]'
+          className='flex flex-row items-center justify-center gap-[4px] bg-brown-10 border-brown-40 border rounded-lg px-3 py-2 text-sm text-brown-40 font-normal whitespace-nowrap w-[127px] h-[34px] md:w-[166px] md:h-[46px] md:gap-[8px] md:text-base transition-colors duration-300 hover:bg-brown-20'
         >
           질문하러 가기
           <IcArrowDashRight alt='질문하러 가기 버튼' className='fill-brown-40 w-[18px] h-[18px]' />
