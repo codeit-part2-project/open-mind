@@ -37,6 +37,7 @@ const QnAList = ({ name, imageSource, questionList, setQuestionList, onDeleteQue
   const location = useLocation();
   const isAnswerPage = location.pathname.startsWith('/post/') && location.pathname.includes('/answer');
   const [editId, setEditId] = useState(null);
+  const [isKebabLoading, setIsKebabLoading] = useState(false);
 
   const handleKebabClick = (id) => {
     setVisibleMenuId((prevVisibleMenuId) => (prevVisibleMenuId === id ? null : id));
@@ -83,6 +84,8 @@ const QnAList = ({ name, imageSource, questionList, setQuestionList, onDeleteQue
                     editId={editId}
                     setEditId={setEditId}
                     answerId={question.answer ? question.answer.id : null}
+                    isKebabLoading={isKebabLoading}
+                    setIsKebabLoading={setIsKebabLoading}
                   />
                 )}
               </div>
@@ -98,9 +101,10 @@ const QnAList = ({ name, imageSource, questionList, setQuestionList, onDeleteQue
                   id={question.id}
                   setEditId={setEditId}
                   setQuestionList={setQuestionList}
+                  setIsKebabLoading={setIsKebabLoading}
                 />
               ) : (
-                <AnswerContent answer={question.answer} name={name} imageSource={imageSource} id={question.id} onAnswerSubmit={handleAnswerSubmit} />
+                <AnswerContent answer={question.answer} name={name} imageSource={imageSource} id={question.id} onAnswerSubmit={handleAnswerSubmit} setIsKebabLoading={setIsKebabLoading} />
               )}
 
               <CountFavorite like={question.like} dislike={question.dislike} id={question.id} />

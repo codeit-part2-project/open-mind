@@ -4,10 +4,11 @@ import { deleteQuestion } from 'api/questions';
 import { ReactComponent as Close } from 'assets/images/icons/ic_Close.svg';
 import ConfirmModal from 'components/ConfirmModal'; // Import the modal component
 
-const QuestionDelete = ({ id, onDeleteQuestion }) => {
+const QuestionDelete = ({ id, onDeleteQuestion, setIsKebabLoading }) => {
   QuestionDelete.propTypes = {
     id: PropTypes.number.isRequired,
     onDeleteQuestion: PropTypes.func.isRequired,
+    setIsKebabLoading: PropTypes.func.isRequired,
   };
 
   const [isLoading, setIsLoading] = useState(false);
@@ -27,6 +28,7 @@ const QuestionDelete = ({ id, onDeleteQuestion }) => {
     setShowModal(false); // Close the moda
 
     try {
+      setIsKebabLoading(true);
       setIsLoading(true);
       setError(null);
 
@@ -39,6 +41,7 @@ const QuestionDelete = ({ id, onDeleteQuestion }) => {
     } catch (err) {
       setError('질문 삭제 중 오류가 발생했습니다.');
     } finally {
+      setIsKebabLoading(false);
       setIsLoading(false);
     }
   };

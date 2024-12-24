@@ -37,10 +37,10 @@ const ConfirmModal = ({ isOpen, onConfirm, onCancel, message }) => {
           {message}
         </h2>
         <div className='flex justify-center gap-4'>
-          <button type='button' onClick={onConfirm} className='bg-brown-50 text-white px-4 py-2 rounded'>
+          <button type='button' onClick={onConfirm} className='bg-brown-40 text-white px-5 py-2 rounded-xl transition ease-in-out hover:-translate-y-1 hover:scale-105'>
             확인
           </button>
-          <button type='button' onClick={onCancel} className='bg-gray-300 text-black px-4 py-2 rounded'>
+          <button type='button' onClick={onCancel} className='bg-gray-300 text-black px-5 py-2 rounded-xl transition ease-in-out hover:-translate-y-1 hover:scale-105'>
             취소
           </button>
         </div>

@@ -3,11 +3,12 @@ import { useState } from 'react';
 import { postAnswer } from 'api/answers';
 import { ReactComponent as Rejection } from 'assets/images/icons/ic_Rejection.svg';
 
-const AnswerRejection = ({ id, setQuestionList, onKebabClick }) => {
+const AnswerRejection = ({ id, setQuestionList, onKebabClick, setIsKebabLoading }) => {
   AnswerRejection.propTypes = {
     id: PropTypes.number.isRequired,
     setQuestionList: PropTypes.func.isRequired,
     onKebabClick: PropTypes.func.isRequired,
+    setIsKebabLoading: PropTypes.func.isRequired,
   };
 
   const [isLoading, setIsLoading] = useState(false);
@@ -16,9 +17,10 @@ const AnswerRejection = ({ id, setQuestionList, onKebabClick }) => {
   const handleRejection = async () => {
     const defaultContent = 'reject';
     try {
+      onKebabClick(id);
+      setIsKebabLoading(true);
       setIsLoading(true);
       setError(null);
-      onKebabClick(id);
 
       const result = await postAnswer(id, {
         content: defaultContent,
@@ -37,6 +39,7 @@ const AnswerRejection = ({ id, setQuestionList, onKebabClick }) => {
       setError('답변 거절 중 오류가 발생했습니다.');
     } finally {
       setIsLoading(false);
+      setIsKebabLoading(false);
     }
   };
 
