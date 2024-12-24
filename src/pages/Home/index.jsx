@@ -83,7 +83,7 @@ const Home = () => {
         </button>
       </form>
 
-      <img src={imgBanner} alt='오픈마인드 배너' className='absolute bottom-0 left-0 right-0 w-full z-0' />
+      <object data={imgBanner} type='image/svg+xml' className='absolute bottom-0 left-0 right-0 w-full z-0' aria-label='오픈마인드 배너' />
 
       {toastHome && <ToastHome errorMessage={errorMessage} />}
     </div>
