@@ -7,7 +7,7 @@ import { getSubject } from 'api/subjects';
 import Logo from 'assets/images/img_Logo.svg';
 import useViewport from 'hooks/useViewport';
 import ToastMovePage from 'components/ToastMovePage';
-import { ReactComponent as QnAPageMove } from 'assets/images/icons/ic_Arrow-dash-right.svg';
+import { ReactComponent as IcArrowDashRight } from 'assets/images/icons/ic_Arrow-dash-right.svg';
 
 const QuestionList = () => {
   const navigate = useNavigate();
@@ -63,12 +63,12 @@ const QuestionList = () => {
           </Link>
 
           <button
-            className='flex flex-row items-center justify-center w-[127px] h-[34px] md:w-[166px] md:h-[46px] gap-[4px] md:gap-[8px] bg-brown-10 border-brown-40 border rounded-lg px-3 py-2 text-sm text-brown-40 font-normal md:text-base whitespace-nowrap transition-colors duration-300 hover:bg-brown-20'
+            className='flex flex-row items-center justify-center gap-[4px] bg-brown-10 border-brown-40 border rounded-lg px-3 py-2 text-sm text-brown-40 font-normal whitespace-nowrap w-[127px] h-[34px] md:w-[166px] md:h-[46px] md:gap-[8px] md:text-base transition-colors duration-300 hover:bg-brown-20'
             type='button'
             onClick={onClickPageMove}
           >
             <div>답변하러 가기</div>
-            <QnAPageMove alt='답변하러가기_화살표' />
+            <IcArrowDashRight alt='답변하러가기_화살표' className='fill-brown-40 w-[18px] h-[18px]' />
           </button>
         </div>
       </header>
