@@ -4,7 +4,7 @@ import { getSubjectById, postSubject } from 'api/subjects';
 import ToastHome from 'components/ToastHome';
 import imgLogo from 'assets/images/img_Logo.svg';
 import imgBanner from 'assets/images/img_Banner.svg';
-import icArrowDashRight from 'assets/images/icons/ic_Arrow-dash-right.svg';
+import { ReactComponent as IcArrowDashRight } from 'assets/images/icons/ic_Arrow-dash-right.svg';
 import { ReactComponent as IcPerson } from 'assets/images/icons/ic_Person.svg';
 
 const Home = () => {
@@ -56,10 +56,10 @@ const Home = () => {
       <div className='w-full flex justify-center md:absolute md:top-[45px] md:right-[50px] md:w-auto xl:right-[130px] z-[1]'>
         <Link
           to='/list'
-          className='flex gap-1 bg-brown-10 border border-brown-40 text-brown-40 py-[8px] px-[12px] rounded-lg transition-colors duration-300 hover:bg-brown-20 md:py-[12px] md:px-[24px]'
+          className='flex items-center gap-1 bg-brown-10 border border-brown-40 text-brown-40 py-[8px] px-[12px] rounded-lg transition-colors duration-300 hover:bg-brown-20 md:py-[12px] md:px-[24px]'
         >
           질문하러 가기
-          <img src={icArrowDashRight} alt='질문하러 가기 버튼' />
+          <IcArrowDashRight alt='질문하러 가기 버튼' className='fill-brown-40 w-[18px] h-[18px]' />
         </Link>
       </div>
 
