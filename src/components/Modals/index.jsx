@@ -32,7 +32,11 @@ const Modal = () => {
   if (!isModalOpen) return null;
   return (
     <div className='fixed inset-0 flex flex-col justify-center items-center px-6 bg-dim' onClick={clickOutsideModal} role='presentation'>
-      <form action='POST' onSubmit={postFormHandler} className=' flex flex-col w-full h-3/5 rounded-3xl p-6 bg-gray-10 shadow-3pt md:max-w-lg md:h-2/5'>
+      <form
+        action='POST'
+        onSubmit={postFormHandler}
+        className=' flex fixed flex-col w-full h-3/5 rounded-3xl p-6 bg-gray-10 left-1/2 -translate-x-1/2 shadow-3pt md:max-w-lg md:h-2/5 animate-slide-up-fade-modal'
+      >
         <label htmlFor='questionContent' className='flex flex-col flex-1'>
           <div className='flex w-full items-center gap-2'>
             <MessagesIcon className='w-[22px] h-[22px] fill-gray-60 md:w-[24px] md:h-[24px]' />
