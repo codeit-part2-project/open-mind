@@ -70,7 +70,7 @@ const QuestionList = () => {
       </div>
 
       <div className='mx-6 md:mx-8'>
-        <div className='relative'>
+        <div className='relative w-full h-full min-h-[539px] md:min-h-[358px]'>
           {loading && (
             <div className='absolute inset-0 border rounded-2xl flex justify-center items-center bg-gray-20 z-10'>
               <div className='w-10 h-10 border-4 border-t-transparent border-brown-30 rounded-full animate-spin' />
