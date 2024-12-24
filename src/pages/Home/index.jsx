@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { getSubjectById, postSubject } from 'api/subjects';
+import ToastHome from 'components/ToastHome';
 import imgLogo from 'assets/images/img_Logo.svg';
 import imgBanner from 'assets/images/img_Banner.svg';
 import icArrowDashRight from 'assets/images/icons/ic_Arrow-dash-right.svg';
@@ -9,13 +10,22 @@ import { ReactComponent as IcPerson } from 'assets/images/icons/ic_Person.svg';
 const Home = () => {
   const [name, setName] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
+  const [toastHome, setToastHome] = useState(false);
   const navigate = useNavigate();
+
+  const toastTimer = () => {
+    setToastHome(true);
+    setTimeout(() => {
+      setToastHome(false);
+    }, 3000);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (!name.trim()) {
       setErrorMessage('이름을 입력해주세요.');
+      toastTimer();
       return;
     }
 
@@ -28,6 +38,7 @@ const Home = () => {
         navigate(`/post/${storedId}/answer`);
       } else {
         setErrorMessage('이전에 등록했던 이름을 입력해 주세요.');
+        toastTimer();
       }
     } else {
       const newSubject = await postSubject({ name: name.trim() });
@@ -64,7 +75,6 @@ const Home = () => {
           value={name}
           onChange={(e) => setName(e.target.value)}
         />
-        {errorMessage && <div className='text-[14px] mt-[8px] font-medium pl-[16px] text-red-50'>{errorMessage}</div>}
         <button
           type='submit'
           className='w-full mt-[16px] bg-brown-40 text-white text-[16px] leading-[22px] py-[12px] px-[24px] rounded-[8px] border-none cursor-pointer transition-colors duration-300 hover:bg-brown-50'
@@ -74,6 +84,8 @@ const Home = () => {
       </form>
 
       <img src={imgBanner} alt='오픈마인드 배너' className='absolute bottom-0 left-0 right-0 w-full z-0' />
+
+      {toastHome && <ToastHome errorMessage={errorMessage} />}
     </div>
   );
 };
