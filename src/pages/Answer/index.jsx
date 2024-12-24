@@ -8,6 +8,7 @@ import CountQuestion from 'components/CountQuestion';
 import QnAList from 'components/QnAList';
 import ToastDeleteId from 'components/ToastDeleteId';
 import questionBoxImg from 'assets/images/img_QuestionBox.svg';
+import ConfirmModal from 'components/ConfirmModal'; // Import the modal component
 
 const getDynamicLimit = () => {
   const screenHeight = window.innerHeight;
@@ -41,25 +42,33 @@ const Answer = () => {
 
   const observerRef = useRef(null);
 
+  const [showModal, setShowModal] = useState(false); // State for showing the modal
+
   const handleDelete = async () => {
-    const userConfirmed = window.confirm('정말로 삭제하시겠습니까?', ''); // user 확인작업은 confirm으로 임시로 만들었습니다.
-    if (userConfirmed) {
-      try {
-        const response = await deleteSubject(subjectId);
-        if (!response.ok) {
-          throw new Error('삭제 중 오류가 발생했습니다. 3초 후 페이지를 새로고침 합니다.');
-        }
-        localStorage.removeItem('id');
-        setIsDelete(true);
-        setTimeout(() => {
-          navigate('/');
-        }, 2000);
-      } catch (err) {
-        setError(err.message);
-        setTimeout(() => {
-          setError(null);
-        }, 3000);
+    setShowModal(true); // Show the modal when delete is clicked
+  };
+
+  const handleModalCancel = () => {
+    setShowModal(false); // Close the modal if canceled
+  };
+
+  const handleModalConfirm = async () => {
+    setShowModal(false); // Close the modal
+    try {
+      const response = await deleteSubject(subjectId);
+      if (!response.ok) {
+        throw new Error('삭제 중 오류가 발생했습니다. 3초 후 페이지를 새로고침 합니다.');
       }
+      localStorage.removeItem('id');
+      setIsDelete(true);
+      setTimeout(() => {
+        navigate('/');
+      }, 2000);
+    } catch (err) {
+      setError(err.message);
+      setTimeout(() => {
+        setError(null);
+      }, 3000);
     }
   };
 
@@ -185,6 +194,7 @@ const Answer = () => {
         )}
       </div>
       {isDelete && <ToastDeleteId />}
+      <ConfirmModal isOpen={showModal} onConfirm={handleModalConfirm} onCancel={handleModalCancel} message='정말로 삭제하시겠습니까?' />
     </div>
   );
 };

@@ -47,7 +47,7 @@ const AnswerRejection = ({ id, setQuestionList, onKebabClick }) => {
   return (
     <button
       type='button'
-      className='flex justify-center items-center gap-2 rounded-lg w-[103px] h-[30px] text-gray-50 hover:text-gray-60 hover:bg-gray-20'
+      className='flex justify-center items-center gap-2 rounded-lg w-[103px] h-[30px] text-gray-50 hover:text-blue-50 hover:bg-gray-20'
       onClick={handleRejection}
       disabled={isLoading}
     >

@@ -17,7 +17,7 @@ const AnswerEdit = ({ id, editId, setEditId, answerId, onKebabClick }) => {
 
   return (
     editId === null && (
-      <button type='button' className='flex justify-center items-center gap-2 rounded-lg w-[103px] h-[30px] text-gray-50 hover:text-gray-60 hover:bg-gray-20' onClick={handleEdit}>
+      <button type='button' className='flex justify-center items-center gap-2 rounded-lg w-[103px] h-[30px] text-gray-50 hover:text-blue-50 hover:bg-gray-20' onClick={handleEdit}>
         <Edit className='w-3.5 h-3.5 fill-current' />
         답변수정
       </button>
