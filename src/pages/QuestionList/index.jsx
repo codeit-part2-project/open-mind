@@ -6,6 +6,7 @@ import SortDropDown from 'components/SortDropDown';
 import { getSubject } from 'api/subjects';
 import Logo from 'assets/images/img_Logo.svg';
 import useViewport from 'hooks/useViewport';
+import ToastMovePage from 'components/ToastMovePage';
 import { ReactComponent as QnAPageMove } from 'assets/images/icons/ic_Arrow-dash-right.svg';
 
 const QuestionList = () => {
@@ -17,6 +18,7 @@ const QuestionList = () => {
   const [count, setCount] = useState();
   const [cards, setCards] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [toastMessage, setToastMessage] = useState('');
 
   const readSubject = useCallback(async () => {
     setLoading(true);
@@ -39,10 +41,16 @@ const QuestionList = () => {
 
   const onClickPageMove = () => {
     const storedId = localStorage.getItem('id');
-    if (storedId) {
-      navigate(`/post/${storedId}/answer`);
+    if (!storedId) {
+      setToastMessage('로그인 후 이용 가능한 페이지입니다.');
+      setTimeout(() => {
+        navigate('/');
+      }, 2000);
     } else {
-      navigate('/');
+      setToastMessage('답변페이지로 이동합니다.');
+      setTimeout(() => {
+        navigate(`/post/${storedId}/answer`);
+      }, 2000);
     }
   };
 
@@ -82,6 +90,7 @@ const QuestionList = () => {
       </div>
 
       <Pagination data={{ limit, sort, count, pageWidth: width, setLimit, setOffset }} />
+      {ToastMovePage && <ToastMovePage toastMessage={toastMessage} />}
     </>
   );
 };
