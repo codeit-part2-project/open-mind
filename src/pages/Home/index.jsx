@@ -52,7 +52,7 @@ const Home = () => {
 
   return (
     <div className='flex flex-col items-center relative overflow-hidden w-full h-screen bg-gray-20 z-[1]'>
-      <img src={imgLogo} alt='오픈마인드 로고' className='w-[248px] h-auto mt-[80px] mb-[24px] md:w-[456px] md:mt-[160px] z-[1]' />
+      <img src={imgLogo} alt='오픈마인드 로고' className='w-[248px] h-[98px] mt-[80px] mb-[24px] md:w-[456px] md:h-[180px] md:mt-[160px] z-[1]' />
       <div className='w-full flex justify-center md:absolute md:top-[45px] md:right-[50px] md:w-auto xl:right-[130px] z-[1]'>
         <Link
           to='/list'
