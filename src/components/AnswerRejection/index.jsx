@@ -3,10 +3,11 @@ import { useState } from 'react';
 import { postAnswer } from 'api/answers';
 import { ReactComponent as Rejection } from 'assets/images/icons/ic_Rejection.svg';
 
-const AnswerRejection = ({ id, setQuestionList }) => {
+const AnswerRejection = ({ id, setQuestionList, onKebabClick }) => {
   AnswerRejection.propTypes = {
     id: PropTypes.number.isRequired,
     setQuestionList: PropTypes.func.isRequired,
+    onKebabClick: PropTypes.func.isRequired,
   };
 
   const [isLoading, setIsLoading] = useState(false);
@@ -17,6 +18,7 @@ const AnswerRejection = ({ id, setQuestionList }) => {
     try {
       setIsLoading(true);
       setError(null);
+      onKebabClick(id);
 
       const result = await postAnswer(id, {
         content: defaultContent,

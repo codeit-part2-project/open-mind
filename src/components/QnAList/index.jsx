@@ -80,6 +80,7 @@ const QnAList = ({ name, imageSource, questionList, setQuestionList, onDeleteQue
                     onDeleteQuestion={handleDeleteQuestion}
                     onAnswerDeleted={handleAnswerDeleted}
                     setQuestionList={setQuestionList}
+                    editId={editId}
                     setEditId={setEditId}
                     answerId={question.answer ? question.answer.id : null}
                   />

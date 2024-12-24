@@ -42,21 +42,24 @@ const Answer = () => {
   const observerRef = useRef(null);
 
   const handleDelete = async () => {
-    try {
-      const response = await deleteSubject(subjectId);
-      if (!response.ok) {
-        throw new Error('삭제 중 오류가 발생했습니다. 3초 후 페이지를 새로고침 합니다.');
+    const userConfirmed = window.confirm('정말로 삭제하시겠습니까?', ''); // user 확인작업은 confirm으로 임시로 만들었습니다.
+    if (userConfirmed) {
+      try {
+        const response = await deleteSubject(subjectId);
+        if (!response.ok) {
+          throw new Error('삭제 중 오류가 발생했습니다. 3초 후 페이지를 새로고침 합니다.');
+        }
+        localStorage.removeItem('id');
+        setIsDelete(true);
+        setTimeout(() => {
+          navigate('/');
+        }, 2000);
+      } catch (err) {
+        setError(err.message);
+        setTimeout(() => {
+          setError(null);
+        }, 3000);
       }
-      localStorage.removeItem('id');
-      setIsDelete(true);
-      setTimeout(() => {
-        navigate('/');
-      }, 2000);
-    } catch (err) {
-      setError(err.message);
-      setTimeout(() => {
-        setError(null);
-      }, 3000);
     }
   };
 
@@ -161,7 +164,7 @@ const Answer = () => {
   return (
     <div className='h-screen bg-gray-20'>
       <Header imageSource={profile.imageSource} name={profile.name} />
-      <div className='flex flex-col items-center justify-center gap-[8px] p-[24px] pt-[176px] pb-[120px] bg-gray-20 md:gap-[19px] md:pt-[189px] md:px-[32px]'>
+      <div className='flex flex-col items-center justify-center gap-[8px] px-[24px] md:px-[32px] pt-[176px] md:pt-[189px] pb-[168px] md:pb-[140px] bg-gray-20 md:gap-[19px]'>
         <DeleteIdBtn onClick={handleDelete} id={subjectId} />
         {isDelete ? (
           <div className='w-full max-w-full bg-brown-10 border border-brown-20 rounded-[16px] pb-[16px] desktop:max-w-[716px] md:max-w-[704px]'>

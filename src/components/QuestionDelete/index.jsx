@@ -13,23 +13,25 @@ const QuestionDelete = ({ id, onDeleteQuestion }) => {
   const [error, setError] = useState(null);
 
   const handleDelete = async () => {
-    try {
-      setIsLoading(true);
-      setError(null);
+    const userConfirmed = window.confirm('정말로 삭제하시겠습니까?', ''); // user 확인작업은 confirm으로 임시로 만들었습니다.
+    if (userConfirmed) {
+      try {
+        setIsLoading(true);
+        setError(null);
 
-      const response = await deleteQuestion(id);
-      if (!response.ok) {
-        throw new Error('질문 삭제 중 오류가 발생했습니다.');
+        const response = await deleteQuestion(id);
+        if (!response.ok) {
+          throw new Error('질문 삭제 중 오류가 발생했습니다.');
+        }
+
+        onDeleteQuestion(id);
+      } catch (err) {
+        setError('질문 삭제 중 오류가 발생했습니다.');
+      } finally {
+        setIsLoading(false);
       }
-
-      onDeleteQuestion(id);
-    } catch (err) {
-      setError('질문 삭제 중 오류가 발생했습니다.');
-    } finally {
-      setIsLoading(false);
     }
   };
-
   if (error) {
     return <div>에러: {error}</div>;
   }

@@ -6,7 +6,7 @@ import kebab from 'assets/images/icons/ic_Kebab.svg';
 import AnswerDelete from 'components/AnswerDelete';
 import AnswerEdit from 'components/AnswerEdit';
 
-const Kebab = ({ id, isAnswer, isKebabOpen, onKebabClick, onDeleteQuestion, onAnswerDeleted, setQuestionList, setEditId, answerId }) => {
+const Kebab = ({ id, isAnswer, isKebabOpen, onKebabClick, onDeleteQuestion, onAnswerDeleted, setQuestionList, editId, setEditId, answerId }) => {
   Kebab.propTypes = {
     id: PropTypes.number.isRequired,
     isAnswer: PropTypes.shape({
@@ -21,6 +21,7 @@ const Kebab = ({ id, isAnswer, isKebabOpen, onKebabClick, onDeleteQuestion, onAn
     onDeleteQuestion: PropTypes.func.isRequired,
     onAnswerDeleted: PropTypes.func.isRequired,
     setQuestionList: PropTypes.func.isRequired,
+    editId: PropTypes.number.isRequired,
     setEditId: PropTypes.func.isRequired,
     answerId: PropTypes.number.isRequired,
   };
@@ -62,7 +63,7 @@ const Kebab = ({ id, isAnswer, isKebabOpen, onKebabClick, onDeleteQuestion, onAn
           {!isAnswer ? (
             <>
               <div className='flex justify-center items-center rounded-lg'>
-                <AnswerRejection id={id} setQuestionList={setQuestionList} />
+                <AnswerRejection id={id} setQuestionList={setQuestionList} onKebabClick={onKebabClick} />
               </div>
               <div className='flex justify-center items-center'>
                 <QuestionDelete id={id} onDeleteQuestion={onDeleteQuestion} />
@@ -71,13 +72,13 @@ const Kebab = ({ id, isAnswer, isKebabOpen, onKebabClick, onDeleteQuestion, onAn
           ) : (
             <>
               <div className='flex justify-center items-center'>
-                <AnswerEdit id={id} setEditId={setEditId} answerId={answerId} />
+                <AnswerEdit id={id} editId={editId} setEditId={setEditId} answerId={answerId} onKebabClick={onKebabClick} />
               </div>
               <div className='flex justify-center items-center'>
-                <QuestionDelete id={id} onDeleteQuestion={onDeleteQuestion} />
+                <QuestionDelete id={id} onDeleteQuestion={onDeleteQuestion} onKebabClick={onKebabClick} />
               </div>
               <div className='flex justify-center items-center'>
-                <AnswerDelete answerId={isAnswer.id} onAnswerDeleted={onDeleteAnswer} />
+                <AnswerDelete id={id} answerId={isAnswer.id} onAnswerDeleted={onDeleteAnswer} onKebabClick={onKebabClick} />
               </div>
             </>
           )}
