@@ -105,7 +105,6 @@ const Feed = () => {
         if (alreadyExists) {
           return prev; // 중복되지 않으면 추가하지 않음
         }
-
         return [postObject, ...prev]; // 새 질문을 맨 앞에 추가
       });
 

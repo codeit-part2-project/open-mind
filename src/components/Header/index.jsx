@@ -15,14 +15,14 @@ const style = {
 
 const Header = ({ imageSource, name }) => {
   Header.propTypes = {
-    imageSource: PropTypes.string,
-    name: PropTypes.string,
+    imageSource: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
   };
 
   const [isToastUrlCopy, setIsToastUrlCopy] = useState(false);
 
   const currentUrl = window.location.href;
-
+  const scrollBarWidth = window.innerWidth - document.documentElement.clientWidth;
   const { shareKakao } = useKakaoShare(name);
   const { shareFacebook } = useFacebookShare();
 
@@ -48,14 +48,14 @@ const Header = ({ imageSource, name }) => {
 
   return (
     <>
-      <div className='bg-white'>
+      <header className={`w-[calc(100vw - ${scrollBarWidth}px)] bg-white`}>
         <div className='flex justify-center relative'>
           <div className='w-screen overflow-hidden flex justify-center'>
             <object className='min-w-[906px] md:min-w-[1200px] h-100' data={headerImg} aria-labelledby='Header_Image' type='image/svg+xml' />
           </div>
           <div className='flex flex-col items-center absolute gap-3 top-[40px] md:top-[50px]'>
             <Link to='/'>
-              <img className='max-w-[124px] md:max-w-[170px] h-20' src={logo} alt='Logo' />
+              <img className='max-w-[124px] md:max-w-[170px]' src={logo} alt='Logo' />
             </Link>
             {imageSource && <img className='rounded-full max-w-[104px] max-h-[104px] md:max-w-[136px] md:max-h-[136px]' src={imageSource} alt='Profile_Img' />}
             <div className='font-normal text-2xl/[30px] md:text-[32px]/[40px]'>{name}</div>
@@ -73,7 +73,7 @@ const Header = ({ imageSource, name }) => {
             </div>
           </div>
         </div>
-      </div>
+      </header>
       {isToastUrlCopy && <ToastUrlCopy />}
     </>
   );

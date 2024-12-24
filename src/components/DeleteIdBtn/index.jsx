@@ -2,8 +2,8 @@ import PropTypes from 'prop-types';
 
 const DeleteIdBtn = ({ onClick, id }) => {
   DeleteIdBtn.propTypes = {
-    onClick: PropTypes.func,
-    id: PropTypes.string,
+    onClick: PropTypes.func.isRequired,
+    id: PropTypes.string.isRequired,
   };
 
   const handleDelete = () => {

@@ -1,5 +1,4 @@
 import { useState } from 'react';
-// eslint-disable-next-line
 import { postReaction } from 'api/questions';
 import { ReactComponent as ThumbsUpIcon } from 'assets/images/icons/thumbs-up.svg';
 import { ReactComponent as ThumbsDownIcon } from 'assets/images/icons/thumbs-down.svg';
