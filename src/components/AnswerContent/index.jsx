@@ -46,15 +46,12 @@ const AnswerContent = ({ answer, name, imageSource, id, onAnswerSubmit }) => {
     let response;
     try {
       setIsLoading(true);
-      // setError(null);
       response = await postAnswer(id, postBody);
       setUpdatedAnswer(response);
       onAnswerSubmit(id, response);
     } catch (err) {
-      // setError(`${response} : 답변을 등록하던 중 오류가 발생했습니다. 페이지를 새로고침합니다.`);
-      // setTimeout(() => {
-      //   window.location.reload();
-      // }, 2000);
+      // eslint-disable-next-line
+      console.error(err);
     } finally {
       setIsLoading(false);
     }
@@ -64,7 +61,7 @@ const AnswerContent = ({ answer, name, imageSource, id, onAnswerSubmit }) => {
 
   const renderAnswerHeader = () => (
     <div className='flex items-center mb-[4px]'>
-      <p className='mr-[8px] inline-block text-sm leading-[18px] md:text-lg md:leading-[24px]'>{name}</p>
+      <p className='mr-[8px] inline-block text-sm leading-[18px] md:text-lg md:leading-[24px] font-actor'>{name}</p>
       <p className='text-sm font-medium leading-[18px] text-gray-40'>{formatCreatedAt(updatedAnswer.createdAt)}</p>
     </div>
   );
