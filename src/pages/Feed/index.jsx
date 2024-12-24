@@ -7,6 +7,7 @@ import { AppContext } from 'components/Context';
 import Header from 'components/Header';
 import CountQuestion from 'components/CountQuestion';
 import QnAList from 'components/QnAList';
+import ToastPostQuestion from 'components/ToastPostQuestion';
 
 const getDynamicLimit = () => {
   const screenHeight = window.innerHeight;
@@ -30,6 +31,8 @@ const Feed = () => {
   const [questionList, setQuestionList] = useState([]);
 
   const [listLoading, setListLoading] = useState(false);
+
+  const [isToastState, setIsToastState] = useState(false);
 
   const [offset, setOffset] = useState(0);
   const [hasMore, setHasMore] = useState(false);
@@ -91,11 +94,18 @@ const Feed = () => {
   // 새 질문이 추가되면 질문 리스트 맨 앞에 삽입
   useEffect(() => {
     if (postObject) {
+      setIsToastState(true);
+
+      setTimeout(() => {
+        setIsToastState(false);
+      }, 3000);
+
       setQuestionList((prev) => {
         const alreadyExists = prev.some((question) => question.id === postObject.id);
         if (alreadyExists) {
           return prev; // 중복되지 않으면 추가하지 않음
         }
+
         return [postObject, ...prev]; // 새 질문을 맨 앞에 추가
       });
 
@@ -173,6 +183,7 @@ const Feed = () => {
           <span className='hidden md:block'>질문 작성하기</span>
         </button>
       </div>
+      {isToastState && <ToastPostQuestion />}
     </div>
   );
 };
