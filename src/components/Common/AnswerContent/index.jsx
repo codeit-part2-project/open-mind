@@ -74,7 +74,7 @@ const AnswerContent = ({ answer, name, imageSource, id, onAnswerSubmit, setIsKeb
     </div>
   );
 
-  const renderAnswerContent = () => <p className='text-base leading-[22px]'>{updatedAnswer.content}</p>;
+  const renderAnswerContent = () => <p className='text-base leading-[22px] break-words break-all whitespace-normal'>{updatedAnswer.content}</p>;
 
   const renderAnswerForm = () => (
     <form onSubmit={handleAnswerPost} className='flex w-full flex-col gap-[8px]'>
@@ -141,7 +141,7 @@ const AnswerContent = ({ answer, name, imageSource, id, onAnswerSubmit, setIsKeb
           {renderProfileImg()}
           <div>
             {renderAnswerHeader()}
-            <p className='text-base leading-[22px]'>{updatedAnswer.content}</p>
+            <p className='text-base leading-[22px] break-words break-all whitespace-normal'>{updatedAnswer.content}</p>
           </div>
         </div>
       );
