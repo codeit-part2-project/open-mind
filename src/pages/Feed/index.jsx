@@ -23,7 +23,6 @@ const getDynamicLimit = () => {
 const Feed = () => {
   const { id: subjectId } = useParams();
   const [profileLoading, setProfileLoading] = useState(true);
-  const [profileError, setProfileError] = useState('');
   const [profile, setProfile] = useState({});
 
   const { openModal, postObject, setPostObject } = useContext(AppContext);
@@ -45,17 +44,13 @@ const Feed = () => {
     const getProfile = async () => {
       try {
         setProfileLoading(true);
-        setProfileError('');
         const response = await getSubjectById(subjectId);
         if (typeof response === 'string' && response.includes('에러')) {
-          throw new Error('존재하지 않는 피드로 접근하여 오류가 발생했습니다. 잠시 후 홈으로 이동합니다.');
+          throw new Error('존재하지 않는 피드입니다.');
         }
         setProfile(response);
       } catch (e) {
-        setProfileError(e.message);
-        setTimeout(() => {
-          navigate('/');
-        }, 3000);
+        navigate('/error', { state: { message: e.message } });
       } finally {
         setProfileLoading(false);
       }
@@ -80,16 +75,15 @@ const Feed = () => {
         } else {
           throw new Error('질문 목록을 불러오는 데 실패했습니다.');
         }
-      } catch (err) {
-        // eslint-disable-next-line
-        console.error(err.toString());
+      } catch (e) {
+        navigate('/error', { state: { message: e.message } });
       } finally {
         setListLoading(false);
       }
     };
 
     fetchQuestions();
-  }, [subjectId, offset]);
+  }, [subjectId, offset, navigate]);
 
   // 새 질문이 추가되면 질문 리스트 맨 앞에 삽입
   useEffect(() => {
@@ -154,7 +148,6 @@ const Feed = () => {
   }, [loadMoreQuestions]);
 
   if (profileLoading) return <div className='feed-loading'>로딩 중...</div>;
-  if (profileError) return <div className='feed-error'>{profileError}</div>;
 
   return (
     <div className='h-screen bg-gray-20'>

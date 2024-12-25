@@ -1,10 +1,12 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import imgLogo from 'assets/images/img_Logo.svg';
 
 const Error = () => {
   const [showToast, setShowToast] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
+  const errorMessage = location.state && location.state.message ? location.state.message : '페이지를 찾을 수 없습니다.';
 
   const handleButtonClick = () => {
     setShowToast(true);
@@ -19,7 +21,7 @@ const Error = () => {
       <img src={imgLogo} alt='오픈마인드 로고' className='absolute w-[248px] h-[98px] mt-[80px] mx-auto mb-[24px] md:w-[456px] md:h-[180px] md:mt-[160px] opacity-30' />
       <div className='relative flex flex-col items-center max-w-[340px] mx-[20px] mt-[290px] p-[40px] rounded-lg bg-white shadow-lg z-10 md:w-[450px] md:mt-[360px]'>
         <p className='text-brown-50 text-4xl font-bold font-actor'>404</p>
-        <p className='mt-[5px] mb-[20px] text-brown-40 text-lg'>페이지를 찾을 수 없어요</p>
+        <p className='my-[20px] text-brown-40 text-lg'>{errorMessage}</p>
         <button
           type='button'
           onClick={handleButtonClick}
