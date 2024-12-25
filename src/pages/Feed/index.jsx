@@ -24,6 +24,7 @@ const Feed = () => {
   const { id: subjectId } = useParams();
   const [profileLoading, setProfileLoading] = useState(true);
   const [profile, setProfile] = useState({});
+  const [errorMsg, setErrorMsg] = useState('');
 
   const { openModal, postObject, setPostObject } = useContext(AppContext);
 
@@ -50,7 +51,7 @@ const Feed = () => {
         }
         setProfile(response);
       } catch (e) {
-        navigate('/error', { state: { message: e.message } });
+        setErrorMsg(e.message);
       } finally {
         setProfileLoading(false);
       }
@@ -73,10 +74,10 @@ const Feed = () => {
           });
           setHasMore(response.next !== null);
         } else {
-          throw new Error('질문 목록을 불러오는 데 실패했습니다.');
+          throw new Error('질문 목록을 불러올 수 없습니다.');
         }
       } catch (e) {
-        navigate('/error', { state: { message: e.message } });
+        setErrorMsg(e.message);
       } finally {
         setListLoading(false);
       }
@@ -146,6 +147,10 @@ const Feed = () => {
       }
     };
   }, [loadMoreQuestions]);
+
+  if (errorMsg) {
+    navigate('/error', { state: { message: errorMsg } });
+  }
 
   if (profileLoading)
     return (

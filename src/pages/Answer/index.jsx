@@ -8,7 +8,7 @@ import CountQuestion from 'components/CountQuestion';
 import QnAList from 'components/QnAList';
 import ToastDeleteId from 'components/ToastDeleteId';
 import questionBoxImg from 'assets/images/img_QuestionBox.svg';
-import ConfirmModal from 'components/ConfirmModal'; // Import the modal component
+import ConfirmModal from 'components/ConfirmModal';
 import ToastDelete from 'components/ToastSuccess';
 
 const getDynamicLimit = () => {
@@ -30,6 +30,7 @@ const Answer = () => {
   const [isDeleteId, setIsDeleteId] = useState(false);
   const [isToast, setIsToast] = useState(null);
   const LocalId = localStorage.getItem('id');
+  const [errorMsg, setErrorMsg] = useState('');
 
   const navigate = useNavigate();
 
@@ -42,18 +43,18 @@ const Answer = () => {
 
   const observerRef = useRef(null);
 
-  const [showModal, setShowModal] = useState(false); // State for showing the modal
+  const [showModal, setShowModal] = useState(false);
 
   const handleDelete = async () => {
-    setShowModal(true); // Show the modal when delete is clicked
+    setShowModal(true);
   };
 
   const handleModalCancel = () => {
-    setShowModal(false); // Close the modal if canceled
+    setShowModal(false);
   };
 
   const handleModalConfirm = async () => {
-    setShowModal(false); // Close the modal
+    setShowModal(false);
     try {
       const response = await deleteSubject(subjectId);
       if (!response.ok) {
@@ -66,7 +67,7 @@ const Answer = () => {
         navigate('/');
       }, 2000);
     } catch (e) {
-      navigate('/error', { state: { message: e.message } });
+      setErrorMsg(e.message);
     }
   };
 
@@ -97,7 +98,7 @@ const Answer = () => {
           }
         }
       } catch (e) {
-        navigate('/error', { state: { message: e.message } });
+        setErrorMsg(e.message);
       } finally {
         setProfileLoading(false);
       }
@@ -121,10 +122,10 @@ const Answer = () => {
           });
           setHasMore(response.next !== null);
         } else {
-          throw new Error('질문 목록을 불러오는 데 실패했습니다.');
+          throw new Error('질문 목록을 불러올 수 없습니다.');
         }
       } catch (e) {
-        navigate('/error', { state: { message: e.message } });
+        setErrorMsg(e.message);
       } finally {
         setListLoading(false);
       }
@@ -159,6 +160,10 @@ const Answer = () => {
       }
     };
   }, [loadMoreQuestions]);
+
+  if (errorMsg) {
+    navigate('/error', { state: { message: errorMsg } });
+  }
 
   if (profileLoading)
     return (
