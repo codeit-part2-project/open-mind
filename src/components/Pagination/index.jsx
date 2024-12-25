@@ -21,12 +21,10 @@ const Pagination = ({ data }) => {
 
   const btnHoverAnimation = 'hover:transform hover:translate-y-[-5px] transition-transform duration-300 ease-in-out';
 
-  // 페이지네이션의 시작 번호 계산 (ex.두번째 페이지네이션 : 6)
   const startNum = Math.floor((activeNum - 1) / 5) * 5 + 1;
-  // 페이지네이션 번호 버튼 배열
+
   const pages = Array.from({ length: Math.min(5, Math.ceil(count / limit - startNum) + 1) }, (_, i) => startNum + i);
 
-  // 페이지 번호 선택에 따른 상태 변경 함수
   const pageSelect = useCallback(
     (pageNum) => {
       setActiveNum(pageNum);
@@ -36,7 +34,6 @@ const Pagination = ({ data }) => {
     [limit, setOffset, setLimit],
   );
 
-  // 페이지네이션 이동 버튼 유효성 검사
   const checkArrowBtn = useCallback(() => {
     const divActiveNum = Math.floor((activeNum - 1) / 5);
     const divTotalPageNum = Math.floor((Math.ceil(count / limit) - 1) / 5);

@@ -10,11 +10,9 @@ const useKakaoShare = (name) => {
 
   useEffect(() => {
     Kakao.cleanup();
-    // Kakao SDK 초기화
     Kakao.init(process.env.REACT_APP_KAKAO_JS_KEY);
   }, []);
 
-  // 카카오 공유 함수
   const shareKakao = () => {
     try {
       if (Kakao.isInitialized()) {

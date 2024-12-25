@@ -21,16 +21,16 @@ const QuestionDelete = ({ id, onDeleteQuestion, onKebabClick, setIsKebabLoading,
   const [showModal, setShowModal] = useState(false);
 
   const handleDelete = async () => {
-    setShowModal(true); // Show the modal when delete is clicked
+    setShowModal(true);
   };
 
   const handleModalCancel = () => {
     onKebabClick(id);
-    setShowModal(false); // Close the modal if canceled
+    setShowModal(false);
   };
 
   const handleModalConfirm = async () => {
-    setShowModal(false); // Close the moda
+    setShowModal(false);
 
     try {
       setIsKebabLoading(true);

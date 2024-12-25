@@ -3,7 +3,7 @@ import { ReactComponent as Close } from 'assets/images/icons/ic_Close.svg';
 import PropTypes from 'prop-types';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import ConfirmModal from 'components/ConfirmModal'; // Import the modal component
+import ConfirmModal from 'components/ConfirmModal';
 
 const AnswerDelete = ({ id, answerId, onAnswerDeleted, onKebabClick, setIsKebabLoading, setIsToast, editId, setEditId }) => {
   AnswerDelete.propTypes = {
@@ -23,18 +23,18 @@ const AnswerDelete = ({ id, answerId, onAnswerDeleted, onKebabClick, setIsKebabL
   const [showModal, setShowModal] = useState(false);
 
   const handleDelete = async () => {
-    setShowModal(true); // Show the modal when delete is clicked
+    setShowModal(true);
   };
 
   const handleModalCancel = () => {
     onKebabClick(id);
-    setShowModal(false); // Close the modal if canceled
+    setShowModal(false);
   };
 
   const handleModalConfirm = async () => {
     onKebabClick(id);
     setIsKebabLoading(true);
-    setShowModal(false); // Close the modal
+    setShowModal(false);
     setIsDeleting(true);
 
     try {

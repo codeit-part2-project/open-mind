@@ -86,7 +86,6 @@ const Feed = () => {
     fetchQuestions();
   }, [subjectId, offset, navigate]);
 
-  // 새 질문이 추가되면 질문 리스트 맨 앞에 삽입
   useEffect(() => {
     if (postObject) {
       setIsToastState(true);
@@ -98,12 +97,12 @@ const Feed = () => {
       setQuestionList((prev) => {
         const alreadyExists = prev.some((question) => question.id === postObject.id);
         if (alreadyExists) {
-          return prev; // 중복되지 않으면 추가하지 않음
+          return prev;
         }
-        return [postObject, ...prev]; // 새 질문을 맨 앞에 추가
+        return [postObject, ...prev];
       });
 
-      setOffset((prev) => prev + 1); // 페이지네이션 offset 유지
+      setOffset((prev) => prev + 1);
 
       setProfile((prev) => {
         const questionCount = prev && prev.questionCount ? prev.questionCount : 0;
@@ -113,10 +112,9 @@ const Feed = () => {
         };
       });
 
-      // postObject가 추가된 후 상태를 null로 리셋하여 다시 추가되지 않도록 방지
-      setPostObject(null); // postObject 상태를 null로 리셋
+      setPostObject(null);
     }
-  }, [postObject, setPostObject]); // postObject가 변경될 때만 실행
+  }, [postObject, setPostObject]);
 
   const loadMoreQuestions = useCallback(
     (entries) => {

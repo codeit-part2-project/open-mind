@@ -91,13 +91,10 @@ const QnAList = ({ name, imageSource, questionList, setQuestionList, onDeleteQue
                   />
                 )}
               </div>
-              <QuestionContent
-                createdAt={question.createdAt}
-                content={question.content || ''} // content가 null일 경우 기본 값 제공
-              />
+              <QuestionContent createdAt={question.createdAt} content={question.content || ''} />
               {question.answer && question.answer.id === editId ? (
                 <AnswerEditForm
-                  answer={question.answer || { content: '' }} // answer가 없으면 빈 객체를 넘겨줌
+                  answer={question.answer || { content: '' }}
                   name={name}
                   imageSource={imageSource}
                   id={question.id}

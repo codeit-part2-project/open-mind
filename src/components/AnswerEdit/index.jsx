@@ -1,13 +1,13 @@
 import PropTypes from 'prop-types';
 import { ReactComponent as Edit } from 'assets/images/icons/ic_Edit.svg';
 
-// eslint-disable-next-line
 const AnswerEdit = ({ id, editId, setEditId, answerId, onKebabClick }) => {
   AnswerEdit.propTypes = {
     id: PropTypes.number.isRequired,
     editId: PropTypes.number.isRequired,
     setEditId: PropTypes.func.isRequired,
     onKebabClick: PropTypes.func.isRequired,
+    answerId: PropTypes.number.isRequired,
   };
 
   const handleEdit = () => {

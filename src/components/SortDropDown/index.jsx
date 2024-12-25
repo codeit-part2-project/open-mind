@@ -25,14 +25,12 @@ const SortDropDown = ({ changeSort }) => {
     changeSort(target.textContent);
   };
 
-  // 외부 클릭 시 드롭다운을 닫는 함수
   const handleClickOutside = (event) => {
     if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
       setIsOpen(false);
     }
   };
 
-  // 컴포넌트 마운트 시 이벤트 리스너 추가
   useEffect(() => {
     document.addEventListener('click', handleClickOutside);
     return () => {

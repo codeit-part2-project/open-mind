@@ -4,11 +4,6 @@ import PropTypes from 'prop-types';
 const AppContext = createContext();
 
 const AppProvider = ({ children }) => {
-  /**
-   * children prop 유효성 검사
-   * PropType.node : 해당 prop 값이 렌더링 가능한 값이어야 됨
-   * isRequired : children prop은 필수임
-   */
   AppProvider.propTypes = {
     children: PropTypes.node.isRequired,
   };

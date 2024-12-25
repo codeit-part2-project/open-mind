@@ -4,7 +4,6 @@ import { putAnswer } from 'api/answers';
 import { ReactComponent as Close } from 'assets/images/icons/ic_Close.svg';
 import ConfirmModal from 'components/ConfirmModal';
 
-// eslint-disable-next-line
 const AnswerEditForm = ({ answer, name, imageSource, id, setEditId, setQuestionList, setIsKebabLoading, setIsToast }) => {
   AnswerEditForm.propTypes = {
     answer: PropTypes.shape({
@@ -18,13 +17,14 @@ const AnswerEditForm = ({ answer, name, imageSource, id, setEditId, setQuestionL
     id: PropTypes.number.isRequired,
     setIsKebabLoading: PropTypes.func.isRequired,
     setIsToast: PropTypes.func.isRequired,
+    setEditId: PropTypes.number.isRequired,
+    setQuestionList: PropTypes.func.isRequired,
   };
 
   AnswerEditForm.defaultProps = {
     imageSource: 'https://fastly.picsum.photos/id/772/200/200.jpg?hmac=9euSj4JHTPr7uT5QWVmeNJ8JaqAXY8XmJnYfr_DfBJc',
   };
 
-  // 초기값 설정 시 answer.content가 null일 경우 빈 문자열로 처리
   const [textareaValue, setTextareaValue] = useState(answer.content === null || answer.content === 'reject' ? '' : answer.content);
   const [isLoading, setIsLoading] = useState(false);
   const [isValid, setIsValid] = useState(false);
@@ -43,8 +43,8 @@ const AnswerEditForm = ({ answer, name, imageSource, id, setEditId, setQuestionL
       setIsKebabLoading(true);
       setIsLoading(true);
       const result = await putAnswer(answer.id, {
-        content: textareaValue, // textareaValue에서 내용을 가져옵니다.
-        isRejected: false, // 필요하다면 다른 데이터도 추가 가능합니다.
+        content: textareaValue,
+        isRejected: false,
       });
       setIsToast('수정');
       setQuestionList((prevQuestions) =>
@@ -56,7 +56,8 @@ const AnswerEditForm = ({ answer, name, imageSource, id, setEditId, setQuestionL
         }),
       );
     } catch (err) {
-      // handle error here (e.g., show error message)
+      // eslint-disable-next-line
+      console.error(err);
     } finally {
       setIsKebabLoading(false);
       setIsLoading(false);
