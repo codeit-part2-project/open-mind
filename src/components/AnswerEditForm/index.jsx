@@ -84,9 +84,6 @@ const AnswerEditForm = ({ answer, name, imageSource, id, setEditId, setQuestionL
 
   const renderAnswerForm = () => (
     <form onSubmit={handleAnswerPatch} className='relative flex w-full flex-col gap-[8px]'>
-      <button type='button' className='absolute -top-7 right-1.5 fill-current text-gray-50' onClick={onCancelClick}>
-        <Close />
-      </button>
       <textarea
         className='w-full h-[186px] resize-none rounded-lg border-none p-[16px] bg-gray-20 text-base leading-[22px] text-secondary-900 placeholder:text-base placeholder:leading-[22px] placeholder:text-gray-40 focus:outline-brown-40'
         placeholder='답변을 입력해주세요'
@@ -104,7 +101,12 @@ const AnswerEditForm = ({ answer, name, imageSource, id, setEditId, setQuestionL
       <div className='flex gap-[12px]'>
         {renderProfileImg()}
         <div className='flex-1'>
-          <p className='mb-[4px] mr-[8px] inline-block text-sm leading-[18px] md:text-lg md:leading-[24px]'>{name}</p>
+          <div className='flex justify-between items-center mb-[4px]'>
+            <p className='mr-[8px] inline-block text-sm leading-[18px] md:text-lg md:leading-[24px]'>{name}</p>
+            <button type='button' className='mr-[4px] w-3 h-3 md:w-4 md:h-4 fill-current text-gray-50' onClick={onCancelClick}>
+              <Close className='w-3 h-3 md:w-4 md:h-4' />
+            </button>
+          </div>
           {renderAnswerForm()}
         </div>
       </div>
