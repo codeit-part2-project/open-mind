@@ -32,7 +32,12 @@ const ConfirmModal = ({ isOpen, onConfirm, onCancel, message }) => {
 
   return (
     <div className='modal-overlay fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50'>
-      <div ref={modalRef} className='modal-content p-6 rounded-2xl bg-gray-20 shadow-2pt' role='dialog' aria-labelledby='confirm-modal-title'>
+      <div
+        ref={modalRef}
+        className='fixed left-1/2 -translate-x-1/2 modal-content p-6 rounded-2xl bg-gray-20 shadow-2pt animate-slide-up-fade-modal'
+        role='dialog'
+        aria-labelledby='confirm-modal-title'
+      >
         <h2 id='confirm-modal-title' className='text-center text-lg font-medium mb-4'>
           {message}
         </h2>

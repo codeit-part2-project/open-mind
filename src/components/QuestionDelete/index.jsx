@@ -31,9 +31,6 @@ const QuestionDelete = ({ id, onDeleteQuestion, onKebabClick, setIsKebabLoading,
 
   const handleModalConfirm = async () => {
     setShowModal(false); // Close the moda
-    if (editId !== null) {
-      setEditId(null);
-    }
 
     try {
       setIsKebabLoading(true);
@@ -53,6 +50,9 @@ const QuestionDelete = ({ id, onDeleteQuestion, onKebabClick, setIsKebabLoading,
     } finally {
       setIsKebabLoading(false);
       setIsLoading(false);
+      if (editId !== null) {
+        setEditId(null);
+      }
       setTimeout(() => {
         setIsToast(null);
       }, 3000);

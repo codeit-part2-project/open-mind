@@ -37,10 +37,6 @@ const AnswerDelete = ({ id, answerId, onAnswerDeleted, onKebabClick, setIsKebabL
     setShowModal(false); // Close the modal
     setIsDeleting(true);
 
-    if (editId !== null) {
-      setEditId(null);
-    }
-
     try {
       const response = await deleteAnswer(answerId);
       if (!response.ok) {
@@ -53,6 +49,9 @@ const AnswerDelete = ({ id, answerId, onAnswerDeleted, onKebabClick, setIsKebabL
     } finally {
       setIsDeleting(false);
       setIsKebabLoading(false);
+      if (editId !== null) {
+        setEditId(null);
+      }
       setTimeout(() => {
         setIsToast(null);
       }, 3000);
