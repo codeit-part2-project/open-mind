@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ConfirmModal from 'components/ConfirmModal'; // Import the modal component
 
-const AnswerDelete = ({ id, answerId, onAnswerDeleted, onKebabClick, setIsKebabLoading, setIsToast }) => {
+const AnswerDelete = ({ id, answerId, onAnswerDeleted, onKebabClick, setIsKebabLoading, setIsToast, editId, setEditId }) => {
   AnswerDelete.propTypes = {
     id: PropTypes.number.isRequired,
     answerId: PropTypes.number.isRequired,
@@ -13,6 +13,8 @@ const AnswerDelete = ({ id, answerId, onAnswerDeleted, onKebabClick, setIsKebabL
     onKebabClick: PropTypes.func.isRequired,
     setIsKebabLoading: PropTypes.func.isRequired,
     setIsToast: PropTypes.func.isRequired,
+    editId: PropTypes.number.isRequired,
+    setEditId: PropTypes.func.isRequired,
   };
 
   const [isDeleting, setIsDeleting] = useState(false);
@@ -34,6 +36,10 @@ const AnswerDelete = ({ id, answerId, onAnswerDeleted, onKebabClick, setIsKebabL
     setIsKebabLoading(true);
     setShowModal(false); // Close the modal
     setIsDeleting(true);
+
+    if (editId !== null) {
+      setEditId(null);
+    }
 
     try {
       const response = await deleteAnswer(answerId);

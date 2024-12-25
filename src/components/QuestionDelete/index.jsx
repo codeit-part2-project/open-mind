@@ -2,15 +2,17 @@ import PropTypes from 'prop-types';
 import { useState } from 'react';
 import { deleteQuestion } from 'api/questions';
 import { ReactComponent as Close } from 'assets/images/icons/ic_Close.svg';
-import ConfirmModal from 'components/ConfirmModal'; // Import the modal component
+import ConfirmModal from 'components/ConfirmModal';
 
-const QuestionDelete = ({ id, onDeleteQuestion, onKebabClick, setIsKebabLoading, setIsToast }) => {
+const QuestionDelete = ({ id, onDeleteQuestion, onKebabClick, setIsKebabLoading, setIsToast, editId, setEditId }) => {
   QuestionDelete.propTypes = {
     id: PropTypes.number.isRequired,
     onDeleteQuestion: PropTypes.func.isRequired,
     onKebabClick: PropTypes.func.isRequired,
     setIsKebabLoading: PropTypes.func.isRequired,
     setIsToast: PropTypes.func.isRequired,
+    editId: PropTypes.number.isRequired,
+    setEditId: PropTypes.func.isRequired,
   };
 
   const [isLoading, setIsLoading] = useState(false);
@@ -29,6 +31,9 @@ const QuestionDelete = ({ id, onDeleteQuestion, onKebabClick, setIsKebabLoading,
 
   const handleModalConfirm = async () => {
     setShowModal(false); // Close the moda
+    if (editId !== null) {
+      setEditId(null);
+    }
 
     try {
       setIsKebabLoading(true);

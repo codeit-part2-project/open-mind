@@ -1,6 +1,8 @@
 import PropTypes from 'prop-types';
 import { useState } from 'react';
 import { putAnswer } from 'api/answers';
+import { ReactComponent as Close } from 'assets/images/icons/ic_Close.svg';
+import ConfirmModal from 'components/ConfirmModal';
 
 // eslint-disable-next-line
 const AnswerEditForm = ({ answer, name, imageSource, id, setEditId, setQuestionList, setIsKebabLoading, setIsToast }) => {
@@ -26,6 +28,7 @@ const AnswerEditForm = ({ answer, name, imageSource, id, setEditId, setQuestionL
   const [textareaValue, setTextareaValue] = useState(answer.content === null || answer.content === 'reject' ? '' : answer.content);
   const [isLoading, setIsLoading] = useState(false);
   const [isValid, setIsValid] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
   const handleTextareaChange = (event) => {
     const text = event.target.value;
@@ -64,10 +67,26 @@ const AnswerEditForm = ({ answer, name, imageSource, id, setEditId, setQuestionL
     }
   };
 
+  const onCancelClick = () => {
+    setShowModal(true);
+  };
+
+  const handleModalCancel = () => {
+    setShowModal(false);
+  };
+
+  const handleModalConfirm = () => {
+    setShowModal(false);
+    setEditId(null);
+  };
+
   const renderProfileImg = () => <img src={imageSource} alt={`${name}의 프로필`} className='w-[32px] h-[32px] md:w-[48px] md:h-[48px] rounded-full object-cover' />;
 
   const renderAnswerForm = () => (
-    <form onSubmit={handleAnswerPatch} className='flex w-full flex-col gap-[8px]'>
+    <form onSubmit={handleAnswerPatch} className='relative flex w-full flex-col gap-[8px]'>
+      <button type='button' className='absolute -top-7 right-1.5 fill-current text-gray-50' onClick={onCancelClick}>
+        <Close />
+      </button>
       <textarea
         className='w-full h-[186px] resize-none rounded-lg border-none p-[16px] bg-gray-20 text-base leading-[22px] text-secondary-900 placeholder:text-base placeholder:leading-[22px] placeholder:text-gray-40 focus:outline-brown-40'
         placeholder='답변을 입력해주세요'
@@ -81,13 +100,16 @@ const AnswerEditForm = ({ answer, name, imageSource, id, setEditId, setQuestionL
   );
 
   return (
-    <div className='flex gap-[12px]'>
-      {renderProfileImg()}
-      <div className='flex-1'>
-        <p className='mb-[4px] mr-[8px] inline-block text-sm leading-[18px] md:text-lg md:leading-[24px]'>{name}</p>
-        {renderAnswerForm()}
+    <>
+      <div className='flex gap-[12px]'>
+        {renderProfileImg()}
+        <div className='flex-1'>
+          <p className='mb-[4px] mr-[8px] inline-block text-sm leading-[18px] md:text-lg md:leading-[24px]'>{name}</p>
+          {renderAnswerForm()}
+        </div>
       </div>
-    </div>
+      <ConfirmModal isOpen={showModal} onConfirm={handleModalConfirm} onCancel={handleModalCancel} message='수정 중인 답변이 있습니다. 취소하시겠습니까?' />
+    </>
   );
 };
 
