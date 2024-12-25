@@ -79,21 +79,27 @@ const Pagination = ({ data }) => {
   }, [pageWidth, count, setLimit, setOffset, activeNum]);
 
   return (
-    <div className='flex gap-6 justify-center items-center font-actor my-8 md:mt-20 md:mb-16'>
-      <button type='button' onClick={prevClick} disabled={disabledArrowLeft} className={disabledArrowLeft ? '' : btnHoverAnimation}>
-        <IconLeftArrow alt='왼쪽 화살표' className='fill-gray-40' />
-      </button>
-      {pages.map((value) => {
-        const activeColor = activeNum === value ? 'font-semibold text-brown-40' : 'text-gray-40';
-        return (
-          <button type='button' key={value} onClick={() => pageSelect(value)} className={`text-xl ${activeColor} ${btnHoverAnimation}`}>
-            {value}
+    <div className='flex gap-6 justify-center items-center relative font-actor my-8 md:mt-20 md:mb-16'>
+      {pages.length === 0 ? (
+        <div className='absolute top-0 bottom-0 w-[300px] h-[28px] border rounded-2xl flex justify-center items-center bg-gray-20 z-10' />
+      ) : (
+        <>
+          <button type='button' onClick={prevClick} disabled={disabledArrowLeft} className={disabledArrowLeft ? '' : btnHoverAnimation}>
+            <IconLeftArrow alt='왼쪽 화살표' className='fill-gray-40' />
           </button>
-        );
-      })}
-      <button type='button' onClick={nextClick} disabled={disabledArrowRight} className={disabledArrowRight ? '' : btnHoverAnimation}>
-        <IconRightArrow alt='오른쪽 화살표' className='fill-gray-40' />
-      </button>
+          {pages.map((value) => {
+            const activeColor = activeNum === value ? 'font-semibold text-brown-40' : 'text-gray-40';
+            return (
+              <button type='button' key={value} onClick={() => pageSelect(value)} className={`text-xl ${activeColor} ${btnHoverAnimation}`}>
+                {value}
+              </button>
+            );
+          })}
+          <button type='button' onClick={nextClick} disabled={disabledArrowRight} className={disabledArrowRight ? '' : btnHoverAnimation}>
+            <IconRightArrow alt='오른쪽 화살표' className='fill-gray-40' />
+          </button>
+        </>
+      )}
     </div>
   );
 };
