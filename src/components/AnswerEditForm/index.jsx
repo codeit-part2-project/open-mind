@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { putAnswer } from 'api/answers';
 
 // eslint-disable-next-line
-const AnswerEditForm = ({ answer, name, imageSource, id, setEditId, setQuestionList, setIsKebabLoading }) => {
+const AnswerEditForm = ({ answer, name, imageSource, id, setEditId, setQuestionList, setIsKebabLoading, setIsToast }) => {
   AnswerEditForm.propTypes = {
     answer: PropTypes.shape({
       id: PropTypes.number.isRequired,
@@ -15,6 +15,7 @@ const AnswerEditForm = ({ answer, name, imageSource, id, setEditId, setQuestionL
     imageSource: PropTypes.string,
     id: PropTypes.number.isRequired,
     setIsKebabLoading: PropTypes.func.isRequired,
+    setIsToast: PropTypes.func.isRequired,
   };
 
   AnswerEditForm.defaultProps = {
@@ -42,6 +43,7 @@ const AnswerEditForm = ({ answer, name, imageSource, id, setEditId, setQuestionL
         content: textareaValue, // textareaValue에서 내용을 가져옵니다.
         isRejected: false, // 필요하다면 다른 데이터도 추가 가능합니다.
       });
+      setIsToast('수정');
       setQuestionList((prevQuestions) =>
         prevQuestions.map((question) => {
           if (question.id === id) {
@@ -56,6 +58,9 @@ const AnswerEditForm = ({ answer, name, imageSource, id, setEditId, setQuestionL
       setIsKebabLoading(false);
       setIsLoading(false);
       setEditId(null);
+      setTimeout(() => {
+        setIsToast(null);
+      }, 3000);
     }
   };
 

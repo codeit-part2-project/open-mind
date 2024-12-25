@@ -5,13 +5,14 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ConfirmModal from 'components/ConfirmModal'; // Import the modal component
 
-const AnswerDelete = ({ id, answerId, onAnswerDeleted, onKebabClick, setIsKebabLoading }) => {
+const AnswerDelete = ({ id, answerId, onAnswerDeleted, onKebabClick, setIsKebabLoading, setIsToast }) => {
   AnswerDelete.propTypes = {
     id: PropTypes.number.isRequired,
     answerId: PropTypes.number.isRequired,
     onAnswerDeleted: PropTypes.func.isRequired,
     onKebabClick: PropTypes.func.isRequired,
     setIsKebabLoading: PropTypes.func.isRequired,
+    setIsToast: PropTypes.func.isRequired,
   };
 
   const [isDeleting, setIsDeleting] = useState(false);
@@ -40,11 +41,15 @@ const AnswerDelete = ({ id, answerId, onAnswerDeleted, onKebabClick, setIsKebabL
         throw new Error('답변 삭제 중 오류가 발생했습니다.');
       }
       onAnswerDeleted(answerId);
+      setIsToast('답변');
     } catch (err) {
       navigate('/');
     } finally {
       setIsDeleting(false);
       setIsKebabLoading(false);
+      setTimeout(() => {
+        setIsToast(null);
+      }, 3000);
     }
   };
 

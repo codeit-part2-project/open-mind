@@ -6,7 +6,7 @@ import kebab from 'assets/images/icons/ic_Kebab.svg';
 import AnswerDelete from 'components/AnswerDelete';
 import AnswerEdit from 'components/AnswerEdit';
 
-const Kebab = ({ id, isAnswer, isKebabOpen, onKebabClick, onDeleteQuestion, onAnswerDeleted, setQuestionList, editId, setEditId, answerId, isKebabLoading, setIsKebabLoading }) => {
+const Kebab = ({ id, isAnswer, isKebabOpen, onKebabClick, onDeleteQuestion, onAnswerDeleted, setQuestionList, editId, setEditId, answerId, isKebabLoading, setIsKebabLoading, setIsToast }) => {
   Kebab.propTypes = {
     id: PropTypes.number.isRequired,
     isAnswer: PropTypes.shape({
@@ -26,6 +26,7 @@ const Kebab = ({ id, isAnswer, isKebabOpen, onKebabClick, onDeleteQuestion, onAn
     answerId: PropTypes.number.isRequired,
     isKebabLoading: PropTypes.bool.isRequired,
     setIsKebabLoading: PropTypes.func.isRequired,
+    setIsToast: PropTypes.func.isRequired,
   };
 
   const menuRef = useRef(null);
@@ -65,10 +66,10 @@ const Kebab = ({ id, isAnswer, isKebabOpen, onKebabClick, onDeleteQuestion, onAn
           {!isAnswer ? (
             <>
               <div className='flex justify-center items-center rounded-lg'>
-                <AnswerRejection id={id} setQuestionList={setQuestionList} onKebabClick={onKebabClick} setIsKebabLoading={setIsKebabLoading} />
+                <AnswerRejection id={id} setQuestionList={setQuestionList} onKebabClick={onKebabClick} setIsKebabLoading={setIsKebabLoading} setIsToast={setIsToast} />
               </div>
               <div className='flex justify-center items-center'>
-                <QuestionDelete id={id} onDeleteQuestion={onDeleteQuestion} setIsKebabLoading={setIsKebabLoading} />
+                <QuestionDelete id={id} onDeleteQuestion={onDeleteQuestion} onKebabClick={onKebabClick} setIsKebabLoading={setIsKebabLoading} setIsToast={setIsToast} />
               </div>
             </>
           ) : (
@@ -77,10 +78,10 @@ const Kebab = ({ id, isAnswer, isKebabOpen, onKebabClick, onDeleteQuestion, onAn
                 <AnswerEdit id={id} editId={editId} setEditId={setEditId} answerId={answerId} onKebabClick={onKebabClick} setIsKebabLoading={setIsKebabLoading} />
               </div>
               <div className='flex justify-center items-center'>
-                <QuestionDelete id={id} onDeleteQuestion={onDeleteQuestion} setIsKebabLoading={setIsKebabLoading} />
+                <QuestionDelete id={id} onDeleteQuestion={onDeleteQuestion} onKebabClick={onKebabClick} setIsKebabLoading={setIsKebabLoading} setIsToast={setIsToast} />
               </div>
               <div className='flex justify-center items-center'>
-                <AnswerDelete id={id} answerId={isAnswer.id} onAnswerDeleted={onDeleteAnswer} onKebabClick={onKebabClick} setIsKebabLoading={setIsKebabLoading} />
+                <AnswerDelete id={id} answerId={isAnswer.id} onAnswerDeleted={onDeleteAnswer} onKebabClick={onKebabClick} setIsKebabLoading={setIsKebabLoading} setIsToast={setIsToast} />
               </div>
             </>
           )}
