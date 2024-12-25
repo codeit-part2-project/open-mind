@@ -1,5 +1,10 @@
+<head>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+
 <br/>
-<h1 align="center">OpenMind</h1>
+<img src="https://capsule-render.vercel.app/api?type=waving&color=F1E0C6&height=200&section=header&text=OpenMind&fontSize=80&fontColor=E0E0E0&animation=fadeIn" />
+
 <div align="center">
  <img src="https://github.com/user-attachments/assets/009491cb-4273-44a0-bad9-587346be641c" width="500">
 </div>
@@ -16,6 +21,18 @@
 
 CRUD 기능을 구현한 **Open Mind**로 다른 사람들과 익명으로 소통해보세요!
 
+
+
+<blockquote style="background-color: #f0f8ff; border-left: 5px solid #4682b4; padding: 15px 25px; font-size: 1.2em; color: #333; border-radius: 8px; font-family: 'Noto Sans KR', sans-serif; margin: 20px auto; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); font-style: italic;">
+"이번 기회로 질문을 거리낌 없이 할 수 있었던 것 같아요!😊"
+<br/>
+"익명으로 얘기할 때 더 편하게 질문과 답변을 한 것 같아요!👍"
+</blockquote>
+
+## 🖐️ 배포 서비스
+
+[클릭해서 접속하세요!](https://team6openmind.netlify.app/)
+
 ## 📁 디렉토리 구조
 
 ```
@@ -25,7 +42,6 @@ CRUD 기능을 구현한 **Open Mind**로 다른 사람들과 익명으로 소�
  ┃ ┣ 📂images
  ┃ ┗ 📂styles
  ┣ 📂components
- ┣ 📂config 
  ┣ 📂pages
  ┣ 📂routes
  ┣ 📂utils
@@ -35,7 +51,6 @@ CRUD 기능을 구현한 **Open Mind**로 다른 사람들과 익명으로 소�
 - `📂api` 비동기 리퀘스트 관련 파일
 - `📂assets` image 혹은 styles 관련 파일
 - `📂components` 컴포넌트 관련 파일
-- `📂config` 상수 관련 파일
 - `📂hooks` 커스텀 훅 관련 파일
 - `📂pages` 페이지 컴포넌트 파일
 - `📂routes` 라우팅 설정 파일
@@ -43,6 +58,93 @@ CRUD 기능을 구현한 **Open Mind**로 다른 사람들과 익명으로 소�
 
 
 ## 💻 기능 소개
+
+<div style="overflow-x: auto;">
+  <table style="white-space: nowrap;">
+    <tr>
+      <td align="center">
+        <strong>메인 페이지</strong><br/>
+        <img src="https://github.com/user-attachments/assets/78afd191-c1b7-47b7-be52-8c409a1ffa72" width="450"/>
+        <p>로그인</p>
+      </td>
+      <td align="center">
+        <strong>질문 목록 페이지</strong><br/>
+        <img src="https://github.com/user-attachments/assets/f1219a95-0acd-4ddd-a43c-0d2b11af41b4" width="450"/>
+        <p>페이지네이션 및 피드 이동</p>
+      </td>
+      <td align="center">
+        <strong>피드 페이지</strong><br/>
+        <img src="https://github.com/user-attachments/assets/9d189528-4df1-4f39-8050-f8cc381d1872" width="450"/>
+        <p>질문 등록</p>
+      </td>
+      <td align="center">
+        <strong>피드 페이지 & 답변 페이지</strong><br/>
+        <img src="https://github.com/user-attachments/assets/bff2966d-fbba-495e-a4d8-71370dfbcd27" width="450"/>
+        <p>무한 스크롤 로딩</p>
+      </td>
+      <td align="center">
+        <strong>피드 페이지 & 답변 페이지</strong><br/>
+        <img src="https://github.com/user-attachments/assets/34a78ee2-5db5-400a-94b3-b3c2a34523c3" width="450"/>
+        <p>URL 복사</p>
+      </td>
+      <td align="center">
+        <strong>피드 페이지 & 답변 페이지</strong><br/>
+        <img src="https://github.com/user-attachments/assets/baffdc34-e6b7-4a8d-b247-657ba0a83023"width="450"/>
+        <p>카카오톡 공유</p>
+      </td>
+      <td align="center">
+        <strong>피드 페이지 & 답변 페이지</strong><br/>
+        <img src="https://github.com/user-attachments/assets/f22965ee-1172-4df3-a6c8-958023a31e05" width="450"/>
+        <p>페이스북 공유</p>
+      </td>
+    </tr> 
+  </table>
+</div>
+
+<br/>
+<br/>
+
+<div style="overflow-x: auto;">
+  <table style="white-space: nowrap;">
+    <tr>
+      <td align="center">
+        <strong>답변 페이지</strong><br/>
+        <img src="https://github.com/user-attachments/assets/63f62c38-6d44-46a7-9105-5cff83b05629" width="450"/>
+        <p>답변 등록</p>
+      </td>
+      <td align="center">
+        <strong>답변 페이지</strong><br/>
+        <img src="https://github.com/user-attachments/assets/e401ae98-5441-4700-9271-63e5646f1e54" width="450"/>
+        <p>답변 수정</p>
+      </td>
+      <td align="center">
+        <strong>답변 페이지</strong><br/>
+        <img src="https://github.com/user-attachments/assets/392bc1a5-eec5-4eee-aac9-bfef6cc16dbf" width="450"/>
+        <p>답변 삭제</p>
+      </td>
+      <td align="center">
+        <strong>답변 페이지</strong><br/>
+        <img src="https://github.com/user-attachments/assets/2e9420a6-6741-45ba-bcf1-cd4b054de54b" width="450"/>
+        <p>답변 거절</p>
+      </td>
+      <td align="center">
+        <strong>답변 페이지</strong><br/>
+        <img src="https://github.com/user-attachments/assets/fd955341-ed40-4b4b-ac72-058ff6696bfb" width="450"/>
+        <p>질문 개별 삭제</p>
+      </td>
+      <td align="center">
+        <strong>답변 페이지</strong><br/>
+        <img src="https://github.com/user-attachments/assets/e0d73449-b4c8-49d4-8197-86e35ce177ec"width="450"/>
+        <p>피드 삭제</p>
+      </td>
+      <td align="center">
+        <strong>오류 페이지</strong><br/>
+        <img src="https://github.com/user-attachments/assets/56cb1fe2-1898-4e1f-9e07-8d189d059286" width="450"/>
+        <p>페이지 리디렉션</p>
+      </td>
+    </tr> 
+  </table>
+</div>
 
 
 
@@ -108,3 +210,6 @@ CRUD 기능을 구현한 **Open Mind**로 다른 사람들과 익명으로 소�
   </tbody>
  </table>
 </markdown-accessiblity-table>
+
+
+<img src="https://capsule-render.vercel.app/api?type=waving&color=F1E0C6&height=200&section=footer&fontSize=80" />
