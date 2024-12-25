@@ -8,17 +8,7 @@ import Header from 'components/Common/Header';
 import CountQuestion from 'components/Common/CountQuestion';
 import QnAList from 'components/Common/QnAList';
 import ToastPostQuestion from 'components/UI/Toast/ToastPostQuestion';
-
-const getDynamicLimit = () => {
-  const screenHeight = window.innerHeight;
-  if (screenHeight <= 600) {
-    return 5;
-  }
-  if (screenHeight <= 1200) {
-    return 10;
-  }
-  return 15;
-};
+import getDynamicLimit from 'utils/getDynamicLimit';
 
 const Feed = () => {
   const { id: subjectId } = useParams();

@@ -10,17 +10,7 @@ import ToastDeleteId from 'components/UI/Toast/ToastDeleteId';
 import questionBoxImg from 'assets/images/img_QuestionBox.svg';
 import ConfirmModal from 'components/UI/Modals/ConfirmModal';
 import ToastDelete from 'components/UI/Toast/ToastSuccess';
-
-const getDynamicLimit = () => {
-  const screenHeight = window.innerHeight;
-  if (screenHeight <= 600) {
-    return 5;
-  }
-  if (screenHeight <= 1200) {
-    return 10;
-  }
-  return 15;
-};
+import getDynamicLimit from 'utils/getDynamicLimit';
 
 const Answer = () => {
   const { id: subjectId } = useParams();
