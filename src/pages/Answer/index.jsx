@@ -2,36 +2,25 @@ import { useState, useEffect, useRef, useCallback } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { getSubjectById, deleteSubject } from 'api/subjects';
 import { getQuestionBySubjectId } from 'api/questions';
-import Header from 'components/Header';
+import Header from 'components/Common/Header';
 import DeleteIdBtn from 'components/DeleteIdBtn';
-import CountQuestion from 'components/CountQuestion';
-import QnAList from 'components/QnAList';
-import ToastDeleteId from 'components/ToastDeleteId';
+import CountQuestion from 'components/Common/CountQuestion';
+import QnAList from 'components/Common/QnAList';
+import ToastDeleteId from 'components/UI/Toast/ToastDeleteId';
 import questionBoxImg from 'assets/images/img_QuestionBox.svg';
-import ConfirmModal from 'components/ConfirmModal'; // Import the modal component
-import ToastDelete from 'components/ToastSuccess';
-
-const getDynamicLimit = () => {
-  const screenHeight = window.innerHeight;
-  if (screenHeight <= 600) {
-    return 5;
-  }
-  if (screenHeight <= 1200) {
-    return 10;
-  }
-  return 15;
-};
+import ConfirmModal from 'components/UI/Modals/ConfirmModal';
+import ToastDelete from 'components/UI/Toast/ToastSuccess';
+import getDynamicLimit from 'utils/getDynamicLimit';
 
 const Answer = () => {
   const { id: subjectId } = useParams();
   const [profileLoading, setProfileLoading] = useState(true);
-  const [profileError, setProfileError] = useState('');
-  const [profile, setProfile] = useState(null);
+  const [profile, setProfile] = useState({});
   const [questionCount, setQuestionCount] = useState(0);
-  const [error, setError] = useState(null);
   const [isDeleteId, setIsDeleteId] = useState(false);
   const [isToast, setIsToast] = useState(null);
   const LocalId = localStorage.getItem('id');
+  const [errorMsg, setErrorMsg] = useState('');
 
   const navigate = useNavigate();
 
@@ -44,22 +33,24 @@ const Answer = () => {
 
   const observerRef = useRef(null);
 
-  const [showModal, setShowModal] = useState(false); // State for showing the modal
+  const [showModal, setShowModal] = useState(false);
 
   const handleDelete = async () => {
-    setShowModal(true); // Show the modal when delete is clicked
+    setShowModal(true);
   };
 
   const handleModalCancel = () => {
-    setShowModal(false); // Close the modal if canceled
+    setShowModal(false);
+    document.body.style.overflow = '';
+    document.body.style.paddingRight = 0;
   };
 
   const handleModalConfirm = async () => {
-    setShowModal(false); // Close the modal
+    setShowModal(false);
     try {
       const response = await deleteSubject(subjectId);
       if (!response.ok) {
-        throw new Error('삭제 중 오류가 발생했습니다. 3초 후 페이지를 새로고침 합니다.');
+        throw new Error('삭제 중 오류가 발생했습니다.');
       }
       localStorage.removeItem('id');
       setIsDeleteId(true);
@@ -67,11 +58,8 @@ const Answer = () => {
         setIsDeleteId(true);
         navigate('/');
       }, 2000);
-    } catch (err) {
-      setError(err.message);
-      setTimeout(() => {
-        setError(null);
-      }, 3000);
+    } catch (e) {
+      setErrorMsg(e.message);
     }
   };
 
@@ -92,20 +80,17 @@ const Answer = () => {
           if (LocalId === subjectId) {
             const response = await getSubjectById(subjectId);
             if (typeof response === 'string' && response.includes('에러')) {
-              throw new Error('존재하지 않는 피드로 접근하여 오류가 발생했습니다. 잠시 후 홈으로 이동합니다.');
+              throw new Error('존재하지 않는 답변 페이지입니다.');
             } else {
               setProfile(response);
               setQuestionCount(response.questionCount);
             }
           } else {
-            throw new Error('잘못된 접근입니다. 잠시 후 홈으로 이동합니다.');
+            throw new Error('허용되지 않은 페이지 접근입니다.');
           }
         }
-      } catch (err) {
-        setProfileError(err.toString());
-        setTimeout(() => {
-          navigate('/');
-        }, 3000);
+      } catch (e) {
+        setErrorMsg(e.message);
       } finally {
         setProfileLoading(false);
       }
@@ -129,18 +114,17 @@ const Answer = () => {
           });
           setHasMore(response.next !== null);
         } else {
-          throw new Error('질문 목록을 불러오는 데 실패했습니다.');
+          throw new Error('질문 목록을 불러올 수 없습니다.');
         }
-      } catch (err) {
-        // eslint-disable-next-line
-        console.error(err.toString());
+      } catch (e) {
+        setErrorMsg(e.message);
       } finally {
         setListLoading(false);
       }
     };
 
     fetchQuestions();
-  }, [subjectId, offset]);
+  }, [subjectId, offset, navigate]);
 
   const loadMoreQuestions = useCallback(
     (entries) => {
@@ -169,9 +153,16 @@ const Answer = () => {
     };
   }, [loadMoreQuestions]);
 
-  if (profileLoading) return <div className='feed-loading'>로딩 중...</div>;
-  if (profileError) return <div className='feed-error'>오류: {profileError}</div>;
-  if (error) return <div>오류: {error}</div>;
+  if (errorMsg) {
+    navigate('/error', { state: { message: errorMsg } });
+  }
+
+  if (profileLoading)
+    return (
+      <div className='flex justify-center items-center h-screen bg-brown-10'>
+        <div className='w-10 h-10 border-4 border-t-transparent border-brown-30 rounded-full animate-spin' />
+      </div>
+    );
 
   return (
     <div className='h-screen bg-gray-20'>

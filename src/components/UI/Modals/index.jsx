@@ -13,17 +13,17 @@ const Modal = () => {
     closeModal();
     setIsContent(false);
   };
-  // Form 제출 이벤트
+
   const postFormHandler = async (e) => {
     e.preventDefault();
     setPostObject(await postQuestion(profile.id, { content: content.current.value.trim() }));
     exitModal();
   };
-  // 실제 이벤트 발생 지점과 버블링 지점에서 target이 일치하면 모달 닫기
+
   const clickOutsideModal = ({ target, currentTarget }) => {
     if (target === currentTarget) exitModal();
   };
-  // TextArea 유효성 검사
+
   const changeContentHandler = () => {
     if (content.current.value.trim() !== '') setIsContent(true);
     else setIsContent(false);

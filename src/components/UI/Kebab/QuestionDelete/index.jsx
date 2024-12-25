@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import { useState } from 'react';
 import { deleteQuestion } from 'api/questions';
 import { ReactComponent as Close } from 'assets/images/icons/ic_Close.svg';
-import ConfirmModal from 'components/ConfirmModal';
+import ConfirmModal from 'components/UI/Modals/ConfirmModal';
 
 const QuestionDelete = ({ id, onDeleteQuestion, onKebabClick, setIsKebabLoading, setIsToast, editId, setEditId }) => {
   QuestionDelete.propTypes = {
@@ -21,16 +21,16 @@ const QuestionDelete = ({ id, onDeleteQuestion, onKebabClick, setIsKebabLoading,
   const [showModal, setShowModal] = useState(false);
 
   const handleDelete = async () => {
-    setShowModal(true); // Show the modal when delete is clicked
+    setShowModal(true);
   };
 
   const handleModalCancel = () => {
     onKebabClick(id);
-    setShowModal(false); // Close the modal if canceled
+    setShowModal(false);
   };
 
   const handleModalConfirm = async () => {
-    setShowModal(false); // Close the moda
+    setShowModal(false);
 
     try {
       setIsKebabLoading(true);

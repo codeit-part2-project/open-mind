@@ -11,20 +11,24 @@ const ConfirmModal = ({ isOpen, onConfirm, onCancel, message }) => {
 
   const modalRef = useRef(null);
 
-  // Close the modal if the user clicks outside of it
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (modalRef.current && !modalRef.current.contains(event.target)) {
-        onCancel(); // Close the modal if clicked outside
+        onCancel();
       }
     };
 
     if (isOpen) {
+      const scrollBarWidth = window.innerWidth - document.documentElement.clientWidth;
+      document.body.style.overflow = 'hidden';
+      document.body.style.paddingRight = `${scrollBarWidth}px`;
       document.addEventListener('mousedown', handleClickOutside);
     }
 
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
+      document.body.style.overflow = '';
+      document.body.style.paddingRight = 0;
     };
   }, [isOpen, onCancel]);
 

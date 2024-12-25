@@ -1,11 +1,11 @@
 import PropTypes from 'prop-types';
 import { useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import AnswerStatus from 'components/AnswerStatus';
-import QuestionContent from 'components/QuestionContent';
-import AnswerContent from 'components/AnswerContent';
-import CountFavorite from 'components/CountFavorite';
-import Kebab from 'components/Kebab';
+import AnswerStatus from 'components/Common/AnswerStatus';
+import QuestionContent from 'components/Common/QuestionContent';
+import AnswerContent from 'components/Common/AnswerContent';
+import CountFavorite from 'components/Common/CountFavorite';
+import Kebab from 'components/UI/Kebab';
 import questionBoxImg from 'assets/images/img_QuestionBox.svg';
 import AnswerEditForm from 'components/AnswerEditForm';
 
@@ -91,13 +91,10 @@ const QnAList = ({ name, imageSource, questionList, setQuestionList, onDeleteQue
                   />
                 )}
               </div>
-              <QuestionContent
-                createdAt={question.createdAt}
-                content={question.content || ''} // content가 null일 경우 기본 값 제공
-              />
+              <QuestionContent createdAt={question.createdAt} content={question.content || ''} />
               {question.answer && question.answer.id === editId ? (
                 <AnswerEditForm
-                  answer={question.answer || { content: '' }} // answer가 없으면 빈 객체를 넘겨줌
+                  answer={question.answer || { content: '' }}
                   name={name}
                   imageSource={imageSource}
                   id={question.id}

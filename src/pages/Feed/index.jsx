@@ -4,27 +4,17 @@ import { getSubjectById } from 'api/subjects';
 import { getQuestionBySubjectId } from 'api/questions';
 
 import { AppContext } from 'components/Context';
-import Header from 'components/Header';
-import CountQuestion from 'components/CountQuestion';
-import QnAList from 'components/QnAList';
-import ToastPostQuestion from 'components/ToastPostQuestion';
-
-const getDynamicLimit = () => {
-  const screenHeight = window.innerHeight;
-  if (screenHeight <= 600) {
-    return 5;
-  }
-  if (screenHeight <= 1200) {
-    return 10;
-  }
-  return 15;
-};
+import Header from 'components/Common/Header';
+import CountQuestion from 'components/Common/CountQuestion';
+import QnAList from 'components/Common/QnAList';
+import ToastPostQuestion from 'components/UI/Toast/ToastPostQuestion';
+import getDynamicLimit from 'utils/getDynamicLimit';
 
 const Feed = () => {
   const { id: subjectId } = useParams();
   const [profileLoading, setProfileLoading] = useState(true);
-  const [profileError, setProfileError] = useState('');
   const [profile, setProfile] = useState({});
+  const [errorMsg, setErrorMsg] = useState('');
 
   const { openModal, postObject, setPostObject } = useContext(AppContext);
 
@@ -45,17 +35,13 @@ const Feed = () => {
     const getProfile = async () => {
       try {
         setProfileLoading(true);
-        setProfileError('');
         const response = await getSubjectById(subjectId);
         if (typeof response === 'string' && response.includes('에러')) {
-          throw new Error('존재하지 않는 피드로 접근하여 오류가 발생했습니다. 잠시 후 홈으로 이동합니다.');
+          throw new Error('존재하지 않는 피드입니다.');
         }
         setProfile(response);
       } catch (e) {
-        setProfileError(e.message);
-        setTimeout(() => {
-          navigate('/');
-        }, 3000);
+        setErrorMsg(e.message);
       } finally {
         setProfileLoading(false);
       }
@@ -78,20 +64,18 @@ const Feed = () => {
           });
           setHasMore(response.next !== null);
         } else {
-          throw new Error('질문 목록을 불러오는 데 실패했습니다.');
+          throw new Error('질문 목록을 불러올 수 없습니다.');
         }
-      } catch (err) {
-        // eslint-disable-next-line
-        console.error(err.toString());
+      } catch (e) {
+        setErrorMsg(e.message);
       } finally {
         setListLoading(false);
       }
     };
 
     fetchQuestions();
-  }, [subjectId, offset]);
+  }, [subjectId, offset, navigate]);
 
-  // 새 질문이 추가되면 질문 리스트 맨 앞에 삽입
   useEffect(() => {
     if (postObject) {
       setIsToastState(true);
@@ -103,12 +87,12 @@ const Feed = () => {
       setQuestionList((prev) => {
         const alreadyExists = prev.some((question) => question.id === postObject.id);
         if (alreadyExists) {
-          return prev; // 중복되지 않으면 추가하지 않음
+          return prev;
         }
-        return [postObject, ...prev]; // 새 질문을 맨 앞에 추가
+        return [postObject, ...prev];
       });
 
-      setOffset((prev) => prev + 1); // 페이지네이션 offset 유지
+      setOffset((prev) => prev + 1);
 
       setProfile((prev) => {
         const questionCount = prev && prev.questionCount ? prev.questionCount : 0;
@@ -118,10 +102,9 @@ const Feed = () => {
         };
       });
 
-      // postObject가 추가된 후 상태를 null로 리셋하여 다시 추가되지 않도록 방지
-      setPostObject(null); // postObject 상태를 null로 리셋
+      setPostObject(null);
     }
-  }, [postObject, setPostObject]); // postObject가 변경될 때만 실행
+  }, [postObject, setPostObject]);
 
   const loadMoreQuestions = useCallback(
     (entries) => {
@@ -153,8 +136,16 @@ const Feed = () => {
     };
   }, [loadMoreQuestions]);
 
-  if (profileLoading) return <div className='feed-loading'>로딩 중...</div>;
-  if (profileError) return <div className='feed-error'>{profileError}</div>;
+  if (errorMsg) {
+    navigate('/error', { state: { message: errorMsg } });
+  }
+
+  if (profileLoading)
+    return (
+      <div className='flex justify-center items-center h-screen bg-brown-10'>
+        <div className='w-10 h-10 border-4 border-t-transparent border-brown-30 rounded-full animate-spin' />
+      </div>
+    );
 
   return (
     <div className='h-screen bg-gray-20'>

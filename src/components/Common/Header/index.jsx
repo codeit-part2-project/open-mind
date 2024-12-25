@@ -39,7 +39,6 @@ const Header = ({ imageSource, name }) => {
     handleToastUrlCopyLoad();
   };
 
-  // ↓ URL 복사 알림 컴포넌트
   const ToastUrlCopy = () => (
     <div className='fixed bottom-[100px] md:bottom-[60px] left-1/2 w-[167px] h-[42px] px-5 py-3 bg-black rounded-lg text-sm/[18px] font-medium text-white -translate-x-1/2 shadow-2pt animate-slide-up-fade-urlCopy'>
       URL이 복사되었습니다
@@ -51,13 +50,13 @@ const Header = ({ imageSource, name }) => {
       <header className={`w-[calc(100vw - ${scrollBarWidth}px)] bg-white`}>
         <div className='flex justify-center relative'>
           <div className='w-screen overflow-hidden flex justify-center'>
-            <object className='min-w-[906px] md:min-w-[1200px] h-100' data={headerImg} aria-labelledby='Header_Image' type='image/svg+xml' />
+            <object className='min-w-[906px] md:min-w-[1200px] h-60' data={headerImg} aria-labelledby='Header_Image' type='image/svg+xml' />
           </div>
           <div className='flex flex-col items-center absolute gap-3 top-[40px] md:top-[50px]'>
             <Link to='/'>
-              <img className='max-w-[124px] md:max-w-[170px]' src={logo} alt='Logo' />
+              <img className='w-[124px] h-16 md:w-[170px] md:h-12' src={logo} alt='Logo' />
             </Link>
-            {imageSource && <img className='rounded-full max-w-[104px] max-h-[104px] md:max-w-[136px] md:max-h-[136px]' src={imageSource} alt='Profile_Img' />}
+            {imageSource && <img className='rounded-full w-[104px] h-[104px] md:w-[136px] md:h-[136px]' src={imageSource} alt='Profile_Img' />}
             <div className='font-normal text-2xl/[30px] md:text-[32px]/[40px]'>{name}</div>
             <div className='flex gap-3'>
               <button className='flex justify-center items-center w-10 h-10 rounded-full bg-brown-40' type='button' onClick={handleCopyUrl}>

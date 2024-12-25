@@ -4,7 +4,7 @@ import 'assets/styles/index.scss';
 
 import { AppProvider } from 'components/Context';
 import ModalPortal from 'utils/portal';
-import Modal from 'components/Modals';
+import Modal from 'components/UI/Modals';
 
 const App = () => (
   <AppProvider>

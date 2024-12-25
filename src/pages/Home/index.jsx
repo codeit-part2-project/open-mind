@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { getSubjectById, postSubject } from 'api/subjects';
-import ToastHome from 'components/ToastHome';
+import ToastHome from 'components/UI/Toast/ToastHome';
 import imgLogo from 'assets/images/img_Logo.svg';
 import imgBanner from 'assets/images/img_Banner.svg';
 import { ReactComponent as IcArrowDashRight } from 'assets/images/icons/ic_Arrow-dash-right.svg';
