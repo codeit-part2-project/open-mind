@@ -190,7 +190,7 @@ const Answer = () => {
                 <div className='w-10 h-10 border-4 border-t-transparent border-brown-30 rounded-full animate-spin' />
               </div>
             )}
-            <div ref={observerRef} className='h-1' />
+            <div ref={observerRef} className='h-[12px]' />
           </ul>
         )}
       </div>

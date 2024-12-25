@@ -150,7 +150,7 @@ const Feed = () => {
   return (
     <div className='h-screen bg-gray-20'>
       <Header imageSource={profile.imageSource} name={profile.name} />
-      <div className='flex flex-col items-center justify-center gap-[8px] p-[24px] pt-[176px] pb-[120px] bg-gray-20 md:gap-[19px] md:pt-[189px] md:px-[32px]'>
+      <div className='flex flex-col items-center justify-center gap-[8px] px-[24px] md:px-[32px] pt-[176px] md:pt-[189px] pb-[168px] md:pb-[140px] bg-gray-20 md:gap-[19px]'>
         <ul className='w-full max-w-full bg-brown-10 border border-brown-20 rounded-[16px] pb-[16px] desktop:max-w-[716px] md:max-w-[704px]'>
           <CountQuestion count={profile.questionCount} />
           <QnAList name={profile.name} imageSource={profile.imageSource} questionList={questionList} />
@@ -159,7 +159,7 @@ const Feed = () => {
               <div className='w-10 h-10 border-4 border-t-transparent border-brown-30 rounded-full animate-spin' />
             </div>
           )}
-          <div ref={observerRef} className='h-10' />
+          <div ref={observerRef} className='h-[12px]' />
         </ul>
         <button
           type='button'
