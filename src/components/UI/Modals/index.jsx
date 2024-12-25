@@ -35,14 +35,14 @@ const Modal = () => {
       <form
         action='POST'
         onSubmit={postFormHandler}
-        className=' flex fixed flex-col w-full h-3/5 rounded-3xl p-6 bg-gray-10 left-1/2 -translate-x-1/2 shadow-3pt md:max-w-lg md:h-2/5 animate-slide-up-fade-modal'
+        className=' flex fixed flex-col w-4/5 h-3/5 rounded-3xl p-6 bg-gray-10 left-1/2 -translate-x-1/2 shadow-3pt md:max-w-lg md:h-2/5 animate-slide-up-fade-modal'
       >
         <label htmlFor='questionContent' className='flex flex-col flex-1'>
           <div className='flex w-full items-center gap-2'>
             <MessagesIcon className='w-[22px] h-[22px] fill-gray-60 md:w-[24px] md:h-[24px]' />
             <p className='flex-1 text-xl text-left font-actor'>질문을 작성해주세요</p>
             <button type='button' onClick={exitModal}>
-              <img src={icClose} alt='닫기 아이콘' />
+              <img src={icClose} alt='닫기 아이콘' className='w-3 h-3 md:w-4 md:h-4' />
             </button>
           </div>
           <div className='flex items-center gap-1 mt-6 mb-2'>
