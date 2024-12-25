@@ -9,7 +9,7 @@ import Kebab from 'components/Kebab';
 import questionBoxImg from 'assets/images/img_QuestionBox.svg';
 import AnswerEditForm from 'components/AnswerEditForm';
 
-const QnAList = ({ name, imageSource, questionList, setQuestionList, onDeleteQuestion }) => {
+const QnAList = ({ name, imageSource, questionList, setQuestionList, onDeleteQuestion, setIsToast }) => {
   QnAList.propTypes = {
     name: PropTypes.string.isRequired,
     imageSource: PropTypes.string.isRequired,
@@ -31,12 +31,14 @@ const QnAList = ({ name, imageSource, questionList, setQuestionList, onDeleteQue
     ).isRequired,
     setQuestionList: PropTypes.func.isRequired,
     onDeleteQuestion: PropTypes.func.isRequired,
+    setIsToast: PropTypes.func.isRequired,
   };
 
   const [visibleMenuId, setVisibleMenuId] = useState(null);
   const location = useLocation();
   const isAnswerPage = location.pathname.startsWith('/post/') && location.pathname.includes('/answer');
   const [editId, setEditId] = useState(null);
+  const [isKebabLoading, setIsKebabLoading] = useState(false);
 
   const handleKebabClick = (id) => {
     setVisibleMenuId((prevVisibleMenuId) => (prevVisibleMenuId === id ? null : id));
@@ -80,8 +82,12 @@ const QnAList = ({ name, imageSource, questionList, setQuestionList, onDeleteQue
                     onDeleteQuestion={handleDeleteQuestion}
                     onAnswerDeleted={handleAnswerDeleted}
                     setQuestionList={setQuestionList}
+                    editId={editId}
                     setEditId={setEditId}
                     answerId={question.answer ? question.answer.id : null}
+                    isKebabLoading={isKebabLoading}
+                    setIsKebabLoading={setIsKebabLoading}
+                    setIsToast={setIsToast}
                   />
                 )}
               </div>
@@ -97,9 +103,19 @@ const QnAList = ({ name, imageSource, questionList, setQuestionList, onDeleteQue
                   id={question.id}
                   setEditId={setEditId}
                   setQuestionList={setQuestionList}
+                  setIsKebabLoading={setIsKebabLoading}
+                  setIsToast={setIsToast}
                 />
               ) : (
-                <AnswerContent answer={question.answer} name={name} imageSource={imageSource} id={question.id} onAnswerSubmit={handleAnswerSubmit} />
+                <AnswerContent
+                  answer={question.answer}
+                  name={name}
+                  imageSource={imageSource}
+                  id={question.id}
+                  onAnswerSubmit={handleAnswerSubmit}
+                  setIsKebabLoading={setIsKebabLoading}
+                  setIsToast={setIsToast}
+                />
               )}
 
               <CountFavorite like={question.like} dislike={question.dislike} id={question.id} />

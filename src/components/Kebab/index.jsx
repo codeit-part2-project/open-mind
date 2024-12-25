@@ -1,12 +1,13 @@
 import PropTypes from 'prop-types';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import QuestionDelete from 'components/QuestionDelete';
 import AnswerRejection from 'components/AnswerRejection';
 import kebab from 'assets/images/icons/ic_Kebab.svg';
 import AnswerDelete from 'components/AnswerDelete';
 import AnswerEdit from 'components/AnswerEdit';
+import ConfirmModal from 'components/ConfirmModal';
 
-const Kebab = ({ id, isAnswer, isKebabOpen, onKebabClick, onDeleteQuestion, onAnswerDeleted, setQuestionList, setEditId, answerId }) => {
+const Kebab = ({ id, isAnswer, isKebabOpen, onKebabClick, onDeleteQuestion, onAnswerDeleted, setQuestionList, editId, setEditId, answerId, isKebabLoading, setIsKebabLoading, setIsToast }) => {
   Kebab.propTypes = {
     id: PropTypes.number.isRequired,
     isAnswer: PropTypes.shape({
@@ -21,15 +22,36 @@ const Kebab = ({ id, isAnswer, isKebabOpen, onKebabClick, onDeleteQuestion, onAn
     onDeleteQuestion: PropTypes.func.isRequired,
     onAnswerDeleted: PropTypes.func.isRequired,
     setQuestionList: PropTypes.func.isRequired,
+    editId: PropTypes.number.isRequired,
     setEditId: PropTypes.func.isRequired,
     answerId: PropTypes.number.isRequired,
+    isKebabLoading: PropTypes.bool.isRequired,
+    setIsKebabLoading: PropTypes.func.isRequired,
+    setIsToast: PropTypes.func.isRequired,
   };
+
+  const [showModal, setShowModal] = useState(false);
 
   const menuRef = useRef(null);
 
+  const handleModalCancel = () => {
+    onKebabClick(null);
+    setShowModal(false);
+  };
+
+  const handleModalConfirm = () => {
+    setShowModal(false);
+    setEditId(null);
+    onKebabClick(id);
+  };
+
   const handleMenuToggle = (e) => {
     e.stopPropagation();
-    onKebabClick(id);
+    if (editId !== null && (isAnswer === null || editId !== isAnswer.id)) {
+      setShowModal(true);
+    } else {
+      onKebabClick(id);
+    }
   };
 
   const onDeleteAnswer = () => {
@@ -53,37 +75,65 @@ const Kebab = ({ id, isAnswer, isKebabOpen, onKebabClick, onDeleteQuestion, onAn
   }, [id, onKebabClick]);
 
   return (
-    <div ref={menuRef} className='relative flex items-center'>
-      <button type='button' onClick={handleMenuToggle}>
-        <img src={kebab} alt='kebab' className='w-[26px] h-[26px]' />
-      </button>
-      {isKebabOpen && (
-        <menu type='button' className='absolute top-[26px] end-0 w-[103px] py-1 bg-gray-10 text-sm/[18px] font-medium border border-gray-30 rounded-lg shadow-2pt'>
-          {!isAnswer ? (
-            <>
-              <div className='flex justify-center items-center rounded-lg'>
-                <AnswerRejection id={id} setQuestionList={setQuestionList} />
-              </div>
-              <div className='flex justify-center items-center'>
-                <QuestionDelete id={id} onDeleteQuestion={onDeleteQuestion} />
-              </div>
-            </>
-          ) : (
-            <>
-              <div className='flex justify-center items-center'>
-                <AnswerEdit id={id} setEditId={setEditId} answerId={answerId} />
-              </div>
-              <div className='flex justify-center items-center'>
-                <QuestionDelete id={id} onDeleteQuestion={onDeleteQuestion} />
-              </div>
-              <div className='flex justify-center items-center'>
-                <AnswerDelete answerId={isAnswer.id} onAnswerDeleted={onDeleteAnswer} />
-              </div>
-            </>
-          )}
-        </menu>
-      )}
-    </div>
+    <>
+      <div ref={menuRef} className='relative flex items-center'>
+        <button type='button' onClick={handleMenuToggle} disabled={isKebabLoading}>
+          <img src={kebab} alt='kebab' className='w-[26px] h-[26px]' />
+        </button>
+        {isKebabOpen && (
+          <menu type='button' className='absolute top-[26px] end-0 w-[103px] py-1 bg-gray-10 text-sm/[18px] font-medium border border-gray-30 rounded-lg shadow-2pt'>
+            {!isAnswer ? (
+              <>
+                <div className='flex justify-center items-center rounded-lg'>
+                  <AnswerRejection id={id} setQuestionList={setQuestionList} onKebabClick={onKebabClick} setIsKebabLoading={setIsKebabLoading} setIsToast={setIsToast} />
+                </div>
+                <div className='flex justify-center items-center'>
+                  <QuestionDelete
+                    id={id}
+                    onDeleteQuestion={onDeleteQuestion}
+                    onKebabClick={onKebabClick}
+                    setIsKebabLoading={setIsKebabLoading}
+                    setIsToast={setIsToast}
+                    editId={editId}
+                    setEditId={setEditId}
+                  />
+                </div>
+              </>
+            ) : (
+              <>
+                <div className='flex justify-center items-center'>
+                  <AnswerEdit id={id} editId={editId} setEditId={setEditId} answerId={answerId} onKebabClick={onKebabClick} setIsKebabLoading={setIsKebabLoading} />
+                </div>
+                <div className='flex justify-center items-center'>
+                  <QuestionDelete
+                    id={id}
+                    onDeleteQuestion={onDeleteQuestion}
+                    onKebabClick={onKebabClick}
+                    setIsKebabLoading={setIsKebabLoading}
+                    setIsToast={setIsToast}
+                    editId={editId}
+                    setEditId={setEditId}
+                  />
+                </div>
+                <div className='flex justify-center items-center'>
+                  <AnswerDelete
+                    id={id}
+                    answerId={isAnswer.id}
+                    onAnswerDeleted={onDeleteAnswer}
+                    onKebabClick={onKebabClick}
+                    setIsKebabLoading={setIsKebabLoading}
+                    setIsToast={setIsToast}
+                    editId={editId}
+                    setEditId={setEditId}
+                  />
+                </div>
+              </>
+            )}
+          </menu>
+        )}
+      </div>
+      <ConfirmModal isOpen={showModal} onConfirm={handleModalConfirm} onCancel={handleModalCancel} message='수정 중인 답변이 있습니다. 취소하시겠습니까?' />
+    </>
   );
 };
 export default Kebab;

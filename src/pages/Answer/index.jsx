@@ -8,6 +8,8 @@ import CountQuestion from 'components/CountQuestion';
 import QnAList from 'components/QnAList';
 import ToastDeleteId from 'components/ToastDeleteId';
 import questionBoxImg from 'assets/images/img_QuestionBox.svg';
+import ConfirmModal from 'components/ConfirmModal'; // Import the modal component
+import ToastDelete from 'components/ToastSuccess';
 
 const getDynamicLimit = () => {
   const screenHeight = window.innerHeight;
@@ -27,7 +29,8 @@ const Answer = () => {
   const [profile, setProfile] = useState(null);
   const [questionCount, setQuestionCount] = useState(0);
   const [error, setError] = useState(null);
-  const [isDelete, setIsDelete] = useState(false);
+  const [isDeleteId, setIsDeleteId] = useState(false);
+  const [isToast, setIsToast] = useState(null);
   const LocalId = localStorage.getItem('id');
 
   const navigate = useNavigate();
@@ -41,15 +44,27 @@ const Answer = () => {
 
   const observerRef = useRef(null);
 
+  const [showModal, setShowModal] = useState(false); // State for showing the modal
+
   const handleDelete = async () => {
+    setShowModal(true); // Show the modal when delete is clicked
+  };
+
+  const handleModalCancel = () => {
+    setShowModal(false); // Close the modal if canceled
+  };
+
+  const handleModalConfirm = async () => {
+    setShowModal(false); // Close the modal
     try {
       const response = await deleteSubject(subjectId);
       if (!response.ok) {
         throw new Error('삭제 중 오류가 발생했습니다. 3초 후 페이지를 새로고침 합니다.');
       }
       localStorage.removeItem('id');
-      setIsDelete(true);
+      setIsDeleteId(true);
       setTimeout(() => {
+        setIsDeleteId(true);
         navigate('/');
       }, 2000);
     } catch (err) {
@@ -73,7 +88,7 @@ const Answer = () => {
       try {
         setProfileLoading(true);
 
-        if (!isDelete) {
+        if (!isDeleteId) {
           if (LocalId === subjectId) {
             const response = await getSubjectById(subjectId);
             if (typeof response === 'string' && response.includes('에러')) {
@@ -97,7 +112,7 @@ const Answer = () => {
     };
 
     getProfile();
-  }, [subjectId, isDelete, LocalId, navigate]);
+  }, [subjectId, isDeleteId, LocalId, navigate]);
 
   useEffect(() => {
     const fetchQuestions = async () => {
@@ -161,9 +176,9 @@ const Answer = () => {
   return (
     <div className='h-screen bg-gray-20'>
       <Header imageSource={profile.imageSource} name={profile.name} />
-      <div className='flex flex-col items-center justify-center gap-[8px] p-[24px] pt-[176px] pb-[120px] bg-gray-20 md:gap-[19px] md:pt-[189px] md:px-[32px]'>
+      <div className='flex flex-col items-center justify-center gap-[8px] px-[24px] md:px-[32px] pt-[176px] md:pt-[189px] pb-[168px] md:pb-[140px] bg-gray-20 md:gap-[19px]'>
         <DeleteIdBtn onClick={handleDelete} id={subjectId} />
-        {isDelete ? (
+        {isDeleteId ? (
           <div className='w-full max-w-full bg-brown-10 border border-brown-20 rounded-[16px] pb-[16px] desktop:max-w-[716px] md:max-w-[704px]'>
             <CountQuestion count={0} />
             <img src={questionBoxImg} alt='질문 박스 이미지' className='mx-auto mt-[50px] mb-[86px] h-[118px] w-[114px] md:mt-[54px] md:mb-[49px] md:h-[154px] md:w-[150px]' />
@@ -171,7 +186,14 @@ const Answer = () => {
         ) : (
           <ul className='w-full max-w-full bg-brown-10 border border-brown-20 rounded-[16px] pb-[16px] desktop:max-w-[716px] md:max-w-[704px]'>
             <CountQuestion count={questionCount} />
-            <QnAList name={profile.name} imageSource={profile.imageSource} questionList={questionList} setQuestionList={setQuestionList} onDeleteQuestion={handleQuestionDelete} />
+            <QnAList
+              name={profile.name}
+              imageSource={profile.imageSource}
+              questionList={questionList}
+              setQuestionList={setQuestionList}
+              onDeleteQuestion={handleQuestionDelete}
+              setIsToast={setIsToast}
+            />
             {listLoading && (
               <div className='flex justify-center items-center my-10'>
                 <div className='w-10 h-10 border-4 border-t-transparent border-brown-30 rounded-full animate-spin' />
@@ -181,7 +203,9 @@ const Answer = () => {
           </ul>
         )}
       </div>
-      {isDelete && <ToastDeleteId />}
+      {isDeleteId && <ToastDeleteId />}
+      {isToast && <ToastDelete toastMsg={isToast} />}
+      <ConfirmModal isOpen={showModal} onConfirm={handleModalConfirm} onCancel={handleModalCancel} message='정말로 삭제하시겠습니까?' />
     </div>
   );
 };

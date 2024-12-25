@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import formatCreatedAt from 'utils/dateUtils';
 import { postAnswer } from 'api/answers';
 
-const AnswerContent = ({ answer, name, imageSource, id, onAnswerSubmit }) => {
+const AnswerContent = ({ answer, name, imageSource, id, onAnswerSubmit, setIsKebabLoading, setIsToast }) => {
   AnswerContent.propTypes = {
     answer: PropTypes.shape({
       id: PropTypes.number.isRequired,
@@ -16,6 +16,8 @@ const AnswerContent = ({ answer, name, imageSource, id, onAnswerSubmit }) => {
     imageSource: PropTypes.string,
     id: PropTypes.number.isRequired,
     onAnswerSubmit: PropTypes.func.isRequired,
+    setIsKebabLoading: PropTypes.func.isRequired,
+    setIsToast: PropTypes.func.isRequired,
   };
 
   AnswerContent.defaultProps = {
@@ -45,15 +47,21 @@ const AnswerContent = ({ answer, name, imageSource, id, onAnswerSubmit }) => {
 
     let response;
     try {
+      setIsKebabLoading(true);
       setIsLoading(true);
       response = await postAnswer(id, postBody);
       setUpdatedAnswer(response);
       onAnswerSubmit(id, response);
+      setIsToast('등록');
     } catch (err) {
       // eslint-disable-next-line
       console.error(err);
     } finally {
+      setIsKebabLoading(false);
       setIsLoading(false);
+      setTimeout(() => {
+        setIsToast(null);
+      }, 3000);
     }
   };
 
