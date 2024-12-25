@@ -167,7 +167,7 @@ const Answer = () => {
   return (
     <div className='h-screen bg-gray-20'>
       <Header imageSource={profile.imageSource} name={profile.name} />
-      <div className='flex flex-col items-center justify-center gap-[8px] px-[24px] md:px-[32px] pt-[176px] md:pt-[189px] pb-[168px] md:pb-[140px] bg-gray-20 md:gap-[19px]'>
+      <div className='flex flex-col items-center justify-center gap-1.5 px-[24px] md:px-[32px] pt-[176px] md:pt-[189px] pb-[168px] md:pb-[140px] bg-gray-20 md:gap-[9px]'>
         <DeleteIdBtn onClick={handleDelete} id={subjectId} />
         {isDeleteId ? (
           <div className='w-full max-w-full bg-brown-10 border border-brown-20 rounded-[16px] pb-[16px] desktop:max-w-[716px] md:max-w-[704px]'>
