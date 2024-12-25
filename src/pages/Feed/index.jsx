@@ -147,7 +147,12 @@ const Feed = () => {
     };
   }, [loadMoreQuestions]);
 
-  if (profileLoading) return <div className='feed-loading'>로딩 중...</div>;
+  if (profileLoading)
+    return (
+      <div className='flex justify-center items-center h-screen bg-brown-10'>
+        <div className='w-10 h-10 border-4 border-t-transparent border-brown-30 rounded-full animate-spin' />
+      </div>
+    );
 
   return (
     <div className='h-screen bg-gray-20'>
