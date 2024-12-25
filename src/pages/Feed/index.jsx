@@ -4,10 +4,10 @@ import { getSubjectById } from 'api/subjects';
 import { getQuestionBySubjectId } from 'api/questions';
 
 import { AppContext } from 'components/Context';
-import Header from 'components/Header';
-import CountQuestion from 'components/CountQuestion';
-import QnAList from 'components/QnAList';
-import ToastPostQuestion from 'components/ToastPostQuestion';
+import Header from 'components/Common/Header';
+import CountQuestion from 'components/Common/CountQuestion';
+import QnAList from 'components/Common/QnAList';
+import ToastPostQuestion from 'components/UI/Toast/ToastPostQuestion';
 
 const getDynamicLimit = () => {
   const screenHeight = window.innerHeight;

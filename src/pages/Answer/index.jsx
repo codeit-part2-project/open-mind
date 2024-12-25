@@ -2,14 +2,14 @@ import { useState, useEffect, useRef, useCallback } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { getSubjectById, deleteSubject } from 'api/subjects';
 import { getQuestionBySubjectId } from 'api/questions';
-import Header from 'components/Header';
+import Header from 'components/Common/Header';
 import DeleteIdBtn from 'components/DeleteIdBtn';
-import CountQuestion from 'components/CountQuestion';
-import QnAList from 'components/QnAList';
-import ToastDeleteId from 'components/ToastDeleteId';
+import CountQuestion from 'components/Common/CountQuestion';
+import QnAList from 'components/Common/QnAList';
+import ToastDeleteId from 'components/UI/Toast/ToastDeleteId';
 import questionBoxImg from 'assets/images/img_QuestionBox.svg';
-import ConfirmModal from 'components/ConfirmModal';
-import ToastDelete from 'components/ToastSuccess';
+import ConfirmModal from 'components/UI/Modals/ConfirmModal';
+import ToastDelete from 'components/UI/Toast/ToastSuccess';
 
 const getDynamicLimit = () => {
   const screenHeight = window.innerHeight;

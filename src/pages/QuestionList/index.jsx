@@ -1,12 +1,12 @@
 import { useState, useCallback, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import CardList from 'components/CardList';
-import Pagination from 'components/Pagination';
-import SortDropDown from 'components/SortDropDown';
+import Pagination from 'components/UI/Pagination';
+import SortDropDown from 'components/UI/SortDropDown';
 import { getSubject } from 'api/subjects';
 import Logo from 'assets/images/img_Logo.svg';
 import useViewport from 'hooks/useViewport';
-import ToastMovePage from 'components/ToastMovePage';
+import ToastMovePage from 'components/UI/Toast/ToastMovePage';
 import { ReactComponent as IcArrowDashRight } from 'assets/images/icons/ic_Arrow-dash-right.svg';
 
 const QuestionList = () => {

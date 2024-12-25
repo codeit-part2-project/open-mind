@@ -1,11 +1,11 @@
 import PropTypes from 'prop-types';
 import { useEffect, useRef, useState } from 'react';
-import QuestionDelete from 'components/QuestionDelete';
-import AnswerRejection from 'components/AnswerRejection';
+import QuestionDelete from 'components/UI/Kebab/QuestionDelete';
+import AnswerRejection from 'components/UI/Kebab/AnswerRejection';
 import kebab from 'assets/images/icons/ic_Kebab.svg';
-import AnswerDelete from 'components/AnswerDelete';
-import AnswerEdit from 'components/AnswerEdit';
-import ConfirmModal from 'components/ConfirmModal';
+import AnswerDelete from 'components/UI/Kebab/AnswerDelete';
+import AnswerEdit from 'components/UI/Kebab/AnswerEdit';
+import ConfirmModal from 'components/UI/Modals/ConfirmModal';
 
 const Kebab = ({ id, isAnswer, isKebabOpen, onKebabClick, onDeleteQuestion, onAnswerDeleted, setQuestionList, editId, setEditId, answerId, isKebabLoading, setIsKebabLoading, setIsToast }) => {
   Kebab.propTypes = {

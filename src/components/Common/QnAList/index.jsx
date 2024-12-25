@@ -1,11 +1,11 @@
 import PropTypes from 'prop-types';
 import { useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import AnswerStatus from 'components/AnswerStatus';
-import QuestionContent from 'components/QuestionContent';
-import AnswerContent from 'components/AnswerContent';
-import CountFavorite from 'components/CountFavorite';
-import Kebab from 'components/Kebab';
+import AnswerStatus from 'components/Common/AnswerStatus';
+import QuestionContent from 'components/Common/QuestionContent';
+import AnswerContent from 'components/Common/AnswerContent';
+import CountFavorite from 'components/Common/CountFavorite';
+import Kebab from 'components/UI/Kebab';
 import questionBoxImg from 'assets/images/img_QuestionBox.svg';
 import AnswerEditForm from 'components/AnswerEditForm';
 

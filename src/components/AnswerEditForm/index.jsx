@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import { useState } from 'react';
 import { putAnswer } from 'api/answers';
 import { ReactComponent as Close } from 'assets/images/icons/ic_Close.svg';
-import ConfirmModal from 'components/ConfirmModal';
+import ConfirmModal from 'components/UI/Modals/ConfirmModal';
 
 const AnswerEditForm = ({ answer, name, imageSource, id, setEditId, setQuestionList, setIsKebabLoading, setIsToast }) => {
   AnswerEditForm.propTypes = {

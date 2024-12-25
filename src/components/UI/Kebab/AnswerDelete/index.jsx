@@ -1,13 +1,15 @@
+import { deleteAnswer } from 'api/answers';
+import { ReactComponent as Close } from 'assets/images/icons/ic_Close.svg';
 import PropTypes from 'prop-types';
 import { useState } from 'react';
-import { deleteQuestion } from 'api/questions';
-import { ReactComponent as Close } from 'assets/images/icons/ic_Close.svg';
-import ConfirmModal from 'components/ConfirmModal';
+import { useNavigate } from 'react-router-dom';
+import ConfirmModal from 'components/UI/Modals/ConfirmModal';
 
-const QuestionDelete = ({ id, onDeleteQuestion, onKebabClick, setIsKebabLoading, setIsToast, editId, setEditId }) => {
-  QuestionDelete.propTypes = {
+const AnswerDelete = ({ id, answerId, onAnswerDeleted, onKebabClick, setIsKebabLoading, setIsToast, editId, setEditId }) => {
+  AnswerDelete.propTypes = {
     id: PropTypes.number.isRequired,
-    onDeleteQuestion: PropTypes.func.isRequired,
+    answerId: PropTypes.number.isRequired,
+    onAnswerDeleted: PropTypes.func.isRequired,
     onKebabClick: PropTypes.func.isRequired,
     setIsKebabLoading: PropTypes.func.isRequired,
     setIsToast: PropTypes.func.isRequired,
@@ -15,8 +17,8 @@ const QuestionDelete = ({ id, onDeleteQuestion, onKebabClick, setIsKebabLoading,
     setEditId: PropTypes.func.isRequired,
   };
 
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
+  const [isDeleting, setIsDeleting] = useState(false);
+  const navigate = useNavigate();
 
   const [showModal, setShowModal] = useState(false);
 
@@ -30,26 +32,23 @@ const QuestionDelete = ({ id, onDeleteQuestion, onKebabClick, setIsKebabLoading,
   };
 
   const handleModalConfirm = async () => {
+    onKebabClick(id);
+    setIsKebabLoading(true);
     setShowModal(false);
+    setIsDeleting(true);
 
     try {
-      setIsKebabLoading(true);
-      setIsLoading(true);
-      setError(null);
-
-      const response = await deleteQuestion(id);
+      const response = await deleteAnswer(answerId);
       if (!response.ok) {
-        throw new Error('질문 삭제 중 오류가 발생했습니다.');
+        throw new Error('답변 삭제 중 오류가 발생했습니다.');
       }
-
-      setIsToast('질문');
-
-      onDeleteQuestion(id);
+      onAnswerDeleted(answerId);
+      setIsToast('답변');
     } catch (err) {
-      setError('질문 삭제 중 오류가 발생했습니다.');
+      navigate('/');
     } finally {
+      setIsDeleting(false);
       setIsKebabLoading(false);
-      setIsLoading(false);
       if (editId !== null) {
         setEditId(null);
       }
@@ -58,24 +57,21 @@ const QuestionDelete = ({ id, onDeleteQuestion, onKebabClick, setIsKebabLoading,
       }, 3000);
     }
   };
-  if (error) {
-    return <div>에러: {error}</div>;
-  }
 
   return (
     <>
       <button
         type='button'
         className='flex justify-center items-center gap-2 rounded-lg w-[103px] h-[30px] text-gray-50 hover:text-blue-50 hover:bg-gray-20'
+        disabled={isDeleting}
         onClick={handleDelete}
-        disabled={isLoading}
       >
         <Close className='w-3.5 h-3.5 fill-current' />
-        질문삭제
+        <p>답변삭제</p>
       </button>
-      <ConfirmModal isOpen={showModal} onConfirm={handleModalConfirm} onCancel={handleModalCancel} message='질문을 삭제하시겠습니까?' />
+      <ConfirmModal isOpen={showModal} onConfirm={handleModalConfirm} onCancel={handleModalCancel} message='답변을 삭제하시겠습니까?' />
     </>
   );
 };
 
-export default QuestionDelete;
+export default AnswerDelete;
