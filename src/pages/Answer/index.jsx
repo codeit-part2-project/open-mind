@@ -51,6 +51,8 @@ const Answer = () => {
 
   const handleModalCancel = () => {
     setShowModal(false);
+    document.body.style.overflow = '';
+    document.body.style.paddingRight = 0;
   };
 
   const handleModalConfirm = async () => {
