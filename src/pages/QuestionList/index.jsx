@@ -6,6 +6,8 @@ import SortDropDown from 'components/SortDropDown';
 import { getSubject } from 'api/subjects';
 import Logo from 'assets/images/img_Logo.svg';
 import useViewport from 'hooks/useViewport';
+import ToastMovePage from 'components/ToastMovePage';
+import { ReactComponent as IcArrowDashRight } from 'assets/images/icons/ic_Arrow-dash-right.svg';
 
 const QuestionList = () => {
   const navigate = useNavigate();
@@ -16,6 +18,7 @@ const QuestionList = () => {
   const [count, setCount] = useState();
   const [cards, setCards] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [toastMessage, setToastMessage] = useState('');
 
   const readSubject = useCallback(async () => {
     setLoading(true);
@@ -38,10 +41,16 @@ const QuestionList = () => {
 
   const onClickPageMove = () => {
     const storedId = localStorage.getItem('id');
-    if (storedId) {
-      navigate(`/post/${storedId}/answer`);
+    if (!storedId) {
+      setToastMessage('로그인 후 이용 가능한 페이지입니다.');
+      setTimeout(() => {
+        navigate('/');
+      }, 2000);
     } else {
-      navigate('/');
+      setToastMessage('답변페이지로 이동합니다.');
+      setTimeout(() => {
+        navigate(`/post/${storedId}/answer`);
+      }, 2000);
     }
   };
 
@@ -54,12 +63,12 @@ const QuestionList = () => {
           </Link>
 
           <button
-            className='flex flex-row justify-between gap-[4px] bg-brown-10 border-brown-40 border rounded-lg px-3 py-2 text-sm text-brown-40 font-normal whitespace-nowrap transition-colors duration-300 hover:bg-brown-20'
+            className='flex flex-row items-center justify-center gap-[4px] bg-brown-10 border-brown-40 border rounded-lg px-3 py-2 text-sm text-brown-40 font-normal whitespace-nowrap w-[127px] h-[34px] md:w-[166px] md:h-[46px] md:gap-[8px] md:text-base transition-colors duration-300 hover:bg-brown-20'
             type='button'
             onClick={onClickPageMove}
           >
             <div>답변하러 가기</div>
-            <div>→</div>
+            <IcArrowDashRight alt='답변하러가기_화살표' className='fill-brown-40 w-[18px] h-[18px]' />
           </button>
         </div>
       </header>
@@ -70,7 +79,7 @@ const QuestionList = () => {
       </div>
 
       <div className='mx-6 md:mx-8'>
-        <div className='relative'>
+        <div className='relative w-full h-full min-h-[539px] md:min-h-[358px]'>
           {loading && (
             <div className='absolute inset-0 border rounded-2xl flex justify-center items-center bg-gray-20 z-10'>
               <div className='w-10 h-10 border-4 border-t-transparent border-brown-30 rounded-full animate-spin' />
@@ -81,6 +90,7 @@ const QuestionList = () => {
       </div>
 
       <Pagination data={{ limit, sort, count, pageWidth: width, setLimit, setOffset }} />
+      {ToastMovePage && <ToastMovePage toastMessage={toastMessage} />}
     </>
   );
 };
